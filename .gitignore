@@ -50,3 +50,13 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Our ignores
+*.DS_Store
+*vip.c
+*.rtf
+*.swp
+*.sw*
+*.o
+*test
+.vscode/
