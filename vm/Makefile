@@ -18,7 +18,8 @@ SRCS_DIR	= ./sources/
 SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS_DIR	= ./objects/
 OBJS		= $(addprefix $(OBJS_DIR), $(SRC_FILES:.c=.o))
-LIB			= -L libft -lft
+LIB_DIR		= ../libft
+LIB			= -L $(LIB_DIR) -lft
 
 GREEN	= "\x1b[32m"
 YELLOW	= "\x1b[33m"
@@ -34,16 +35,16 @@ $(NAME): $(OBJS)
 	@echo $(RED) "Compiling..." $(EOC)
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
-	@make -sC libft
+	@make -sC $(LIB_DIR)
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
 	rm -rf $(OBJS_DIR)
-	rm -rf libft/objects/
+	rm -rf $(LIB_DIR)
 
 fclean: clean
 	rm -f $(NAME)
-	rm -f libft/libft.a
+	rm -f $(LIB_DIR)/libft.a
 
 re: fclean all
