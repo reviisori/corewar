@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 16:43:38 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/20 16:43:39 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/10/20 17:35:54 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/10/20 17:35:57 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#ifndef COREWAR_H
+# define COREWAR_H
 
-int	main(int argc, char **argv)
-{
-	if (read_arguments(argc, argv) == -1)
-		return (1);
-	return (0);
-}
+#include "libft.h"
+#include "op.h"
+#include <stdio.h>
+
+int	read_arguments(int argc, char **argv);
+
+#endif

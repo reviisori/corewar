@@ -13,7 +13,7 @@
 NAME		= lem-in
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address #-Wpedantic -Wunused -Wconversion -Wunreachable-code -Wtype-limits -O3
-SRC_FILES	= main.c
+SRC_FILES	= main.c arguments.c
 SRCS_DIR	= ./sources/
 SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS_DIR	= ./objects/
