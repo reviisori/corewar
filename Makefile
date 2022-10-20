@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/10/20 16:20:00 by asuikkan          #+#    #+#              #
+#    Updated: 2022/10/20 16:20:02 by asuikkan         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME		= lem-in
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address #-Wpedantic -Wunused -Wconversion -Wunreachable-code -Wtype-limits -O3
