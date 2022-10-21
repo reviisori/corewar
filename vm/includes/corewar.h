@@ -13,10 +13,14 @@
 #ifndef COREWAR_H
 # define COREWAR_H
 
-#include "libft.h"
-#include "op.h"
-#include <stdio.h>
+# include "libft.h"
+# include "op.h"
+# include <stdio.h>
+# include <errno.h>
 
-int	read_arguments(int argc, char **argv);
+# define INVALID_OPTION "Invalid option"
+
+int		read_arguments(int argc, char **argv);
+void	error_handler(char *message);
 
 #endif

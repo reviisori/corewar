@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 16:43:38 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/20 16:43:39 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/10/20 17:46:17 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/10/20 17:46:19 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int	main(int argc, char **argv)
+static void	read_option(char **argv, int index)
 {
-	if (read_arguments(argc, argv) == -1)
-		return (1);
-	return (0);
+	int	j;
+
+	j = 0;
+	if (!argv[index][++j])
+		error_handler(INVALID_OPTION);
+}
+
+int	read_arguments(int argc, char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (++i < argc)
+	{
+		if (argv[i][0] == '-')
+			read_option(argv, i);
+	}
+	return (1);
 }

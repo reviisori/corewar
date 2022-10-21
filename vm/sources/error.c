@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arguments.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 17:46:17 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/20 17:46:19 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/10/21 16:03:04 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/10/21 16:03:06 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int	read_arguments(int argc, char **argv)
+void	error_handler(char *message)
 {
-	int	i;
-
-	i = 0;
-	(void)argc;
-	(void)argv;
-	return (1);
+	ft_putendl_fd(message, 2);
+	exit(1);
 }
