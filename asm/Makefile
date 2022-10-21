@@ -6,7 +6,7 @@
 #    By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/10/21 17:08:22 by altikka          ###   ########.fr        #
+#    Updated: 2022/10/21 20:18:46 by altikka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,19 +32,18 @@ EOC = \033[0m
 LGRAY = \033[38;5;244m
 GOLD = \033[38;5;136m
 SILVER = \033[38;5;247m
+RUST = \033[38;5;130m
 BLACK = \033[38;5;236m
 WHITE = \033[38;5;231m
-GREEN = \033[38;5;70m
-RED = \033[38;5;124m
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLGS) $(OBJS) -o $(NAME) $(LIB) $(INCS)
-	@echo "$(EOC)$(LGRAY)[asm] $(SILVER)Compiling...$(EOC)"
 	@echo "$(LGRAY)[asm] $(GOLD)Compiled successfully!$(EOC)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@echo "$(EOC)$(LGRAY)[asm] $(SILVER)Compiling...$(EOC)"
 	@make -sC $(LIB_DIR)
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) -c $(CFLGS) $< -o $@ $(INCS)
@@ -52,9 +51,13 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 clean:
 	@make -sC $(LIB_DIR) clean
 	@rm -rf $(OBJ_DIR)
+	@echo "$(LGRAY)[asm] $(RUST)Deleting object directory...$(EOC)"
 
 fclean: clean
 	@make -C $(LIB_DIR) fclean
 	@rm -rf $(NAME)
+	@echo "$(LGRAY)[asm] $(RUST)Executable $(WHITE)$(NAME)$(EOC) $(RUST)removed!$(EOC)"
 
 re: fclean all
+
+.PHONY: all clean fclean re
