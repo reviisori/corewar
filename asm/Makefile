@@ -6,7 +6,7 @@
 #    By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/10/21 15:22:08 by altikka          ###   ########.fr        #
+#    Updated: 2022/10/21 17:08:22 by altikka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,18 +28,21 @@ OBJS		= $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 LIB_DIR		= ../libft/
 LIB			= -L $(LIB_DIR) -lft
 
-GREEN	= "\x1b[32m"
-YELLOW	= "\x1b[33m"
-BLUE	= "\x1b[34m"
-RED		= "\x1b[31m"
-EOC		= "\x1b[0m"
+EOC = \033[0m
+LGRAY = \033[38;5;244m
+GOLD = \033[38;5;136m
+SILVER = \033[38;5;247m
+BLACK = \033[38;5;236m
+WHITE = \033[38;5;231m
+GREEN = \033[38;5;70m
+RED = \033[38;5;124m
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLGS) $(OBJS) -o $(NAME) $(LIB) $(INCS)
-	@echo $(RED)"Compiling..."$(EOC)
-	@echo $(GREEN)"Compiled successfully."$(EOC)
+	@echo "$(EOC)$(LGRAY)[asm] $(SILVER)Compiling...$(EOC)"
+	@echo "$(LGRAY)[asm] $(GOLD)Compiled successfully!$(EOC)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@make -sC $(LIB_DIR)
