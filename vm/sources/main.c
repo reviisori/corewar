@@ -12,21 +12,19 @@
 
 #include "corewar.h"
 
-static void	print_usage(void)
+static void	init_info(t_info *info)
 {
-	ft_putendl("Usage: ./corewar [-dump N] <[-n N] champion1.cor> <...>\n"
-	"############### TEXT OUTPUT MODE ################\n"
-	"\t-dump N\t: Dumps memory to standard output after N cycles and "
-	"quits the game\n"
-	"############### CHAMPION OPTIONS ###############\n"
-	"\t-n N\t: Sets the champions player number to N");
+	info->dump_cycles = -1;
+	info->champion_count = 0;
 }
 
 int	main(int argc, char **argv)
 {
+	t_info	info;
+
 	if (argc == 1)
-		return (print_usage(), 1);
-	if (read_arguments(argc, argv) == -1)
-		return (1);
+		return (ft_putendl(USAGE), 1);
+	init_info(&info);
+	read_arguments(argc, argv, &info);
 	return (0);
 }
