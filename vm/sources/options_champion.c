@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   options_champion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 16:43:38 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/20 16:43:39 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/10/25 12:51:42 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/10/25 12:51:44 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	init_info(t_info *info)
+int	set_player_number(t_options *opts, char *nbr)
 {
-	info->dump_cycles = -1;
-	info->champion_count = 0;
-	ft_bzero(info->champions, MAX_PLAYERS);
-}
+	int	player_id;
 
-int	main(int argc, char **argv)
-{
-	t_info	info;
-
-	if (argc == 1)
-		return (ft_putendl(USAGE), 1);
-	init_info(&info);
-	read_arguments(argc, argv, &info);
-	return (0);
+	if (nbr == NULL)
+		return (-1);
+	player_id = ft_atoi(nbr);
+	if (player_id <= 0 || player_id > MAX_PLAYERS)
+		error_handler(INVALID_PLAYER_ID, NULL);
+	if (opts->next_id)
+		return (-1);
+	opts->next_id = player_id;
+	return (1);
 }

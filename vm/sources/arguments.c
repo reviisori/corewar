@@ -12,50 +12,60 @@
 
 #include "corewar.h"
 
-static void	set_player_number(char *id, int *dst)
+static void	init_options(t_options *opts)
 {
-	if (id == NULL)
-		error_handler(USAGE, NULL);
-	*dst = ft_atoi(id);
-	if (*dst <= 0)
-		error_handler(USAGE, NULL);
+	opts->dump = -1;
+	opts->next_id = 0;
 }
 
-static int	set_dump(char *nbr, int *dst)
+static int	get_index(char *opt)
 {
-	if (nbr == NULL)
-		return (-1);
-	*dst = ft_atoi(nbr);
-	return (1);
+	int	i;
+
+	i = -1;
+	while (OPTIONS[++i])
+	{
+		if (OPTIONS[i] == *opt)
+			return (i);
+	}
+	error_handler(USAGE, NULL);
 }
 
-static void	read_option(char **argv, int index, t_info *info)
+static int	read_option(char **argv, int index, t_options *opts)
 {
-	int	j;
-
-	j = 0;
 	if (ft_strlen(&argv[index][1]) != 1)
 	{
 		if (ft_strncmp("dump", &argv[index][1], 5))
-			error_handler(USAGE, info);
-		if (set_dump(argv[index + 1], &info->dump_cycles) == -1)
-			error_handler(USAGE, info);
+			return (-1);
+		if (set_dump(opts, argv[++index]) == -1)
+			return (-1);
 	}
 	else
 	{
-		if (argv[index][1] == 'n')
-			set_player_number(argv[index + 1], &info->current_id);
+		if (jump_table[get_index(&argv[index][1])](opts, argv[++index]) == -1)
+			return (-1);
 	}
+	return (index);
 }
 
 void	read_arguments(int argc, char **argv, t_info *info)
 {
-	int	i;
+	t_options	options;
+	int			i;
 
+	init_options(&options);
 	i = 0;
 	while (++i < argc)
 	{
 		if (argv[i][0] == '-')
-			read_option(argv, i, info);
+		{
+			if (options.next_id)
+				error_handler(USAGE, info);
+			i = read_option(argv, i, info);
+			if (i == -1)
+				error_handler(USAGE, info);
+		}
+		else
+			parse_champion(info, argv[i], &options.next_id);
 	}
 }

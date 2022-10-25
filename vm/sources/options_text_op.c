@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   options_text_op.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 16:43:38 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/20 16:43:39 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/10/25 14:40:48 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/10/25 14:40:51 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	init_info(t_info *info)
+int	set_dump(t_options *opts, char *nbr)
 {
-	info->dump_cycles = -1;
-	info->champion_count = 0;
-	ft_bzero(info->champions, MAX_PLAYERS);
-}
-
-int	main(int argc, char **argv)
-{
-	t_info	info;
-
-	if (argc == 1)
-		return (ft_putendl(USAGE), 1);
-	init_info(&info);
-	read_arguments(argc, argv, &info);
-	return (0);
+	if (nbr == NULL)
+		return (-1);
+	if (opts->dump)
+		error_handler(DUMP_TWICE, NULL);
+	opts->dump = ft_atoi(nbr);
+	return (1);
 }

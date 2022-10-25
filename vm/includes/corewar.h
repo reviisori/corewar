@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "op.h"
+# include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>
 
@@ -25,7 +26,29 @@ quits the game\n\
 ############### CHAMPION OPTIONS ###############\n\
 \t-n N\t: Sets the champions player number to N"
 
-# define INVALID_OPTION "Invalid option"
+# define INVALID_PLAYER_ID "Invalid player number"
+
+# define DUPLICATE_PLAYER_ID "Player already exists"
+
+# define DUMP_TWICE "Dump cycles already set"
+
+# define OPTIONS "dn"
+
+typedef struct s_options
+{
+	int	next_id;
+	int	dump;
+}		t_options;
+
+typedef int	(*t_jump)(t_options *, char *);
+
+int	set_player_number(t_options *opts, char *nbr);
+int	set_dump(t_options *opts, char *nbr);
+
+static const	t_jump jump_table[2] = {
+	set_dump,
+	set_player_number
+};
 
 typedef struct s_champion
 {
@@ -40,11 +63,12 @@ typedef struct s_info
 {
 	int			dump_cycles;
 	int			champion_count;
-	int			current_id;
 	t_champion	champions[MAX_PLAYERS];
 }				t_info;
 
-void	read_arguments(int argc, char **argv, t_info *info);
 void	error_handler(char *message, t_info *info);
+void	parse_champion(t_info *info, char *file, int *id);
+void	read_arguments(int argc, char **argv, t_info *info);
+void	usage_exit(void);
 
 #endif

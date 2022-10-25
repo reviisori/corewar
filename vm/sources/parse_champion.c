@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse_champion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 16:43:38 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/20 16:43:39 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/10/25 16:06:01 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/10/25 16:06:02 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	init_info(t_info *info)
+void	parse_champion(t_info *info, char *file, int *id)
 {
-	info->dump_cycles = -1;
-	info->champion_count = 0;
-	ft_bzero(info->champions, MAX_PLAYERS);
-}
+	static int	taken_ids[MAX_PLAYERS];
+	int			fd;
 
-int	main(int argc, char **argv)
-{
-	t_info	info;
-
-	if (argc == 1)
-		return (ft_putendl(USAGE), 1);
-	init_info(&info);
-	read_arguments(argc, argv, &info);
-	return (0);
+	if (taken_ids[*id])
+		error_handler(DUPLICATE_PLAYER_ID, info);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		error_handler(strerror(errno), info);
+	if (close(fd) == -1)
+		error_handler(strerror(errno), info);
 }
