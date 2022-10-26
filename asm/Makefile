@@ -6,7 +6,7 @@
 #    By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/10/26 16:16:10 by altikka          ###   ########.fr        #
+#    Updated: 2022/10/26 16:44:31 by altikka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC_FILES	= main.c \
 			  main_utils.c \
 			  parse.c \
 			  init_source.c \
+			  read_source.c \
 			  assemble.c
 
 SRC_DIR		= ./src/
