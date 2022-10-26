@@ -12,14 +12,8 @@
 
 #include "corewar.h"
 
-static void	cleanup(t_info *info)
+void	error_handler(char *message)
 {
-	(void)info;
-}
-
-void	error_handler(char *message, t_info *info)
-{
-	cleanup(info);
 	ft_putstr_fd("Error: ", 2);
 	ft_putendl_fd(message, 2);
 	exit(1);
