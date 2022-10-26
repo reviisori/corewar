@@ -13,9 +13,7 @@
 NAME		= lem-in
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address #-Wpedantic -Wunused -Wconversion -Wunreachable-code -Wtype-limits -O3
-SRC_FILES	= main.c parsing.c parsing_2.c parsing_3.c parsing_4.c parsing_5.c\
-				error_handling.c algorithm.c algorithm_2.c printing.c printing_2.c\
-				printing_3.c route_tools.c route_tools_2.c bonus.c
+SRC_FILES	= main.c
 SRCS_DIR	= ./sources/
 SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS_DIR	= ./objects/
@@ -49,4 +47,3 @@ fclean: clean
 	rm -f libft/libft.a
 
 re: fclean all
-
