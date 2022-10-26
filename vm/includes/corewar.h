@@ -20,17 +20,16 @@
 # include <errno.h>
 
 # define USAGE "Usage: ./corewar [-dump N] <[-n N] champion1.cor> <...>\n\
-############### TEXT OUTPUT MODE ################\n\
-\t-dump N\t: Dumps memory to standard output after N cycles and \
+\t############### TEXT OUTPUT MODE ################\n\
+\t\t-dump N\t: Dumps memory to standard output after N cycles and \
 quits the game\n\
-############### CHAMPION OPTIONS ###############\n\
-\t-n N\t: Sets the champions player number to N"
+\t\t-d N\t: Same as -dump\n\
+\t############### CHAMPION OPTIONS ################\n\
+\t\t-n N\t: Sets the champions player number to N"
 
 # define INVALID_PLAYER_ID "Invalid player number"
 
 # define DUPLICATE_PLAYER_ID "Player already exists"
-
-# define DUMP_TWICE "Dump cycles already set"
 
 # define HEADER_ERROR "Invalid header"
 
@@ -44,12 +43,12 @@ typedef struct s_options
 	int	dump;
 }		t_options;
 
-typedef int	(*t_jump_opts)(t_options *, char *);
+int		set_player_number(t_options *opts, char *nbr);
+int		set_dump(t_options *opts, char *nbr);
 
-int	set_player_number(t_options *opts, char *nbr);
-int	set_dump(t_options *opts, char *nbr);
+typedef int					(*t_jump_opts)(t_options *, char *);
 
-static const	t_jump_opts jump_table[2] = {
+static const t_jump_opts	g_jump_table[2] = {
 	set_dump,
 	set_player_number
 };

@@ -39,16 +39,16 @@ static int	read_option(char **argv, int index, t_options *opts)
 	{
 		if (ft_strncmp("dump", &argv[index][1], 5))
 			return (-1);
-		if (set_dump(opts, argv[++index]) == -1)
+		if (set_dump(opts, argv[index + 1]) == -1)
 			return (-1);
 	}
 	else
 	{
-		index++;
-		if (jump_table[get_index(&argv[index][1])](opts, argv[index]) == -1)
+		if (g_jump_table[get_index(&argv[index][1])](opts, argv[index + 1])
+			== -1)
 			return (-1);
 	}
-	return (index);
+	return (index + 1);
 }
 
 void	read_arguments(int argc, char **argv, t_info *info)

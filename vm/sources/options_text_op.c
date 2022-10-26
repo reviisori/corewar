@@ -16,8 +16,6 @@ int	set_dump(t_options *opts, char *nbr)
 {
 	if (nbr == NULL)
 		return (-1);
-	if (opts->dump)
-		error_handler(DUMP_TWICE, NULL);
 	opts->dump = ft_atoi(nbr);
 	return (1);
 }
