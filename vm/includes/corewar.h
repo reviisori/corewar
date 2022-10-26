@@ -28,13 +28,11 @@ quits the game\n\
 \t\t-n N\t: Sets the champions player number to N"
 
 # define INVALID_PLAYER_ID "Invalid player number"
-
 # define DUPLICATE_PLAYER_ID "Player already exists"
-
+# define TOO_MANY_PLAYERS "Too many players"
 # define HEADER_ERROR "Invalid header"
 
 # define OPTIONS "dn"
-
 # define OPTION_COUNT 2
 
 typedef struct s_options
@@ -48,7 +46,7 @@ int		set_dump(t_options *opts, char *nbr);
 
 typedef int					(*t_jump_opts)(t_options *, char *);
 
-static const t_jump_opts	g_jump_table[2] = {
+static const t_jump_opts	g_jump_table[OPTION_COUNT] = {
 	set_dump,
 	set_player_number
 };
@@ -66,7 +64,7 @@ typedef struct s_info
 {
 	int			dump_cycles;
 	int			champion_count;
-	t_champion	champions[MAX_PLAYERS];
+	t_champion	*champions[MAX_PLAYERS];
 }				t_info;
 
 void	error_handler(char *message);
