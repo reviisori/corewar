@@ -6,7 +6,7 @@
 /*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:15:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/26 16:28:51 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/26 16:48:50 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_src
 }			t_src;
 
 void	init_source(t_src *s);
+int		read_source(t_src *s, const char *filename);
 //int		panic_source(t_src *s, const char *msg);
 //void	free_source(t_src *s);
 
