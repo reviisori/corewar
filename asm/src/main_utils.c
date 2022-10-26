@@ -6,7 +6,7 @@
 /*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:20:03 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/26 16:07:57 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/26 21:53:57 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,17 @@
 
 int	valid_file(int argc, char *filename)
 {
-	char	*temp;
+	char	*ext;
 
 	if (argc != 2)
 		return (0);
-	temp = ft_strrchr(filename, '.');
-	return (ft_strnequ(temp, ".s", 3));
+	ext = ft_strrchr(filename, '.');
+	return (ft_strnequ(ext, ".s", 3));
+}
+
+int	panic(const char *msg)
+{
+	ft_putstr_fd("Error: ", 2);
+	ft_putendl_fd(msg, 2);
+	exit(EXIT_FAILURE);
 }
