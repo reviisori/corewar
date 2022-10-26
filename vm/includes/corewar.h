@@ -32,7 +32,11 @@ quits the game\n\
 
 # define DUMP_TWICE "Dump cycles already set"
 
+# define HEADER_ERROR "Invalid header"
+
 # define OPTIONS "dn"
+
+# define OPTION_COUNT 2
 
 typedef struct s_options
 {
@@ -40,12 +44,12 @@ typedef struct s_options
 	int	dump;
 }		t_options;
 
-typedef int	(*t_jump)(t_options *, char *);
+typedef int	(*t_jump_opts)(t_options *, char *);
 
 int	set_player_number(t_options *opts, char *nbr);
 int	set_dump(t_options *opts, char *nbr);
 
-static const	t_jump jump_table[2] = {
+static const	t_jump_opts jump_table[2] = {
 	set_dump,
 	set_player_number
 };

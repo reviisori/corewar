@@ -26,9 +26,11 @@ static int	get_index(char *opt)
 	while (OPTIONS[++i])
 	{
 		if (OPTIONS[i] == *opt)
-			return (i);
+			break ;
 	}
-	error_handler(USAGE, NULL);
+	if (i == OPTION_COUNT - 1)
+		error_handler(USAGE, NULL);
+	return (i);
 }
 
 static int	read_option(char **argv, int index, t_options *opts)
@@ -42,7 +44,8 @@ static int	read_option(char **argv, int index, t_options *opts)
 	}
 	else
 	{
-		if (jump_table[get_index(&argv[index][1])](opts, argv[++index]) == -1)
+		index++;
+		if (jump_table[get_index(&argv[index][1])](opts, argv[index]) == -1)
 			return (-1);
 	}
 	return (index);
@@ -61,11 +64,13 @@ void	read_arguments(int argc, char **argv, t_info *info)
 		{
 			if (options.next_id)
 				error_handler(USAGE, info);
-			i = read_option(argv, i, info);
+			i = read_option(argv, i, &options);
 			if (i == -1)
 				error_handler(USAGE, info);
 		}
 		else
 			parse_champion(info, argv[i], &options.next_id);
 	}
+	if (info->champion_count == 0)
+		error_handler(USAGE, info);
 }
