@@ -69,7 +69,7 @@ typedef struct s_info
 	t_champion	champions[MAX_PLAYERS];
 }				t_info;
 
-void	error_handler(char *message, t_info *info);
+void	error_handler(char *message);
 void	parse_champion(t_info *info, char *file, int *id);
 void	read_arguments(int argc, char **argv, t_info *info);
 void	usage_exit(void);

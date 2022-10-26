@@ -29,7 +29,7 @@ static int	get_index(char *opt)
 			break ;
 	}
 	if (i == OPTION_COUNT - 1)
-		error_handler(USAGE, NULL);
+		error_handler(USAGE);
 	return (i);
 }
 
@@ -63,14 +63,14 @@ void	read_arguments(int argc, char **argv, t_info *info)
 		if (argv[i][0] == '-')
 		{
 			if (options.next_id)
-				error_handler(USAGE, info);
+				error_handler(USAGE);
 			i = read_option(argv, i, &options);
 			if (i == -1)
-				error_handler(USAGE, info);
+				error_handler(USAGE);
 		}
 		else
 			parse_champion(info, argv[i], &options.next_id);
 	}
 	if (info->champion_count == 0)
-		error_handler(USAGE, info);
+		error_handler(USAGE);
 }

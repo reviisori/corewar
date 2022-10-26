@@ -20,7 +20,7 @@ int	set_player_number(t_options *opts, char *nbr)
 		return (-1);
 	player_id = ft_atoi(nbr);
 	if (player_id <= 0 || player_id > MAX_PLAYERS)
-		error_handler(INVALID_PLAYER_ID, NULL);
+		error_handler(INVALID_PLAYER_ID);
 	if (opts->next_id)
 		return (-1);
 	opts->next_id = player_id;
