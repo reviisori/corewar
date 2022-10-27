@@ -62,3 +62,4 @@ dkms.conf
 .vscode/
 *.cor
 vm/corewar
+vm/tests_temp
