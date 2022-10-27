@@ -13,12 +13,14 @@
 #ifndef COREWAR_H
 # define COREWAR_H
 
+/* Headers for libraries and preprocessor macros */
 # include "libft.h"
 # include "op.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>
 
+/* Usage */
 # define USAGE "Usage: ./corewar [-dump N] <[-n N] champion1.cor> <...>\n\
 \t############### TEXT OUTPUT MODE ################\n\
 \t\t-dump N\t: Dumps memory to standard output after N cycles and \
@@ -27,14 +29,17 @@ quits the game\n\
 \t############### CHAMPION OPTIONS ################\n\
 \t\t-n N\t: Sets the champions player number to N"
 
+/* Champion related errors */
 # define INVALID_PLAYER_ID "Invalid player number"
-
 # define DUPLICATE_PLAYER_ID "Player already exists"
+# define TOO_MANY_PLAYERS "Too many players"
 
+/* File related errors */
+# define CHAMP_TOO_BIG "File %s is too large"
 # define HEADER_ERROR "Invalid header"
 
+/* Option macros, struct, functions and the jump table implemented for them */
 # define OPTIONS "dn"
-
 # define OPTION_COUNT 2
 
 typedef struct s_options
@@ -48,11 +53,12 @@ int		set_dump(t_options *opts, char *nbr);
 
 typedef int					(*t_jump_opts)(t_options *, char *);
 
-static const t_jump_opts	g_jump_table[2] = {
+static const t_jump_opts	g_jump_table[OPTION_COUNT] = {
 	set_dump,
 	set_player_number
 };
 
+/* Struct for champion information */
 typedef struct s_champion
 {
 	int				id;
@@ -62,16 +68,21 @@ typedef struct s_champion
 	unsigned char	code[CHAMP_MAX_SIZE];
 }					t_champion;
 
+/* Head struct which includes all relevant information for the VM */
 typedef struct s_info
 {
 	int			dump_cycles;
 	int			champion_count;
-	t_champion	champions[MAX_PLAYERS];
+	t_champion	*champions[MAX_PLAYERS];
 }				t_info;
+
+/* VM functions */
+int		set_player_id(int *id, t_champion *ch_list[]);
 
 void	error_handler(char *message);
 void	parse_champion(t_info *info, char *file, int *id);
 void	read_arguments(int argc, char **argv, t_info *info);
+void	save_champion(int fd, t_champion *champion, char *file);
 void	usage_exit(void);
 
 #endif

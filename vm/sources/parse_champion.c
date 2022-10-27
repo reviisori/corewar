@@ -14,26 +14,28 @@
 
 static void	read_magic_header(int fd)
 {
-	int	header[1];
+	int	*header;
 
-	if (read(fd, header, 4) == -1)
+	if (read(fd, header, sizeof(int)) == -1)
 		error_handler(strerror(errno));
-	if (header[0] != COREWAR_EXEC_MAGIC)
+	if (*header != COREWAR_EXEC_MAGIC)
 		error_handler(HEADER_ERROR);
 }
 
 void	parse_champion(t_info *info, char *file, int *id)
 {
-	static int	taken_ids[MAX_PLAYERS];
-	int			fd;
+	int	player_index;
+	int	fd;
 
-	(void)info;
-	if (taken_ids[*id])
-		error_handler(DUPLICATE_PLAYER_ID);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		error_handler(strerror(errno));
 	read_magic_header(fd);
+	info->champion_count++;
+	if (info->champion_count == MAX_PLAYERS)
+		error_handler(TOO_MANY_PLAYERS);
+	player_index = set_player_id(id, info->champions);
+	save_champion(fd, info->champions[player_index], file);
 	if (close(fd) == -1)
 		error_handler(strerror(errno));
 }
