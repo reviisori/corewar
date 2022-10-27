@@ -6,7 +6,7 @@
 /*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:29:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/26 21:46:13 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/27 09:27:06 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	main(int argc, char **argv)
 {
 	if (!valid_file(argc, argv[1]))
-		return (panic(ASM_USAGE));
+		panic(ASM_USAGE);
 	if (!parse(argv[1]))
-		return (panic("Parsing failed."));
+		panic("Parsing failed.");
 	if (!assemble(argv[1]))
-		return (panic("Avengers didn't assemble."));
+		panic("Avengers didn't assemble.");
 	return (0);
 }
