@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_utils.c                                       :+:      :+:    :+:   */
+/*   cleanup_source.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 15:20:03 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/27 09:21:00 by altikka          ###   ########.fr       */
+/*   Created: 2022/10/26 22:16:26 by altikka           #+#    #+#             */
+/*   Updated: 2022/10/27 09:14:26 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int	valid_file(int argc, char *filename)
+void	free_source(t_src *s)
 {
-	char	*ext;
-
-	if (argc != 2)
-		return (0);
-	ext = ft_strrchr(filename, '.');
-	return (ft_strnequ(ext, ".s", 3));
+	ft_vecdel(&s->buf);
+	s->prev = NULL;
+	s->next = NULL;
 }
 
-void	panic(const char *msg)
+void	panic_source(int fd, const char *msg)
 {
 	ft_putstr_fd("Error: ", 2);
 	ft_putendl_fd(msg, 2);
+	close(fd);
 	exit(EXIT_FAILURE);
 }

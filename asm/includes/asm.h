@@ -6,7 +6,7 @@
 /*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:30:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/26 16:18:09 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/27 09:20:30 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
  \t\e[1m-q\e[m\tquiet mode - NOT IMPLEMENTED\n\n"
 
 int		valid_file(int argc, char *filename);
+void	panic(const char *msg);
 int		parse(char *filename);
 int		assemble(char *filename);
 
