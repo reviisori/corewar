@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+         #
+#    By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/10/26 22:51:46 by altikka          ###   ########.fr        #
+#    Updated: 2022/10/27 16:39:17 by atenhune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC			= gcc
 
 CFLGS		= -Wall -Wextra -Werror
 
-INCS		= -I./includes -I../libft -I../libft/ft_printf/includes
+INCS		= -I./includes -I../libft -I../libft/ft_printf/includes -I../shared/includes
 
 SRC_FILES	= main.c \
 			  main_utils.c \
