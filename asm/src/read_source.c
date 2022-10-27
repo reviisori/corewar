@@ -6,7 +6,7 @@
 /*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:44:38 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/26 23:15:06 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/27 09:26:37 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	read_source(t_src *s, const char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		return (panic("Opening file failed."));
+		panic("Opening file failed.");
 	if (read_to_buf(fd, s) < 0)
-		return (panic("Reading file failed."));
+		panic("Reading file failed.");
 	close(fd);
 	return (1);
 }
