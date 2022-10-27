@@ -12,6 +12,12 @@
 
 #include "corewar.h"
 
+void	error_handler_champ_size(char *message, char *file, int size, int max)
+{
+	ft_dprintf(2, message, file, size, max);
+	exit(1);
+}
+
 void	error_handler(char *message)
 {
 	ft_putstr_fd("Error: ", 2);

@@ -14,11 +14,20 @@
 
 static void	read_magic_header(int fd)
 {
-	int	*header;
+	char			buf[HEADER_SIZE];
+	unsigned int	header;
+	int				i;
 
-	if (read(fd, header, sizeof(int)) == -1)
+	if (read(fd, buf, HEADER_SIZE) == -1)
 		error_handler(strerror(errno));
-	if (*header != COREWAR_EXEC_MAGIC)
+	header = 0x00000000;
+	i = -1;
+	while (++i < HEADER_SIZE)
+	{
+		continue ;
+		//continue here
+	}
+	if (header != COREWAR_EXEC_MAGIC)
 		error_handler(HEADER_ERROR);
 }
 

@@ -35,12 +35,15 @@ quits the game\n\
 # define TOO_MANY_PLAYERS "Too many players"
 
 /* File related errors */
-# define CHAMP_TOO_BIG "File %s is too large"
+# define CHAMP_TOO_BIG "File %s ihas too large a code (%d bytes > %d bytes)"
 # define HEADER_ERROR "Invalid header"
 
 /* Option macros, struct, functions and the jump table implemented for them */
 # define OPTIONS "dn"
 # define OPTION_COUNT 2
+
+/* Macros describing .cor file standard */
+# define HEADER_SIZE 4		/* sizeof(unsigned int) */
 
 typedef struct s_options
 {
@@ -80,6 +83,7 @@ typedef struct s_info
 int		set_player_id(int *id, t_champion *ch_list[]);
 
 void	error_handler(char *message);
+void	error_handler_champ_size(char *message, char *file, int size, int max);
 void	parse_champion(t_info *info, char *file, int *id);
 void	read_arguments(int argc, char **argv, t_info *info);
 void	save_champion(int fd, t_champion *champion, char *file);

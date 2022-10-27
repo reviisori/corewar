@@ -21,6 +21,7 @@ SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS_DIR	= ./objects/
 OBJS		= $(addprefix $(OBJS_DIR), $(SRC_FILES:.c=.o))
 INC_DIR		= ./includes/
+SHR_INC		= ../shared/includes/
 LIB_DIR		= ../libft
 LIB			= -L $(LIB_DIR) -lft
 PRINTF_INC	= ../libft/ft_printf/includes
@@ -41,7 +42,7 @@ $(NAME): $(OBJS)
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@make -sC $(LIB_DIR)
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) -I $(INC_DIR) -I $(LIB_DIR) -I $(PRINTF_INC) -c $(CFLAGS) $< -o $@
+	@$(CC) -I $(INC_DIR) -I $(LIB_DIR) -I $(PRINTF_INC) -I $(SHR_INC) -c $(CFLAGS) $< -o $@
 
 clean:
 	make -C $(LIB_DIR) clean
