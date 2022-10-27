@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_source.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:44:38 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/27 09:26:37 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/27 12:34:03 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ static off_t	get_buf_size(int fd)
 {
 	off_t	start;
 	off_t	size;
+	off_t	reset;
 
 	start = lseek(fd, 0, SEEK_CUR);
 	size = lseek(fd, 0, SEEK_END);
-	if (start == -1 || size == -1 || start == size)
+	reset = lseek(fd, start, SEEK_SET);
+	if (start == -1 || size == -1 || reset == -1 || start == size)
 		panic_source(fd, "Couldn't get buffer size.");
 	return (size);
 }
@@ -29,7 +31,10 @@ static int	read_to_buf(int fd, t_src *s)
 	size_t	buf_size;
 
 	buf_size = (size_t) get_buf_size(fd);
-	(void)s; //here ft_vecresize()
+	ft_vecresize(&s->buf, buf_size);
+	if (read(fd, s->buf.data, buf_size) < 0)
+		panic_source(fd, "Couldn't read source file.");
+	s->buf.len = buf_size;
 	return (1);
 }
 
