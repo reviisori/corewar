@@ -6,7 +6,7 @@
 #    By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/10/28 12:12:39 by altikka          ###   ########.fr        #
+#    Updated: 2022/10/28 17:47:05 by atenhune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ SRC_FILES	= main.c \
 			  main_utils.c \
 			  parse.c \
 			  init.c \
-			  read_source.c \
+			  lex.c \
+			  source_read.c \
+			  source_next.c \
 			  cleanup_source.c \
 			  assemble.c
 
