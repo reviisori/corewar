@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:16:15 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/28 14:04:10 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/28 18:44:44 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	parse(t_sh *d, char *filename)
 		panic("Invalid source file.");
 	//if (parse_header(d, &s) < 0)
 	//	panic("Invalid champion information.");
+	if (lex(d, &s) < 0)
+		panic("Lexical error.");
 	ft_printf("Parsing done - not.\n"); //...
 	return (1);
 }
