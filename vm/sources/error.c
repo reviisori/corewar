@@ -10,11 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "corewar.h"	
 
-void	error_handler(char *message)
+void	print_usage(char *usage)
+{
+	ft_putendl_fd(usage, 2);
+	exit(1);
+}
+
+void	error_handler(char *message, char *arg1,
+	unsigned int arg2, unsigned int arg3)
 {
 	ft_putstr_fd("Error: ", 2);
-	ft_putendl_fd(message, 2);
+	ft_dprintf(2, message, arg1, arg2, arg3);
+	ft_putchar_fd('\n', 2);
 	exit(1);
 }
