@@ -37,13 +37,16 @@ static void	save_code_size(int fd, t_champion *champion, char *file)
 
 static void	save_name(int fd, t_champion *champion)
 {
-	if (read(fd, champion->name, PROG_NAME_LENGTH + 1) == -1)
+	if (read(fd, champion->name, PROG_NAME_LENGTH) == -1)
 		error_handler(READ_PREFIX, strerror(errno), 0, 0);
 }
 
 void	save_champion(int fd, t_champion *champion, char *file)
 {
+	char	temp[4];
+
 	save_name(fd, champion);
+	read(fd, temp, 4); //temp read() call to read the four null bytes after name (implement something better)
 	save_code_size(fd, champion, file);
 	//save_comment(fd, champion);
 	//save_code(fd, champion);

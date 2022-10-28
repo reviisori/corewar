@@ -14,7 +14,7 @@
 
 unsigned int	big_endian_converter(unsigned char *bytes, int size)
 {
-	int	i;
+	int				i;
 	unsigned int	byte_count;
 	unsigned int	byte;
 	unsigned int	ret;

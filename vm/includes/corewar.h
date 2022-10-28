@@ -41,7 +41,7 @@ quits the game\n\
 # define TOO_MANY_PLAYERS "Too many players"
 
 /* File related errors */
-# define CHAMP_TOO_BIG "File %s has too large a code (%d bytes > %d bytes)"
+# define CHAMP_TOO_BIG "File %s has too large a code (%u bytes > %u bytes)"
 # define HEADER_ERROR "Invalid header"
 
 /* Option macros, struct, functions and the jump table implemented for them */
@@ -61,8 +61,8 @@ typedef struct s_options
 	int	dump;
 }		t_options;
 
-int		set_player_number(t_options *opts, char *nbr);
-int		set_dump(t_options *opts, char *nbr);
+int				set_player_number(t_options *opts, char *nbr);
+int				set_dump(t_options *opts, char *nbr);
 
 typedef int					(*t_jump_opts)(t_options *, char *);
 
@@ -95,7 +95,8 @@ int				set_player_id(int *id, t_champion ch_list[]);
 
 unsigned int	big_endian_converter(unsigned char *bytes, int size);
 
-void			error_handler(char *message, char *arg1, int arg2, int arg3);
+void			error_handler(char *message, char *arg1,
+					unsigned int arg2, unsigned int arg3);
 void			parse_champion(t_info *info, char *file, int id);
 void			print_usage(char *usage);
 void			save_champion(int fd, t_champion *champion, char *file);

@@ -36,6 +36,7 @@ static int	get_index(char *opt)
 static int	read_option(char **argv, int index, t_options *opts)
 {
 	int	opt_index;
+
 	if (ft_strlen(&argv[index][1]) != 1)
 	{
 		if (ft_strncmp("dump", &argv[index][1], 5))

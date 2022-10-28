@@ -18,7 +18,8 @@ void	print_usage(char *usage)
 	exit(1);
 }
 
-void	error_handler(char *message, char *arg1, int arg2, int arg3)
+void	error_handler(char *message, char *arg1,
+	unsigned int arg2, unsigned int arg3)
 {
 	ft_putstr_fd("Error: ", 2);
 	ft_dprintf(2, message, arg1, arg2, arg3);
