@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:00:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/28 14:59:28 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/28 17:49:07 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 void	init_handler(t_sh *d);
 int		parse_header(t_sh *d, t_src *s);
+int		lex(t_sh *d, t_src *s);
 
 #endif
