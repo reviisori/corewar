@@ -24,19 +24,21 @@ static void	save_comment(int fd, t_champion *champion)
 
 static void	save_code_size(int fd, t_champion *champion, char *file)
 {
-	int	size;
+	unsigned char	buf[CODE_SIZE];
+	unsigned int	size;
 
-	if (read(fd, &size, sizeof(int)) == -1)
-		error_handler(strerror(errno));
+	if (read(fd, buf, CODE_SIZE) == -1)
+		error_handler(READ_PREFIX, strerror(errno), 0, 0);
+	size = big_endian_converter(buf, CODE_SIZE);
 	if (size > CHAMP_MAX_SIZE)
-		error_handler_champ_size(CHAMP_TOO_BIG, file, size, CHAMP_MAX_SIZE);
+		error_handler(CHAMP_TOO_BIG, file, size, CHAMP_MAX_SIZE);
 	champion->code_size = size;
 }
 
 static void	save_name(int fd, t_champion *champion)
 {
 	if (read(fd, champion->name, PROG_NAME_LENGTH + 1) == -1)
-		error_handler(strerror(errno));
+		error_handler(READ_PREFIX, strerror(errno), 0, 0);
 }
 
 void	save_champion(int fd, t_champion *champion, char *file)

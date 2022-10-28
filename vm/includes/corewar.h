@@ -29,13 +29,19 @@ quits the game\n\
 \t############### CHAMPION OPTIONS ################\n\
 \t\t-n N\t: Sets the champions player number to N"
 
+/* System call related error prefixes (perror emulation) */
+# define READ_PREFIX "read(): %s"
+# define OPEN_PREFIX "open(): %s"
+# define CLOSE_PREFIX "close(): %s"
+
 /* Champion related errors */
-# define INVALID_PLAYER_ID "Invalid player number"
+# define PLAYER_NB_TOO_SMALL "Player number too small (%d <= 0)"
+# define PLAYER_NB_TOO_BIG "Player number too big (%d > %d)"
 # define DUPLICATE_PLAYER_ID "Player already exists"
 # define TOO_MANY_PLAYERS "Too many players"
 
 /* File related errors */
-# define CHAMP_TOO_BIG "File %s ihas too large a code (%d bytes > %d bytes)"
+# define CHAMP_TOO_BIG "File %s has too large a code (%d bytes > %d bytes)"
 # define HEADER_ERROR "Invalid header"
 
 /* Option macros, struct, functions and the jump table implemented for them */
@@ -44,6 +50,10 @@ quits the game\n\
 
 /* Macros describing .cor file standard */
 # define HEADER_SIZE 4		/* sizeof(unsigned int) */
+# define CODE_SIZE 4		/* sizeof(unsigned int) */
+
+/* General macros */
+# define BITS_IN_BYTE 8
 
 typedef struct s_options
 {
@@ -65,9 +75,9 @@ static const t_jump_opts	g_jump_table[OPTION_COUNT] = {
 typedef struct s_champion
 {
 	int				id;
-	char			name[PROG_NAME_LENGTH + 1];
-	char			comment[COMMENT_LENGTH + 1];
-	int				code_size;
+	unsigned char	name[PROG_NAME_LENGTH + 1];
+	unsigned char	comment[COMMENT_LENGTH + 1];
+	unsigned int	code_size;
 	unsigned char	code[CHAMP_MAX_SIZE];
 }					t_champion;
 
@@ -76,17 +86,19 @@ typedef struct s_info
 {
 	int			dump_cycles;
 	int			champion_count;
-	t_champion	*champions[MAX_PLAYERS];
+	t_champion	champions[MAX_PLAYERS];
 }				t_info;
 
 /* VM functions */
-int		set_player_id(int *id, t_champion *ch_list[]);
+int				read_arguments(int argc, char **argv, t_info *info);
+int				set_player_id(int *id, t_champion ch_list[]);
 
-void	error_handler(char *message);
-void	error_handler_champ_size(char *message, char *file, int size, int max);
-void	parse_champion(t_info *info, char *file, int *id);
-void	read_arguments(int argc, char **argv, t_info *info);
-void	save_champion(int fd, t_champion *champion, char *file);
-void	usage_exit(void);
+unsigned int	big_endian_converter(unsigned char *bytes, int size);
+
+void			error_handler(char *message, char *arg1, int arg2, int arg3);
+void			parse_champion(t_info *info, char *file, int id);
+void			print_usage(char *usage);
+void			save_champion(int fd, t_champion *champion, char *file);
+void			usage_exit(void);
 
 #endif

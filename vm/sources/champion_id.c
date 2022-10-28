@@ -12,25 +12,25 @@
 
 #include "corewar.h"
 
-static int	get_empty_slot(t_champion *ch_list[])
+static int	get_empty_slot(t_champion ch_list[])
 {
 	int	i;
 
 	i = -1;
 	while (++i < MAX_PLAYERS)
 	{
-		if (ch_list[i] == NULL)
+		if (ch_list[i].id == 0)
 			break ;
 	}
 	return (i);
 }
 
-static void	organize_players(t_champion *ch_list[], int index, int *taken_ids)
+static void	organize_players(t_champion ch_list[], int index, int *taken_ids)
 {
 	int	j;
 	int	target;
 
-	if (!ch_list[index])
+	if (ch_list[index].id == 0)
 		return ;
 	target = MAX_PLAYERS - 1;
 	j = MAX_PLAYERS;
@@ -39,13 +39,13 @@ static void	organize_players(t_champion *ch_list[], int index, int *taken_ids)
 		if (!taken_ids[j])
 		{
 			if (target != j)
-				ft_memcpy(ch_list[target], ch_list[j], sizeof(t_champion));
+				ft_memcpy(&ch_list[target], &ch_list[j], sizeof(t_champion));
 			target = j;
 		}
 	}
 }
 
-int	set_player_id(int *id, t_champion *ch_list[])
+int	set_player_id(int *id, t_champion ch_list[])
 {
 	static int	taken_ids[MAX_PLAYERS];
 	int			player_index;
@@ -54,12 +54,13 @@ int	set_player_id(int *id, t_champion *ch_list[])
 	{
 		player_index = *id - 1;
 		if (taken_ids[player_index])
-			error_handler(DUPLICATE_PLAYER_ID);
+			error_handler(DUPLICATE_PLAYER_ID, NULL, 0, 0);
 		organize_players(ch_list, player_index, taken_ids);
 		taken_ids[player_index] = 1;
 		*id = 0;
 	}
 	else
 		player_index = get_empty_slot(ch_list);
+	ch_list[player_index].id = player_index + 1;
 	return (player_index);
 }
