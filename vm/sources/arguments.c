@@ -29,12 +29,14 @@ static int	get_index(char *opt)
 			break ;
 	}
 	if (i == OPTION_COUNT - 1)
-		error_handler(USAGE, NULL);
+		return (-1);
 	return (i);
 }
 
 static int	read_option(char **argv, int index, t_options *opts)
 {
+	int	opt_index;
+
 	if (ft_strlen(&argv[index][1]) != 1)
 	{
 		if (ft_strncmp("dump", &argv[index][1], 5))
@@ -44,14 +46,16 @@ static int	read_option(char **argv, int index, t_options *opts)
 	}
 	else
 	{
-		if (g_jump_table[get_index(&argv[index][1])](opts, argv[index + 1])
-			== -1)
+		opt_index = get_index(&argv[index][1]);
+		if (opt_index == -1)
+			return (-1);
+		if (g_jump_table[opt_index](opts, argv[index + 1]) == -1)
 			return (-1);
 	}
 	return (index + 1);
 }
 
-void	read_arguments(int argc, char **argv, t_info *info)
+int	read_arguments(int argc, char **argv, t_info *info)
 {
 	t_options	options;
 	int			i;
@@ -63,14 +67,15 @@ void	read_arguments(int argc, char **argv, t_info *info)
 		if (argv[i][0] == '-')
 		{
 			if (options.next_id)
-				error_handler(USAGE, info);
+				return (-1);
 			i = read_option(argv, i, &options);
 			if (i == -1)
-				error_handler(USAGE, info);
+				return (-1);
 		}
 		else
-			parse_champion(info, argv[i], &options.next_id);
+			parse_champion(info, argv[i], options.next_id);
 	}
 	if (info->champion_count == 0)
-		error_handler(USAGE, info);
+		return (-1);
+	return (1);
 }

@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 16:03:04 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/21 16:03:06 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/10/26 15:20:03 by altikka           #+#    #+#             */
+/*   Updated: 2022/10/27 09:21:00 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"	
+#include "asm.h"
 
-void	print_usage(char *usage)
+int	valid_file(int argc, char *filename)
 {
-	ft_putendl_fd(usage, 2);
-	exit(1);
+	char	*ext;
+
+	if (argc != 2)
+		return (0);
+	ext = ft_strrchr(filename, '.');
+	return (ft_strnequ(ext, ".s", 3));
 }
 
-void	error_handler(char *message, char *arg1,
-	unsigned int arg2, unsigned int arg3)
+void	panic(const char *msg)
 {
 	ft_putstr_fd("Error: ", 2);
-	ft_dprintf(2, message, arg1, arg2, arg3);
-	ft_putchar_fd('\n', 2);
-	exit(1);
+	ft_putendl_fd(msg, 2);
+	exit(EXIT_FAILURE);
 }

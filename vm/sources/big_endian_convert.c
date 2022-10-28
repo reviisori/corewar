@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   options_champion.c                                 :+:      :+:    :+:   */
+/*   big_endian_convert.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 12:51:42 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/25 12:51:44 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/10/28 11:54:19 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/10/28 11:54:21 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int	set_player_number(t_options *opts, char *nbr)
+unsigned int	big_endian_converter(unsigned char *bytes, int size)
 {
-	int	player_id;
+	int				i;
+	unsigned int	byte_count;
+	unsigned int	byte;
+	unsigned int	ret;
 
-	if (nbr == NULL)
-		return (-1);
-	player_id = ft_atoi(nbr);
-	if (player_id <= 0)
-		error_handler(PLAYER_NB_TOO_SMALL, nbr, 0, 0);
-	if (player_id > MAX_PLAYERS)
-		error_handler(PLAYER_NB_TOO_BIG, nbr, MAX_PLAYERS, 0);
-	if (opts->next_id)
-		return (-1);
-	opts->next_id = player_id;
-	return (1);
+	ret = 0;
+	byte_count = size - 1;
+	i = -1;
+	while (++i < size)
+	{
+		byte = bytes[i];
+		byte = byte << BITS_IN_BYTE * byte_count;
+		ret = ret | byte;
+		byte_count--;
+	}
+	return (ret);
 }

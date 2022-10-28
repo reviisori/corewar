@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   cleanup_source.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 16:03:04 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/21 16:03:06 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/10/26 22:16:26 by altikka           #+#    #+#             */
+/*   Updated: 2022/10/27 09:14:26 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"	
+#include "asm.h"
 
-void	print_usage(char *usage)
+void	free_source(t_src *s)
 {
-	ft_putendl_fd(usage, 2);
-	exit(1);
+	ft_vecdel(&s->buf);
+	s->prev = NULL;
+	s->next = NULL;
 }
 
-void	error_handler(char *message, char *arg1,
-	unsigned int arg2, unsigned int arg3)
+void	panic_source(int fd, const char *msg)
 {
 	ft_putstr_fd("Error: ", 2);
-	ft_dprintf(2, message, arg1, arg2, arg3);
-	ft_putchar_fd('\n', 2);
-	exit(1);
+	ft_putendl_fd(msg, 2);
+	close(fd);
+	exit(EXIT_FAILURE);
 }

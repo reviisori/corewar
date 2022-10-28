@@ -12,27 +12,32 @@
 
 #include "corewar.h"
 
-static void	read_magic_header(int fd)
+static void	read_magic_header(int fd, char *file)
 {
-	int	header[1];
+	unsigned char	buf[HEADER_SIZE];
+	unsigned int	header;
 
-	if (read(fd, header, 4) == -1)
-		error_handler(strerror(errno), NULL);
-	if (header[0] != COREWAR_EXEC_MAGIC)
-		error_handler(HEADER_ERROR, NULL);
+	if (read(fd, buf, HEADER_SIZE) == -1)
+		error_handler(READ_PREFIX, strerror(errno), 0, 0);
+	header = big_endian_converter(buf, HEADER_SIZE);
+	if (header != COREWAR_EXEC_MAGIC)
+		error_handler(HEADER_ERROR, file, 0, 0);
 }
 
-void	parse_champion(t_info *info, char *file, int *id)
+void	parse_champion(t_info *info, char *file, int id)
 {
-	static int	taken_ids[MAX_PLAYERS];
-	int			fd;
+	int	player_index;
+	int	fd;
 
-	if (taken_ids[*id])
-		error_handler(DUPLICATE_PLAYER_ID, info);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		error_handler(strerror(errno), info);
-	read_magic_header(fd);
+		error_handler(OPEN_PREFIX, strerror(errno), 0, 0);
+	read_magic_header(fd, file);
+	info->champion_count++;
+	if (info->champion_count == MAX_PLAYERS)
+		error_handler(TOO_MANY_PLAYERS, NULL, 0, 0);
+	player_index = set_player_id(&id, info->champions);
+	save_champion(fd, &info->champions[player_index], file);
 	if (close(fd) == -1)
-		error_handler(strerror(errno), info);
+		error_handler(CLOSE_PREFIX, strerror(errno), 0, 0);
 }

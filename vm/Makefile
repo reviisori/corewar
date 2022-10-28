@@ -13,13 +13,15 @@
 NAME		= corewar
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address #-Wpedantic -Wunused -Wconversion -Wunreachable-code -Wtype-limits -O3
-SRC_FILES	= main.c arguments.c error.c options_champion.c 				\
-			  options_text_op.c parse_champion.c
+SRC_FILES	= main.c arguments.c error.c options_champion.c 	\
+			  options_text_op.c parse_champion.c champion_id.c	\
+			  save_champion.c big_endian_convert.c
 SRCS_DIR	= ./sources/
 SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS_DIR	= ./objects/
 OBJS		= $(addprefix $(OBJS_DIR), $(SRC_FILES:.c=.o))
 INC_DIR		= ./includes/
+SHR_INC		= ../shared/includes/
 LIB_DIR		= ../libft
 LIB			= -L $(LIB_DIR) -lft
 PRINTF_INC	= ../libft/ft_printf/includes
@@ -40,7 +42,7 @@ $(NAME): $(OBJS)
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@make -sC $(LIB_DIR)
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) -I $(INC_DIR) -I $(LIB_DIR) -I $(PRINTF_INC) -c $(CFLAGS) $< -o $@
+	@$(CC) -I $(INC_DIR) -I $(LIB_DIR) -I $(PRINTF_INC) -I $(SHR_INC) -c $(CFLAGS) $< -o $@
 
 clean:
 	make -C $(LIB_DIR) clean

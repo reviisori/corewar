@@ -3,30 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 16:43:38 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/20 16:43:39 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/10/21 14:29:02 by altikka           #+#    #+#             */
+/*   Updated: 2022/10/27 09:27:06 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
-static void	init_info(t_info *info)
-{
-	info->dump_cycles = -1;
-	info->champion_count = 0;
-	ft_bzero(info->champions, sizeof(t_champion) * MAX_PLAYERS);
-}
+#include "asm.h"
 
 int	main(int argc, char **argv)
 {
-	t_info	info;
-
-	if (argc == 1)
-		print_usage(USAGE);
-	init_info(&info);
-	if (read_arguments(argc, argv, &info) == -1)
-		print_usage(USAGE);
+	if (!valid_file(argc, argv[1]))
+		panic(ASM_USAGE);
+	if (!parse(argv[1]))
+		panic("Parsing failed.");
+	if (!assemble(argv[1]))
+		panic("Avengers didn't assemble.");
 	return (0);
 }
