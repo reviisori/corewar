@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:30:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/28 13:52:53 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/28 18:29:25 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "source.h"
 # include "sh.h"
 # include "parse.h"
+# include "symtypes.h"
+# include "lex.h"
 
 # define ASM_USAGE "\nusage: ./asm [-WIP] <file.s>\n\
  options:\n\
