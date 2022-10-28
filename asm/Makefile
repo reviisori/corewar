@@ -6,7 +6,7 @@
 #    By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/10/27 16:39:17 by atenhune         ###   ########.fr        #
+#    Updated: 2022/10/28 12:12:39 by altikka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INCS		= -I./includes -I../libft -I../libft/ft_printf/includes -I../shared/includ
 SRC_FILES	= main.c \
 			  main_utils.c \
 			  parse.c \
-			  init_source.c \
+			  init.c \
 			  read_source.c \
 			  cleanup_source.c \
 			  assemble.c
