@@ -6,7 +6,7 @@
 /*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:30:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/27 09:20:30 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/28 13:52:53 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define ASM_H
 
 # include "libft.h"
+# include "op.h"
 # include "source.h"
-//# include "handler.h"
+# include "sh.h"
+# include "parse.h"
 
 # define ASM_USAGE "\nusage: ./asm [-WIP] <file.s>\n\
  options:\n\
@@ -24,7 +26,7 @@
 
 int		valid_file(int argc, char *filename);
 void	panic(const char *msg);
-int		parse(char *filename);
+int		parse(t_sh *d, char *filename);
 int		assemble(char *filename);
 
 #endif

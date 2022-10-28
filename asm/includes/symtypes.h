@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:07:22 by atenhune          #+#    #+#             */
-/*   Updated: 2022/10/28 11:40:52 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/28 15:14:43 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ typedef enum e_symtypes
 	la_label,
 	la_op,
 	la_comm,
-	la_champname,
-	la_champcomm,
+	la_champname, //
+	la_champcomm, //
 	la_reg,
 	la_dir,
 	la_ind,
