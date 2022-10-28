@@ -6,7 +6,7 @@
 /*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:20:03 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/27 09:21:00 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/27 20:11:59 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	valid_file(int argc, char *filename)
 
 void	panic(const char *msg)
 {
-	ft_putstr_fd("Error: ", 2);
-	ft_putendl_fd(msg, 2);
+	ft_dprintf(2, "Error: %s\n", msg);
 	exit(EXIT_FAILURE);
 }

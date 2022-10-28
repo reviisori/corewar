@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   source.h                                           :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:15:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/28 18:34:24 by atenhune         ###   ########.fr       */
+/*   Created: 2022/10/28 12:00:34 by altikka           #+#    #+#             */
+/*   Updated: 2022/10/28 17:49:07 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SOURCE_H
-# define SOURCE_H
+#ifndef PARSE_H
+# define PARSE_H
 
-# include <fcntl.h>
-
-typedef struct s_src
-{
-	t_vec	buf;
-	size_t	row;
-	size_t	col;
-	size_t	index;
-	char	*prev;
-	char	*next;
-}			t_src;
-
-void	init_source(t_src *s);
-int		read_source(t_src *s, const char *filename);
-void	panic_source(int fd, const char *msg);
-void	source_next(t_src *s);
-void	free_source(t_src *s);
+void	init_handler(t_sh *d);
+int		parse_header(t_sh *d, t_src *s);
+int		lex(t_sh *d, t_src *s);
 
 #endif

@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   source_next.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 15:16:15 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/28 18:44:44 by atenhune         ###   ########.fr       */
+/*   Created: 2022/10/28 17:43:55 by atenhune          #+#    #+#             */
+/*   Updated: 2022/10/28 18:38:40 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int	parse(t_sh *d, char *filename)
+static void	skip_whitespace(t_src *s)
 {
-	t_src	s;
+	while (*(char *)&s->buf.data[s->index])
+	{
+		if (*(char *)&s->buf.data[s->index] == '\n')
+			return ;
+		if (!ft_isspace(*(char *)&s->buf.data[s->index]))
+			return ;
+		s->index++;
+		s->col++;
+	}
+}
 
-	init_handler(d);
-	init_source(&s);
-	if (read_source(&s, filename) < 0)
-		panic("Invalid source file.");
-	//if (parse_header(d, &s) < 0)
-	//	panic("Invalid champion information.");
-	if (lex(d, &s) < 0)
-		panic("Lexical error.");
-	ft_printf("Parsing done - not.\n"); //...
-	return (1);
+void	source_next(t_src *s)
+{
+	skip_whitespace(s);
+	if (s->index)
+		s->prev = &s->buf.data[s->index - 1];
+	if (s->index < s->buf.len)
+		s->next = &s->buf.data[s->index + 1];
 }

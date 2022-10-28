@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_source.c                                      :+:      :+:    :+:   */
+/*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 16:09:27 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/27 09:18:46 by altikka          ###   ########.fr       */
+/*   Created: 2022/10/28 16:33:03 by atenhune          #+#    #+#             */
+/*   Updated: 2022/10/28 17:49:50 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#ifndef LEX_H
+# define LEX_H
 
-void	init_source(t_src *s)
-{
-	if (ft_vecnew(&s->buf, 1, sizeof(char)) < 0)
-		panic("Couldn't initialize source buffer.");
-	s->row = 0;
-	s->col = 0;
-	s->index = 0;
-	s->prev = NULL;
-	s->next = NULL;
-}
+void	init_token(t_token *t);
+
+#endif

@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   source.h                                           :+:      :+:    :+:   */
+/*   lex.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:15:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/28 18:34:24 by atenhune         ###   ########.fr       */
+/*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
+/*   Updated: 2022/10/28 18:46:12 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SOURCE_H
-# define SOURCE_H
+#include "asm.h"
 
-# include <fcntl.h>
-
-typedef struct s_src
+void	eo(t_src *s, t_token *t)
 {
-	t_vec	buf;
-	size_t	row;
-	size_t	col;
-	size_t	index;
-	char	*prev;
-	char	*next;
-}			t_src;
+	if (*(char *)&s->buf.data[s->index] == '\n')
+	{
+		ft_printf("token: EOL\n");
+		s->index++;
+	}
+	if (*(char *)&s->buf.data[s->index] == '\0')
+	{
+		ft_printf("token: EOF\n");
+		t->symbol = la_eof;
+	}
+}
 
-void	init_source(t_src *s);
-int		read_source(t_src *s, const char *filename);
-void	panic_source(int fd, const char *msg);
-void	source_next(t_src *s);
-void	free_source(t_src *s);
+int	lex(t_sh *d, t_src *s)
+{
+	t_token	t;
 
-#endif
+	(void)d;
+	init_token(&t);
+	while (t.symbol != la_eof)
+	{
+		source_next(s);
+		eo(s, &t);
+	}
+	return (1);
+}

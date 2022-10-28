@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup_source.c                                   :+:      :+:    :+:   */
+/*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 22:16:26 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/27 20:12:19 by altikka          ###   ########.fr       */
+/*   Created: 2022/10/28 13:49:05 by altikka           #+#    #+#             */
+/*   Updated: 2022/10/28 13:49:20 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#ifndef SH_H
+# define SH_H
 
-void	free_source(t_src *s)
+typedef struct s_sh
 {
-	ft_vecdel(&s->buf);
-	s->prev = NULL;
-	s->next = NULL;
-}
+	t_header	header;
+	t_src		*src;
+}				t_sh;
 
-void	panic_source(int fd, const char *msg)
-{
-	ft_dprintf(2, "Error: %s\n", msg);
-	close(fd);
-	exit(EXIT_FAILURE);
-}
+#endif

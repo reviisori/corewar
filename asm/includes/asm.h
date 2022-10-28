@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:30:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/27 09:20:30 by altikka          ###   ########.fr       */
+/*   Updated: 2022/10/28 18:29:25 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 # define ASM_H
 
 # include "libft.h"
+# include "op.h"
 # include "source.h"
-//# include "handler.h"
+# include "sh.h"
+# include "parse.h"
+# include "symtypes.h"
+# include "lex.h"
 
 # define ASM_USAGE "\nusage: ./asm [-WIP] <file.s>\n\
  options:\n\
@@ -24,7 +28,7 @@
 
 int		valid_file(int argc, char *filename);
 void	panic(const char *msg);
-int		parse(char *filename);
+int		parse(t_sh *d, char *filename);
 int		assemble(char *filename);
 
 #endif
