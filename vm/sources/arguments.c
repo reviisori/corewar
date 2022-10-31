@@ -28,7 +28,7 @@ static int	get_index(char *opt)
 		if (OPTIONS[i] == *opt)
 			break ;
 	}
-	if (i == OPTION_COUNT - 1)
+	if (i == OPTION_COUNT)
 		return (-1);
 	return (i);
 }
@@ -73,7 +73,7 @@ int	read_arguments(int argc, char **argv, t_info *info)
 				return (-1);
 		}
 		else
-			parse_champion(info, argv[i], options.next_id);
+			parse_champion(info, argv[i], &options.next_id);
 	}
 	if (info->champion_count == 0)
 		return (-1);
