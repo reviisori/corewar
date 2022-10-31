@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   big_endian_convert.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 16:03:04 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/21 16:03:06 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/10/28 11:54:19 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/10/28 11:54:21 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"	
+#include "corewar.h"
 
-void	print_usage(char *usage)
+unsigned int	big_endian_converter(unsigned char *bytes, int size)
 {
-	ft_putendl_fd(usage, 2);
-	exit(1);
-}
+	int				i;
+	unsigned int	byte_count;
+	unsigned int	byte;
+	unsigned int	ret;
 
-void	error_handler(char *message, char *arg1,
-	unsigned int arg2, unsigned int arg3)
-{
-	ft_putstr_fd("Error: ", 2);
-	ft_dprintf(2, message, arg1, arg2, arg3);
-	ft_putchar_fd('\n', 2);
-	exit(1);
+	ret = 0;
+	byte_count = size - 1;
+	i = -1;
+	while (++i < size)
+	{
+		byte = bytes[i];
+		byte = byte << BITS_IN_BYTE * byte_count;
+		ret = ret | byte;
+		byte_count--;
+	}
+	return (ret);
 }
