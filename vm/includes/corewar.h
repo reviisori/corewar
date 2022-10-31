@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>
+# include <limits.h>
 
 /* Usage */
 # define USAGE "Usage: ./corewar [-dump N] <[-n N] champion1.cor> <...>\n\
@@ -35,14 +36,16 @@ quits the game\n\
 # define CLOSE_PREFIX "close(): %s"
 
 /* Champion related errors */
-# define PLAYER_NB_TOO_SMALL "Player number too small (%d <= 0)"
-# define PLAYER_NB_TOO_BIG "Player number too big (%d > %d)"
-# define DUPLICATE_PLAYER_ID "Player already exists"
-# define TOO_MANY_PLAYERS "Too many players"
+# define PLAYER_NB_TOO_SMALL "Player number too small (%s <= 0)"
+# define PLAYER_NB_TOO_BIG "Player number too big (%s > %d)"
+# define DUPLICATE_PLAYER_ID "Trying to create champion with duplicate number"
+# define TOO_MANY_PLAYERS "Too many champions"
 
 /* File related errors */
 # define CHAMP_TOO_BIG "File %s has too large a code (%u bytes > %u bytes)"
-# define HEADER_ERROR "Invalid header"
+# define CODE_SIZE_DIFF "File %s has a code size that \
+differs from what its header says"
+# define HEADER_ERROR "File %s has an invalid header"
 
 /* Option macros, struct, functions and the jump table implemented for them */
 # define OPTIONS "dn"
@@ -51,6 +54,7 @@ quits the game\n\
 /* Macros describing .cor file standard */
 # define HEADER_SIZE 4		/* sizeof(unsigned int) */
 # define CODE_SIZE 4		/* sizeof(unsigned int) */
+# define NULL_TERM 4		/* the size of null terminators in .cor files */
 
 /* General macros */
 # define BITS_IN_BYTE 8
@@ -97,7 +101,7 @@ unsigned int	big_endian_converter(unsigned char *bytes, int size);
 
 void			error_handler(char *message, char *arg1,
 					unsigned int arg2, unsigned int arg3);
-void			parse_champion(t_info *info, char *file, int id);
+void			parse_champion(t_info *info, char *file, int *id);
 void			print_usage(char *usage);
 void			save_champion(int fd, t_champion *champion, char *file);
 void			usage_exit(void);
