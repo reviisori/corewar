@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>
+# include <limits.h>
 
 /* Usage */
 # define USAGE "Usage: ./corewar [-dump N] <[-n N] champion1.cor> <...>\n\
