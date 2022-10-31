@@ -20,7 +20,7 @@ static void	save_code(int fd, t_champion *champion, char *file)
 	ret = read(fd, champion->code, CHAMP_MAX_SIZE);
 	if (ret == -1)
 		error_handler(READ_PREFIX, strerror(errno), 0, 0);
-	if (ret != champion->code_size)
+	if ((unsigned int)ret != champion->code_size)
 		error_handler(CODE_SIZE_DIFF, file, 0, 0);
 	if (read(fd, check, 1) > 0)
 		error_handler(CODE_SIZE_DIFF, file, 0, 0);
