@@ -24,7 +24,7 @@ static void	read_magic_header(int fd, char *file)
 		error_handler(HEADER_ERROR, file, 0, 0);
 }
 
-void	parse_champion(t_info *info, char *file, int id)
+void	parse_champion(t_info *info, char *file, int *id)
 {
 	int	player_index;
 	int	fd;
@@ -34,9 +34,9 @@ void	parse_champion(t_info *info, char *file, int id)
 		error_handler(OPEN_PREFIX, strerror(errno), 0, 0);
 	read_magic_header(fd, file);
 	info->champion_count++;
-	if (info->champion_count == MAX_PLAYERS)
+	if (info->champion_count > MAX_PLAYERS)
 		error_handler(TOO_MANY_PLAYERS, NULL, 0, 0);
-	player_index = set_player_id(&id, info->champions);
+	player_index = set_player_id(id, info->champions);
 	save_champion(fd, &info->champions[player_index], file);
 	if (close(fd) == -1)
 		error_handler(CLOSE_PREFIX, strerror(errno), 0, 0);
