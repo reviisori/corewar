@@ -38,11 +38,13 @@ quits the game\n\
 # define PLAYER_NB_TOO_SMALL "Player number too small (%d <= 0)"
 # define PLAYER_NB_TOO_BIG "Player number too big (%d > %d)"
 # define DUPLICATE_PLAYER_ID "Player already exists"
-# define TOO_MANY_PLAYERS "Too many players"
+# define TOO_MANY_PLAYERS "Too many champions"
 
 /* File related errors */
 # define CHAMP_TOO_BIG "File %s has too large a code (%u bytes > %u bytes)"
-# define HEADER_ERROR "Invalid header"
+# define CODE_SIZE_DIFF "File %s has a code size that \
+differs from what its header says"
+# define HEADER_ERROR "File %s has an invalid header"
 
 /* Option macros, struct, functions and the jump table implemented for them */
 # define OPTIONS "dn"
@@ -51,6 +53,7 @@ quits the game\n\
 /* Macros describing .cor file standard */
 # define HEADER_SIZE 4		/* sizeof(unsigned int) */
 # define CODE_SIZE 4		/* sizeof(unsigned int) */
+# define NULL_TERM 4		/* the size of null terminators in .cor files */
 
 /* General macros */
 # define BITS_IN_BYTE 8
