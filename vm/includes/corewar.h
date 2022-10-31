@@ -35,9 +35,9 @@ quits the game\n\
 # define CLOSE_PREFIX "close(): %s"
 
 /* Champion related errors */
-# define PLAYER_NB_TOO_SMALL "Player number too small (%d <= 0)"
-# define PLAYER_NB_TOO_BIG "Player number too big (%d > %d)"
-# define DUPLICATE_PLAYER_ID "Player already exists"
+# define PLAYER_NB_TOO_SMALL "Player number too small (%s <= 0)"
+# define PLAYER_NB_TOO_BIG "Player number too big (%s > %d)"
+# define DUPLICATE_PLAYER_ID "Trying to create champion with duplicate number"
 # define TOO_MANY_PLAYERS "Too many champions"
 
 /* File related errors */
@@ -100,7 +100,7 @@ unsigned int	big_endian_converter(unsigned char *bytes, int size);
 
 void			error_handler(char *message, char *arg1,
 					unsigned int arg2, unsigned int arg3);
-void			parse_champion(t_info *info, char *file, int id);
+void			parse_champion(t_info *info, char *file, int *id);
 void			print_usage(char *usage);
 void			save_champion(int fd, t_champion *champion, char *file);
 void			usage_exit(void);
