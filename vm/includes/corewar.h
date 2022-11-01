@@ -89,9 +89,10 @@ typedef struct s_champion
 /* Head struct which includes all relevant information for the VM */
 typedef struct s_info
 {
-	int			dump_cycles;
-	int			champion_count;
-	t_champion	champions[MAX_PLAYERS];
+	int				dump_cycles;
+	int				champion_count;
+	unsigned char	memory[MEM_SIZE];
+	t_champion		champions[MAX_PLAYERS];
 }				t_info;
 
 /* VM functions */
@@ -103,6 +104,7 @@ unsigned int	big_endian_converter(unsigned char *bytes, int size);
 void			check_champions(t_champion ch_list[], int ch_count);
 void			error_handler(char *message, char *arg1,
 					unsigned int arg2, unsigned int arg3);
+void			execute_cycles(t_info *info);
 void			parse_champion(t_info *info, char *file, int *id);
 void			print_usage(char *usage);
 void			save_champion(int fd, t_champion *champion, char *file);

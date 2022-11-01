@@ -77,5 +77,6 @@ int	read_arguments(int argc, char **argv, t_info *info)
 	}
 	if (info->champion_count == 0)
 		return (-1);
+	info->dump_cycles = options.dump;
 	return (1);
 }

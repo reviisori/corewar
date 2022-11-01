@@ -17,6 +17,7 @@ static void	init_info(t_info *info)
 	info->dump_cycles = -1;
 	info->champion_count = 0;
 	ft_bzero(info->champions, sizeof(t_champion) * MAX_PLAYERS);
+	ft_bzero(info->memory, MEM_SIZE);
 }
 
 int	main(int argc, char **argv)
@@ -29,5 +30,6 @@ int	main(int argc, char **argv)
 	if (read_arguments(argc, argv, &info) == -1)
 		print_usage(USAGE);
 	check_champions(info.champions, info.champion_count);
+	execute_cycles(&info);
 	return (0);
 }
