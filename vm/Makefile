@@ -13,9 +13,10 @@
 NAME		= corewar
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address #-Wpedantic -Wunused -Wconversion -Wunreachable-code -Wtype-limits -O3
-SRC_FILES	= main.c arguments.c error.c options_champion.c 	\
-			  options_text_op.c parse_champion.c champion_id.c	\
-			  save_champion.c big_endian_convert.c
+SRC_FILES	= main.c arguments.c error.c options_champion.c 			\
+			  options_text_op.c parse_champion.c champion_id.c			\
+			  save_champion.c big_endian_convert.c check_champions.c	\
+			  game.c
 SRCS_DIR	= ./sources/
 SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS_DIR	= ./objects/
