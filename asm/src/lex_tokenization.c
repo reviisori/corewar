@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:11:12 by atenhune          #+#    #+#             */
-/*   Updated: 2022/10/31 14:31:53 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:39:50 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,6 @@ void	lex_tokenization(t_src *s, t_token *t)
 		lex_endof(s, t);
 	else if (*target == '#' || *target == ';')
 		lex_comment(s, t);
+	else if (*target == '.')
+		lex_header(s, t);
 }
