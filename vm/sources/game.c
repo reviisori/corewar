@@ -25,10 +25,10 @@ static void	print_memory(unsigned char memory[])
 	{
 
 		if (i % line_len == 0)
-			ft_printf("0x%04x :", line_len * line_count++);
-		ft_printf(" %02x", memory[i]);
+			ft_printf("0x%04x : ", line_len * line_count++);
+		ft_printf("%02x ", memory[i]);
 		if ((i + 1) % line_len == 0)
-			ft_putendl("");
+			ft_putchar('\n');
 	}
 	exit(0);
 }
