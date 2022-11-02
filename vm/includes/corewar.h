@@ -102,6 +102,8 @@ int				set_player_id(int *id, t_champion ch_list[]);
 unsigned int	big_endian_converter(unsigned char *bytes, int size);
 
 void			check_champions(t_champion ch_list[], int ch_count);
+void			deploy_champions(unsigned char memory[],
+					t_champion ch_list[], int count);
 void			error_handler(char *message, char *arg1,
 					unsigned int arg2, unsigned int arg3);
 void			execute_cycles(t_info *info);
