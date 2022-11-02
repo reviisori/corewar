@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex.h                                              :+:      :+:    :+:   */
+/*   lex_endof.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 16:33:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/02 15:38:50 by atenhune         ###   ########.fr       */
+/*   Created: 2022/10/31 11:21:04 by atenhune          #+#    #+#             */
+/*   Updated: 2022/10/31 12:12:11 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEX_H
-# define LEX_H
+#include "asm.h"
 
-void	init_token(t_token *t);
-void	panic_lex(const char *msg, size_t row, size_t col);
-void	lex_tokenization(t_src *s, t_token *t);
-void	lex_endof(t_src *s, t_token *t);
-void	lex_comment(t_src *s, t_token *t);
-void	lex_header(t_src *s, t_token *t);
-
-#endif
+void	lex_endof(t_src *s, t_token *t)
+{
+	if (*(char *)&s->buf.data[s->index] == '\n')
+	{
+		t->symbol = la_eol;
+		*(char *)&t->content.data[0] = '\n';
+		s->row++;
+		s->col = 0;
+		s->index++;
+	}
+	if (*(char *)&s->buf.data[s->index] == '\0')
+	{
+		t->symbol = la_eof;
+		*(char *)&t->content.data[0] = '\0';
+	}
+}

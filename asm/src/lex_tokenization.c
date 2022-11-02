@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex.h                                              :+:      :+:    :+:   */
+/*   lex_tokenization.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 16:33:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/02 15:38:50 by atenhune         ###   ########.fr       */
+/*   Created: 2022/10/31 11:11:12 by atenhune          #+#    #+#             */
+/*   Updated: 2022/11/02 18:05:13 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEX_H
-# define LEX_H
+#include "asm.h"
 
-void	init_token(t_token *t);
-void	panic_lex(const char *msg, size_t row, size_t col);
-void	lex_tokenization(t_src *s, t_token *t);
-void	lex_endof(t_src *s, t_token *t);
-void	lex_comment(t_src *s, t_token *t);
-void	lex_header(t_src *s, t_token *t);
+void	lex_tokenization(t_src *s, t_token *t)
+{
+	char	*target;
 
-#endif
+	target = (char *)&s->buf.data[s->index];
+	if (*target == '\n' || *target == '\0')
+		lex_endof(s, t);
+	else if (*target == '#' || *target == ';')
+		lex_comment(s, t);
+	else if (*target == '.')
+		lex_header(s, t);
+}
