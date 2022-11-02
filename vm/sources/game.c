@@ -23,7 +23,6 @@ static void	print_memory(unsigned char memory[])
 	i = -1;
 	while (++i < MEM_SIZE)
 	{
-
 		if (i % line_len == 0)
 			ft_printf("0x%04x : ", line_len * line_count++);
 		ft_printf("%02x ", memory[i]);

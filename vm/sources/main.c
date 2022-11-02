@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 	if (read_arguments(argc, argv, &info) == -1)
 		print_usage(USAGE);
 	check_champions(info.champions, info.champion_count);
+	deploy_champions(info.memory, info.champions, info.champion_count);
 	execute_cycles(&info);
 	return (0);
 }
