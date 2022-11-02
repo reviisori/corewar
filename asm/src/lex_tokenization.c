@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:11:12 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/02 13:39:50 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/02 18:05:13 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	lex_tokenization(t_src *s, t_token *t)
 {
-	char *target;
+	char	*target;
 
 	target = (char *)&s->buf.data[s->index];
 	if (*target == '\n' || *target == '\0')
