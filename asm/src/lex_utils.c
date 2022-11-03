@@ -6,11 +6,38 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:02:35 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/03 14:27:52 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:29:26 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+bool	is_label_chars(int c)
+{
+	return ((c >= 'a' && c <= 'z') || c == '_' || (c >= '0' && c <= '9'));
+}
+
+bool	is_label(t_src *s)
+{
+	char	*p;
+
+	p = (char *)&s->buf.data[s->index];
+	while (is_label_chars(*p))
+		p++;
+	return (*p == LABEL_CHAR);
+}
+
+bool	is_register(t_src *s)
+{
+	char	*p;
+
+	p = (char *)&s->buf.data[s->index];
+	if (*p++ != 'r')
+		return (false);
+	while (ft_isdigit(*p))
+		p++;
+	return ((ft_isspace(*p) || *p == SEPARATOR_CHAR));
+}
 
 void	skip_whitespace(t_src *s)
 {
@@ -36,9 +63,4 @@ void	panic_lex(const char *msg, size_t row, size_t col)
 	exit(EXIT_FAILURE);
 }
 
-int	is_label_char(int c)
-{
-	if ((c >= 97 && c <= 122) || c == 95 || (c >= 48 && c <= 57))
-		return (1);
-	return (0);
-}
+
