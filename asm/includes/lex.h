@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 16:33:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/02 15:38:50 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/03 12:36:44 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	lex_tokenization(t_src *s, t_token *t);
 void	lex_endof(t_src *s, t_token *t);
 void	lex_comment(t_src *s, t_token *t);
 void	lex_header(t_src *s, t_token *t);
+int		is_label_char(int c);
 
 #endif
