@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include <limits.h>
+# include <stdbool.h>
 
 /* Usage */
 # define USAGE "Usage: ./corewar [-dump N] <[-n N] champion1.cor> <...>\n\
@@ -58,6 +59,7 @@ differs from what its header says"
 
 /* General macros */
 # define BITS_IN_BYTE 8
+# define MAX_UINT 0xFFFFFFFF
 
 typedef struct s_options
 {
@@ -83,14 +85,38 @@ typedef struct s_champion
 	unsigned char	comment[COMMENT_LENGTH + 1];
 	unsigned int	code_size;
 	unsigned char	code[CHAMP_MAX_SIZE];
+	unsigned int	last_live;//needs to be init to 0;
 }					t_champion;
+
+/* Carriage i.e. the offset that "plays the game", moving around memory
+	and executing instructions */
+typedef struct s_car
+{
+	unsigned int	index;// ≥ 1
+	unsigned int	reg[REG_NUMBER + 1];// 1+15 registries, 0 never used 
+	unsigned int	pc;//current position, always %MEM_SIZE
+	bool			carry;
+	
+	unsigned char	op;//the current statement the car stands on
+	unsigned int	last_live;//the last cycle the car declared alive
+	unsigned int	wait;//cycles until current op tries to run and this car moves
+	unsigned int	jump;// amount of bytes the car moves next jump, ≥ 1
+	bool			alive;
+	struct s_car	*next;
+} t_car;
 
 /* Head struct which includes all relevant information for the VM */
 typedef struct s_info
 {
-	int			dump_cycles;
-	int			champion_count;
-	t_champion	champions[MAX_PLAYERS];
+	unsigned char	memory[MEM_SIZE];//temp
+	unsigned int	dump_cycles;
+	int				champion_count;
+	t_champion		champions[MAX_PLAYERS];
+
+	unsigned int 	cycle;
+	unsigned int 	next_check_cycle;
+	unsigned int 	cycle_to_die;
+	t_car			*liststart;
 }				t_info;
 
 /* VM functions */
@@ -105,5 +131,8 @@ void			parse_champion(t_info *info, char *file, int *id);
 void			print_usage(char *usage);
 void			save_champion(int fd, t_champion *champion, char *file);
 void			usage_exit(void);
+
+/* Game functions */
+int				run_game(t_info *info);
 
 #endif

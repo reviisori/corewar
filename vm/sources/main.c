@@ -46,5 +46,6 @@ int	main(int argc, char **argv)
 	if (read_arguments(argc, argv, &info) == -1)
 		print_usage(USAGE);
 	print_champions(info.champions);	//temp
+	run_game(&info);
 	return (0);
 }
