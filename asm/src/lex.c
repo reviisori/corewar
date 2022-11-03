@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/02 18:08:56 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/03 16:47:12 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int	lex(t_sh *d, t_src *s)
 		source_next(s);
 		lex_tokenization(s, &t);
 		t.num = (int ) count++; //
+		debug_lex(&t);
 		if (t.symbol == la_eof)
 			exit(1);
-		debug_lex(&t);
 		reset_token(&t);
 	}
 	return (1);
