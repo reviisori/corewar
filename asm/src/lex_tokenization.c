@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:11:12 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/02 18:05:13 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/03 16:32:46 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,8 @@ void	lex_tokenization(t_src *s, t_token *t)
 		lex_comment(s, t);
 	else if (*target == '.')
 		lex_header(s, t);
+	else if (is_label_chars(*target) && !is_register(s))
+		lex_command(s, t); //name hello?
+	//else if (is_label_char (*target) || *target == DIRECT_CHAR);
+	//	lex_argument(s, t);
 }
