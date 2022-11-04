@@ -6,12 +6,14 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 12:54:13 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/04 14:40:43 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/04 15:55:48 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OPTAB_H
 # define OPTAB_H
+
+# define OPTAB_SIZE 16
 
 typedef struct s_op
 {
@@ -23,7 +25,7 @@ typedef struct s_op
 	u_int8_t	size;
 }				t_op;
 
-static const t_op	g_optab[16] = {
+static const t_op	g_optab[OPTAB_SIZE] = {
 {1, "live", 1, {T_DIR}, false, 4},
 {2, "ld", 2, {T_DIR | T_IND, T_REG}, true, 4},
 {3, "st", 2, {T_REG, T_REG | T_IND}, true, 4},
@@ -31,7 +33,7 @@ static const t_op	g_optab[16] = {
 {5, "sub", 3, {T_REG, T_REG, T_REG}, true, 4},
 {6, "and", 3, {T_REG | T_DIR | T_IND, T_REG | T_DIR | T_IND, T_REG}, true, 4},
 {7, "or", 3, {T_REG | T_DIR | T_IND, T_REG | T_DIR | T_IND, T_REG}, true, 4},
-{8, "xor", 3, T_REG | T_DIR | T_IND, T_REG | T_DIR | T_IND, T_REG, true, 4},
+{8, "xor", 3, {T_REG | T_DIR | T_IND, T_REG | T_DIR | T_IND, T_REG}, true, 4},
 {9, "jzmp", 1, {T_DIR}, false, 2},
 {10, "ldi", 3, {T_REG | T_DIR | T_IND, T_REG | T_DIR, T_REG}, true, 2},
 {11, "sti", 4, {T_REG, T_REG | T_DIR | T_IND, T_REG | T_DIR}, true, 2},
