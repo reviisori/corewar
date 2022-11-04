@@ -6,13 +6,15 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/04 12:26:27 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:29:51 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	lex_command(t_src *s, t_token *t)
+#define GET write(1, "getfukt\n", 8) //vad
+
+void	lex_command(t_sh *d, t_src *s, t_token *t)
 {
 	char	*p;
 	size_t	ofs;
@@ -30,8 +32,16 @@ void	lex_command(t_src *s, t_token *t)
 	}
 	else
 	{
-		t->symbol = la_op
+		t->symbol = la_op;
 		p = (char *)&s->buf.data[s->index];
-		ft_printf("OP\n"); //here
+		while (is_label_chars(*p))
+			p++;
+		ofs = p - (char *)&s->buf.data[s->index];
+		ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
+		ft_vecpush(&t->content, "\0");
+		if (!hash_lookup(&d->operations, (char *)t->content.data))
+			GET;
+		s->index += ofs;
+		s->col += ofs;
 	}
 }
