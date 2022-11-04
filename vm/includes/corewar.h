@@ -34,14 +34,18 @@ quits the game\n\
 # define READ_PREFIX "read(): %s"
 # define OPEN_PREFIX "open(): %s"
 # define CLOSE_PREFIX "close(): %s"
+# define LSEEK_PREFIX "lseek(): %s"
+# define MALLOC_PREFIX "malloc(): %s"
 
 /* Champion related errors */
 # define PLAYER_NB_TOO_SMALL "Player number too small (%s <= 0)"
 # define PLAYER_NB_TOO_BIG "Player number too big (%s > %d)"
 # define DUPLICATE_PLAYER_ID "Trying to create champion with duplicate number"
 # define TOO_MANY_PLAYERS "Too many champions"
+# define NON_SEQUENTIAL_NUMBERS "Player numbers are not sequential"
 
 /* File related errors */
+# define FILE_TOO_SMALL "File %s is too small to be a champion"
 # define CHAMP_TOO_BIG "File %s has too large a code (%u bytes > %u bytes)"
 # define CODE_SIZE_DIFF "File %s has a code size that \
 differs from what its header says"
@@ -88,9 +92,10 @@ typedef struct s_champion
 /* Head struct which includes all relevant information for the VM */
 typedef struct s_info
 {
-	int			dump_cycles;
-	int			champion_count;
-	t_champion	champions[MAX_PLAYERS];
+	int				dump_cycles;
+	int				champion_count;
+	unsigned char	memory[MEM_SIZE];
+	t_champion		champions[MAX_PLAYERS];
 }				t_info;
 
 /* VM functions */
@@ -99,8 +104,12 @@ int				set_player_id(int *id, t_champion ch_list[]);
 
 unsigned int	big_endian_converter(unsigned char *bytes, int size);
 
+void			check_champions(t_champion ch_list[], int ch_count);
+void			deploy_champions(unsigned char memory[],
+					t_champion ch_list[], int count);
 void			error_handler(char *message, char *arg1,
 					unsigned int arg2, unsigned int arg3);
+void			execute_cycles(t_info *info);
 void			parse_champion(t_info *info, char *file, int *id);
 void			print_usage(char *usage);
 void			save_champion(int fd, t_champion *champion, char *file);
