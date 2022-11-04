@@ -58,8 +58,8 @@ dkms.conf
 *.swp
 *.sw*
 *.o
+*.cor
 *test
 .vscode/
-resources/
 vm/corewar
 vm/test_files/temp_files
