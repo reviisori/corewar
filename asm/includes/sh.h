@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:49:05 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/28 13:49:20 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/04 12:55:05 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 typedef struct s_sh
 {
 	t_header	header;
-	t_src		*src;
+	t_hashmap	operations;
 }				t_sh;
 
 #endif
