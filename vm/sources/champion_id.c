@@ -38,7 +38,7 @@ static void	organize_players(t_champion ch_list[], int index, int *taken_ids)
 	{
 		if (!taken_ids[j])
 		{
-			if (target > 0 && target != j)
+			if (ch_list[j].id && (target > 0 && target != j))
 			{
 				ft_memcpy(&ch_list[target], &ch_list[j], sizeof(t_champion));
 				ch_list[target].id = target + 1;
