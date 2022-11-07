@@ -20,8 +20,10 @@ static void	save_code(int fd, t_champion *champion, char *file)
 	ret = read(fd, champion->code, CHAMP_MAX_SIZE);
 	if (ret == -1)
 		error_handler(READ_PREFIX, strerror(errno), 0, 0);
-	if ((unsigned int)ret != champion->code_size)
+	if (ret < CHAMP_MAX_SIZE && (unsigned int)ret != champion->code_size)
 		error_handler(CODE_SIZE_DIFF, file, 0, 0);
+	if (champion->code_size > CHAMP_MAX_SIZE)
+		error_handler(CHAMP_TOO_BIG, file, champion->code_size, CHAMP_MAX_SIZE);
 	if (read(fd, check, 1) > 0)
 		error_handler(CODE_SIZE_DIFF, file, 0, 0);
 }
@@ -36,7 +38,7 @@ static void	save_comment(int fd, t_champion *champion)
 		error_handler(READ_PREFIX, strerror(errno), 0, 0);
 }
 
-static void	save_code_size(int fd, t_champion *champion, char *file)
+static void	save_code_size(int fd, t_champion *champion)
 {
 	unsigned char	buf[CODE_SIZE];
 	unsigned int	size;
@@ -44,8 +46,6 @@ static void	save_code_size(int fd, t_champion *champion, char *file)
 	if (read(fd, buf, CODE_SIZE) == -1)
 		error_handler(READ_PREFIX, strerror(errno), 0, 0);
 	size = big_endian_converter(buf, CODE_SIZE);
-	if (size > CHAMP_MAX_SIZE)
-		error_handler(CHAMP_TOO_BIG, file, size, CHAMP_MAX_SIZE);
 	champion->code_size = size;
 }
 
@@ -62,7 +62,7 @@ static void	save_name(int fd, t_champion *champion)
 void	save_champion(int fd, t_champion *champion, char *file)
 {
 	save_name(fd, champion);
-	save_code_size(fd, champion, file);
+	save_code_size(fd, champion);
 	save_comment(fd, champion);
 	save_code(fd, champion, file);
 }

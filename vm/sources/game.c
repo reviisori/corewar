@@ -140,11 +140,31 @@ void	init_pregame_cars(t_info *info)
 
 void	init_vars(t_info *info)
 {
-	info->cycle = 1;// or 0?
+	info->cycle = 0;//or 1?
 	info->cycles_to_die = CYCLE_TO_DIE;
 	info->next_check_cycle = CYCLE_TO_DIE;
 	info->lives_this_cycle = 0;
 	info->checks_after_mod = 0;
+}
+
+static void    print_memory(unsigned char memory[])
+{
+    int                i;
+    int                line_len;
+    unsigned int    line_count;
+
+    line_len = 64;
+    line_count = 0;
+    i = -1;
+    while (++i < MEM_SIZE)
+    {
+        if (i % line_len == 0)
+            ft_printf("0x%04x : ", line_len * line_count++);
+        ft_printf("%02x ", memory[i]);
+        if ((i + 1) % line_len == 0)
+            ft_putchar('\n');
+    }
+    exit(0);
 }
 
 int	run_game(t_info *info)
@@ -158,8 +178,8 @@ int	run_game(t_info *info)
 		run_all_cars(info);
 		if (info->cycle == info->next_check_cycle || info->cycles_to_die < 1)
 			check_aliveness(info);
-/* 		if (info->cycle == info->dump_cycles)
-			return (dump()); */
+		if ((int)info->cycle == info->dump_cycles)
+			print_memory(info->memory);
 		info->cycle++;
 	}
 }
