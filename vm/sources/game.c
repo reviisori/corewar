@@ -54,10 +54,20 @@ void	check_aliveness(t_info *info)
 	car = info->liststart;
 	while (car)
 	{
-		if (info->cycle - info->cycle_to_die >= car->last_live)
+		if (info->cycles_to_die < 1
+			|| info->cycle - info->cycles_to_die >= car->last_live)
 			car->alive = 0;
 		car = car->next;
 	}
+	info->checks_after_mod++;
+	if (info->lives_this_cycle >= NBR_LIVE
+		|| info->checks_after_mod >= MAX_CHECKS)
+	{
+		info->cycles_to_die -= CYCLE_DELTA;
+		info->next_check_cycle = info->cycle + info->cycles_to_die;
+		info->checks_after_mod = 0;
+	}
+	info->lives_this_cycle = 0;
 }
 
 void	copy_parent_reg(t_car *dest, t_car *parent)
@@ -82,7 +92,8 @@ void	init_car(t_car *car, t_info *info, t_car *parent, int forkjump)
 	if (!parent)
 	{
 		car->reg[1] = MAX_UINT - car->index + 1;
-		car->pc = ((MEM_SIZE / info->champion_count) * (info->champion_count - car->index)) % MEM_SIZE;
+		car->pc = ((MEM_SIZE / info->champion_count)
+				* (info->champion_count - car->index)) % MEM_SIZE;
 	}
 	else
 	{
@@ -115,7 +126,7 @@ void	init_pregame_cars(t_info *info)
 {
 	int		players;
 
-	if (info->champion_count < 1 || info->champion_count > MAX_PLAYERS)//redundant
+	if (info->champion_count < 1 || info->champion_count > MAX_PLAYERS)
 		error_kill("champion amount ");//redundant
 	players = info->champion_count;
 	info->liststart = NULL;
@@ -129,24 +140,25 @@ void	init_pregame_cars(t_info *info)
 void	init_vars(t_info *info)
 {
 	info->cycle = 1;// or 0?
-	info->cycle_to_die = CYCLE_TO_DIE;
+	info->cycles_to_die = CYCLE_TO_DIE;
 	info->next_check_cycle = CYCLE_TO_DIE;
+	info->lives_this_cycle = 0;
+	info->checks_after_mod = 0;
 }
 
 int	run_game(t_info *info)
 {
 	init_vars(info);
 	init_pregame_cars(info);//allocate + initialize
-	while (1)// one cycle
+	while (1) // one cycle
 	{
 		if (no_cars_alive(info))
 			return (declare_winner(info));
 		run_all_cars(info);
-		if (info->cycle == info->next_check_cycle || info->cycle_to_die < 1)
+		if (info->cycle == info->next_check_cycle || info->cycles_to_die < 1)
 			check_aliveness(info);
 /* 		if (info->cycle == info->dump_cycles)
 			return (dump()); */
 		info->cycle++;
 	}
-
 }
