@@ -80,12 +80,14 @@ static const t_jump_opts	g_jump_table[OPTION_COUNT] = {
 /* Struct for champion information */
 typedef struct s_champion
 {
-	int				id;
-	unsigned char	name[PROG_NAME_LENGTH + 1];
-	unsigned char	comment[COMMENT_LENGTH + 1];
-	unsigned int	code_size;
-	unsigned char	code[CHAMP_MAX_SIZE];
-	unsigned int	last_live;//needs to be init to 0;
+	int					id;
+	unsigned char		name[PROG_NAME_LENGTH + 1];
+	unsigned char		comment[COMMENT_LENGTH + 1];
+	unsigned int		code_size;
+	unsigned char		code[CHAMP_MAX_SIZE];
+
+	unsigned int		last_live;//needs to be init to 0;
+	struct s_champion	*next;//or another way to find them
 }					t_champion;
 
 /* Carriage i.e. the offset that "plays the game", moving around memory
@@ -115,8 +117,10 @@ typedef struct s_info
 
 	unsigned int 	cycle;
 	unsigned int 	next_check_cycle;
-	unsigned int 	cycle_to_die;
+	int 			cycles_to_die;
 	t_car			*liststart;
+	unsigned int	lives_this_cycle;//live _statements_
+	unsigned int	checks_after_mod;
 }				t_info;
 
 /* VM functions */

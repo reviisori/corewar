@@ -38,6 +38,7 @@ int	declare_winner(t_info *info)
 {
 	info++;
 	info--;
+	ft_printf("Last cycle: %u", info->cycle);//
 	return (1);
 }
 
