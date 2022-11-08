@@ -62,6 +62,11 @@ differs from what its header says"
 # define CODE_SIZE 4		/* sizeof(unsigned int) */
 # define NULL_TERM 4		/* the size of null terminators in .cor files */
 
+/* Statement description macros */
+# define ARG_COUNT 0
+# define WAIT_TIME 1
+# define OP_DIR 2
+
 /* General macros */
 # define BITS_IN_BYTE 8
 # define CRUMBS_IN_BYTE 4
@@ -81,6 +86,35 @@ typedef int					(*t_jump_opts)(t_options *, char *);
 static const t_jump_opts	g_jump_table[OPTION_COUNT] = {
 	set_dump,
 	set_player_number
+};
+
+/* 0 = number of arguments
+1 = wait time*/
+static const unsigned int	g_op[17][3] = 
+{
+	{0, 0, 0}, {1, 10, 4}, {2, 5, 4}, {2, 5, 4}, {3, 10, 4}, {3, 10, 4}, {3, 6, 4}, {3, 6, 4}, {3, 6, 4},
+	{1, 20, 2}, {3, 25, 2}, {3, 25, 2}, {1, 800, 2}, {2, 10, 4}, {3, 50, 2}, {1, 1000, 2}, {1, 2, 4}
+};
+
+static const unsigned char	g_arg_types[17][4] = 
+{
+	{0, 0, 0, 0},
+	{T_DIR, 0, 0, 0},
+	{T_DIR | T_IND, T_REG, 0, 0},
+	{T_REG, T_IND | T_REG, 0, 0},
+	{T_REG, T_REG, T_REG, 0},
+	{T_REG, T_REG, T_REG, 0},
+	{T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG, 0},
+	{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG, 0}, 
+	{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG, 0},
+	{T_DIR, 0, 0, 0}, 
+	{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG, 0}, 
+	{T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG, 0}, 
+	{T_DIR, 0, 0, 0},
+	{T_DIR | T_IND, T_REG, 0, 0},
+	{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG, 0},
+	{T_DIR, 0, 0, 0},
+	{T_REG, 0, 0, 0}
 };
 
 /* Struct for champion information */
@@ -125,7 +159,7 @@ typedef struct s_info
 	unsigned int 	next_check_cycle;
 	int 			cycles_to_die;
 	t_car			*liststart;
-	unsigned int	lives_this_cycle;//live _statements_
+	unsigned int	lives_this_check;//live _statements_
 	unsigned int	checks_after_mod;
 }				t_info;
 
