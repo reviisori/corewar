@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:02:35 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/03 16:29:26 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/04 17:26:04 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,3 @@ void	panic_lex(const char *msg, size_t row, size_t col)
 		ft_dprintf(2, "call panic_syntax() maybe\n");
 	exit(EXIT_FAILURE);
 }
-
-

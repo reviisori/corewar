@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:12:50 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/04 15:58:08 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/04 17:12:27 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ void	init_source(t_src *s)
 	s->next = NULL;
 }
 
-static void optab_init(t_hashmap *ops)
+static void	optab_init(t_hashmap *ops)
 {
 	size_t	i;
-
 
 	if (hash_new(ops, 32) < 0)
 		panic("Couldn't initialize hashmap.");
