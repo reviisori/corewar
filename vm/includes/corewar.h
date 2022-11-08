@@ -16,6 +16,7 @@
 /* Headers for libraries and preprocessor macros */
 # include "libft.h"
 # include "op.h"
+# include "operations.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>
@@ -63,6 +64,7 @@ differs from what its header says"
 
 /* General macros */
 # define BITS_IN_BYTE 8
+# define CRUMBS_IN_BYTE 4
 # define MAX_UINT 0xFFFFFFFF
 
 typedef struct s_options
@@ -130,6 +132,8 @@ typedef struct s_info
 /* VM functions */
 int				read_arguments(int argc, char **argv, t_info *info);
 int				set_player_id(int *id, t_champion ch_list[]);
+
+unsigned char	get_crumb(unsigned char c_byte, int c_number);
 
 unsigned int	big_endian_converter(unsigned char *bytes, int size);
 
