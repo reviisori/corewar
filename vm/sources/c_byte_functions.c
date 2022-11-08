@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "operations.h"
 
 #define RIGHTMOST_TWO_BITS 0x03
 

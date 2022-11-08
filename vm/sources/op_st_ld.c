@@ -35,6 +35,6 @@ void	op_st(t_info *info, t_car *car)
 		car->reg[arg2] = car->reg[arg1];
 		return ;
 	}
-	arg2 = info->memory[(car->pc + 3) % MEM_SIZE] << 2 + \
+	arg2 = (info->memory[(car->pc + 3) % MEM_SIZE] << 2) + \
 		info->memory[(car->pc + 4) % MEM_SIZE];
 }

@@ -16,7 +16,6 @@
 /* Headers for libraries and preprocessor macros */
 # include "libft.h"
 # include "op.h"
-# include "operations.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>

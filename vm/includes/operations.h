@@ -18,12 +18,12 @@
 /* Operation macros */
 # define OP_COUNT 1
 
+void	op_st(t_info *info, t_car *car);
+
 typedef void				(*t_operations)(t_info *, t_car *);
 
 static const t_operations	g_op_jump_table[OP_COUNT] = {
 	op_st
 };
-
-void	op_st(t_info *info, t_car *car);
 
 #endif
