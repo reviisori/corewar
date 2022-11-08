@@ -16,7 +16,7 @@ CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address #-Wpedantic -Wunused -Wco
 SRC_FILES	= main.c arguments.c error.c options_champion.c 			\
 			  options_text_op.c parse_champion.c champion_id.c			\
 			  save_champion.c big_endian_convert.c check_champions.c	\
-			  game.c deploy.c
+			  game.c deploy.c op_st_ld.c c_byte_functions.c
 SRCS_DIR	= ./sources/
 SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS_DIR	= ./objects/

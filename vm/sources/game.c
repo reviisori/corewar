@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "operations.h"
 
 void	error_kill(char *reason)
 {
@@ -18,6 +19,40 @@ void	error_kill(char *reason)
 		write(2, reason, ft_strlen(reason));
 	write(2, "error\n", 6);
 	exit(0);
+}
+
+int	calculate_jump(unsigned char c_byte, unsigned char op)
+{
+	unsigned char	store;
+	int				i;
+	int				sum;
+
+ 	if (op < 1 || op > 0x10)
+		return (1);
+	i = 3;
+	sum = 0;
+	store = c_byte;
+	while (i >= 0)
+	{
+		c_byte = store;
+		c_byte = c_byte >> (2 * i);
+		if (!g_arg_types[op][CRUMBS_IN_BYTE - i - 1])
+			break;
+		if ((g_arg_types[op][CRUMBS_IN_BYTE - i - 1] & c_byte) != 0)
+		{
+			if (c_byte == DIR_CODE)
+				sum += g_op[op][OP_DIR];
+			else if (c_byte == IND_CODE)
+				sum += IND_SIZE;
+			else
+				sum += c_byte;
+			store -= c_byte << (2 * i);
+		}
+		else
+			return (1);
+		i--;
+	}
+	return (sum + 2);
 }
 
 int	no_cars_alive(t_info *info)
@@ -38,14 +73,61 @@ int	declare_winner(t_info *info)
 {
 	info++;
 	info--;
-	ft_printf("Last cycle: %u", info->cycle);//
+	//ft_printf("Last cycle: %u", info->cycle);//
 	return (1);
+}
+
+int	jump_and_refresh(t_car *car, t_info *info)
+{
+	car->pc = (car->pc + car->jump) % MEM_SIZE;
+	car->op = info->memory[car->pc];
+	if (car->op < 1 || car->op > 0x10)
+		return (0);
+	car->wait = g_op[car->op][WAIT_TIME];
+	return (1);
+}
+
+void	execute_op(t_car *car, t_info *info)
+{
+	if (car->op > 0 && car->op < 0x11)
+	{
+		if (car->op == 0x01)
+			car->jump = g_op[0x01][WAIT_TIME] * 4;//
+		else
+		{
+			car->jump = calculate_jump(info->memory[(car->pc + 1) % MEM_SIZE], car->op);
+			//run op[op]
+			g_op_jump_table[0](info, car);//temp for the only operation st
+		}
+	}
+	else
+		car->jump = 1;
+	ft_printf("\nCycle %i, car %u ran the operation %x\n", info->cycle, car->index, car->op);//
+	ft_printf("Its PC is %u, and jump %i.\n", car->pc, car->jump);//
 }
 
 void	run_all_cars(t_info *info)
 {
-	info++;
-	info--;
+	t_car	*car;
+	int		flag;//kinda redundant, for the theoretical case of some op having wait time 1
+
+	car = info->liststart;
+	while (car)
+	{
+		if (!car->alive)
+		{
+			car = car->next;
+			continue ;
+		}
+		flag = 1;
+		if (car->wait == 0)
+			flag = jump_and_refresh(car, info);
+		if (flag)
+			car->wait--;
+		if (car->wait == 0)
+			execute_op(car, info);//
+		car = car->next;
+	}
 }
 
 void	check_aliveness(t_info *info)
@@ -61,14 +143,14 @@ void	check_aliveness(t_info *info)
 		car = car->next;
 	}
 	info->checks_after_mod++;
-	if (info->lives_this_cycle >= NBR_LIVE
+	if (info->lives_this_check >= NBR_LIVE
 		|| info->checks_after_mod >= MAX_CHECKS)
 	{
 		info->cycles_to_die -= CYCLE_DELTA;
 		info->next_check_cycle = info->cycle + info->cycles_to_die;
 		info->checks_after_mod = 0;
 	}
-	info->lives_this_cycle = 0;
+	info->lives_this_check = 0;
 }
 
 void	copy_parent_reg(t_car *dest, t_car *parent)
@@ -94,7 +176,7 @@ void	init_car(t_car *car, t_info *info, t_car *parent, int forkjump)
 	{
 		car->reg[1] = MAX_UINT - car->index + 1;
 		car->pc = ((MEM_SIZE / info->champion_count)
-				* (info->champion_count - car->index)) % MEM_SIZE;
+				* (car->index - 1)) % MEM_SIZE;
 	}
 	else
 	{
@@ -103,11 +185,11 @@ void	init_car(t_car *car, t_info *info, t_car *parent, int forkjump)
 	}
 	car->carry = 0;
 	car->op = info->memory[car->pc];
-	car->last_live = 0;
-/* 	if (car->op > 0 && car->op < 0x11) *///needs to get these from the table
-		car->wait = 0;//temp
-/* 	if (car->op > 0 && car->op < 0x11) *///needs to get these from the table
-		car->jump = 1;//temp 
+	car->last_live = 0;//check if gets this from parent or not
+	car->wait = 0;
+	car->jump = 0;
+ 	if (car->op > 0 && car->op < 0x11)
+		car->wait = g_op[car->op][WAIT_TIME];
 	car->alive = 1;
 }
 
@@ -127,8 +209,6 @@ void	init_pregame_cars(t_info *info)
 {
 	int		players;
 
-	if (info->champion_count < 1 || info->champion_count > MAX_PLAYERS)
-		error_kill("champion amount ");//redundant
 	players = info->champion_count;
 	info->liststart = NULL;
 	while (players > 0)
@@ -140,10 +220,10 @@ void	init_pregame_cars(t_info *info)
 
 void	init_vars(t_info *info)
 {
-	info->cycle = 0;//or 1?
+	info->cycle = 1;//or 0?
 	info->cycles_to_die = CYCLE_TO_DIE;
 	info->next_check_cycle = CYCLE_TO_DIE;
-	info->lives_this_cycle = 0;
+	info->lives_this_check = 0;
 	info->checks_after_mod = 0;
 }
 
@@ -171,6 +251,8 @@ int	run_game(t_info *info)
 {
 	init_vars(info);
 	init_pregame_cars(info);//allocate + initialize
+	if (!info->dump_cycles)
+		print_memory(info->memory);
 	while (1) // one cycle
 	{
 		if (no_cars_alive(info))
