@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 16:33:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/04 16:06:19 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/08 12:27:57 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	panic_lex(const char *msg, size_t row, size_t col);
 void	lex_tokenization(t_sh *d, t_src *s, t_token *t);
 void	lex_endof(t_src *s, t_token *t);
 void	lex_comment(t_src *s, t_token *t);
-void	lex_header(t_src *s, t_token *t);
+void	lex_header(t_sh *d, t_src *s, t_token *t);
 void	lex_command(t_sh *d, t_src *s, t_token *t);
 
 bool	is_label_chars(int c);
