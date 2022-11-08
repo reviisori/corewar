@@ -24,7 +24,7 @@ void	op_st(t_info *info, t_car *car)
 	arg1 = info->memory[(car->pc + 2) % MEM_SIZE];
 	if (arg1 > 0x10 || !arg1)
 		return ;
-	arg_type = get_crumb(info->memory[(car->pc + 1) & MEM_SIZE], 2);
+	arg_type = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2);
 	if (arg_type != REG_CODE && arg_type != IND_CODE)
 		return ;
 	if (arg_type == REG_CODE)
@@ -37,4 +37,5 @@ void	op_st(t_info *info, t_car *car)
 	}
 	arg2 = (info->memory[(car->pc + 3) % MEM_SIZE] << 2) + \
 		info->memory[(car->pc + 4) % MEM_SIZE];
+	ft_memcpy(&info->memory[(car->pc + arg2) % MEM_SIZE], &car->reg[arg1], REG_SIZE);
 }

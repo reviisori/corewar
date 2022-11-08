@@ -102,8 +102,8 @@ void	execute_op(t_car *car, t_info *info)
 	}
 	else
 		car->jump = 1;
-	ft_printf("\nCycle %i, car %u ran the operation %x\n", info->cycle, car->index, car->op);//
-	ft_printf("Its PC is %u, and jump %i.\n", car->pc, car->jump);//
+/* 	ft_printf("\nCycle %i, car %u ran the operation %x\n", info->cycle, car->index, car->op);//
+	ft_printf("Its PC is %u, and jump %i.\n", car->pc, car->jump);// */
 }
 
 void	run_all_cars(t_info *info)
