@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "operations.h"
 
 void	error_kill(char *reason)
 {
@@ -96,12 +97,13 @@ void	execute_op(t_car *car, t_info *info)
 		{
 			car->jump = calculate_jump(info->memory[(car->pc + 1) % MEM_SIZE], car->op);
 			//run op[op]
+			g_op_jump_table[0](info, car);//temp for the only operation st
 		}
 	}
 	else
 		car->jump = 1;
-	ft_printf("\nCycle %i, car %u ran the operation %x\n", info->cycle, car->index, car->op);//
-	ft_printf("Its PC is %u, and jump %i.\n", car->pc, car->jump);//
+/* 	ft_printf("\nCycle %i, car %u ran the operation %x\n", info->cycle, car->index, car->op);//
+	ft_printf("Its PC is %u, and jump %i.\n", car->pc, car->jump);// */
 }
 
 void	run_all_cars(t_info *info)

@@ -170,6 +170,8 @@ typedef struct s_info
 int				read_arguments(int argc, char **argv, t_info *info);
 int				set_player_id(int *id, t_champion ch_list[]);
 
+unsigned char	get_crumb(unsigned char c_byte, int c_number);
+
 unsigned int	big_endian_converter(unsigned char *bytes, int size);
 
 void			check_champions(t_champion ch_list[], int ch_count);
