@@ -18,13 +18,16 @@ void	op_add(t_info *info, t_car *car)
 	unsigned int	sum;
 
 	ft_bzero(args, sizeof(args));
-	if (get_crumb(info->memory[(car->pc + 1) & MEM_SIZE], 1) != REG_CODE
-		|| get_crumb(info->memory[(car->pc + 1) & MEM_SIZE], 2) != REG_CODE
-		|| get_crumb(info->memory[(car->pc + 1) & MEM_SIZE], 3) != REG_CODE)
+	if (get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1) != REG_CODE
+		|| get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2) != REG_CODE
+		|| get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 3) != REG_CODE)
 		return ;
-	args[0] = info->memory[(car->pc + 2) & MEM_SIZE];
-	args[1] = info->memory[(car->pc + 3) & MEM_SIZE];
-	args[2] = info->memory[(car->pc + 4) & MEM_SIZE];
+	//args[0] = info->memory[(car->pc + 2) % MEM_SIZE];
+	//args[1] = info->memory[(car->pc + 3) % MEM_SIZE];
+	//args[2] = info->memory[(car->pc + 4) % MEM_SIZE];
+	args[0] = get_argument(info, 1, car);
+	args[1] = get_argument(info, 2, car);
+	args[2] = get_argument(info, 3, car);
 	if ((args[0] > REG_NUMBER || !args[0])
 		|| (args[1] > REG_NUMBER || !args[1])
 		|| (args[2] > REG_NUMBER || !args[2]))
