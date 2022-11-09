@@ -27,6 +27,8 @@ unsigned char	get_crumb(unsigned char c_byte, int c_number)
 unsigned int	get_argument(t_info *info, unsigned char n, t_car *car)
 {
 	unsigned char	arg_type;
+	unsigned int	sum;
+	int				i;
 
 	if (n < 1 || n > 4 || (n > 1 && !g_op[car->op][C_BYTE]))
 		error_kill("invalid argument count ");//shouldn't ever ever ever happen
@@ -40,6 +42,18 @@ unsigned int	get_argument(t_info *info, unsigned char n, t_car *car)
 		return ((info->memory[(car->pc + 1) % MEM_SIZE] << 2) 
 			+ (info->memory[(car->pc + 2) % MEM_SIZE]));
 	}
-	return (0);
-	//arg_type = get_crumb(info->memory[car->pc + ])
+	i = 1;
+	sum = 0;
+	while (i < n)
+	{
+		arg_type = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], i);
+		if (arg_type == DIR_CODE)
+			sum += g_op[car->op][OP_DIR];
+		else if (arg_type == IND_CODE)
+			sum += IND_SIZE;
+		else
+			sum += 1;
+		i++;
+	}
+	arg_type = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], n);
 }
