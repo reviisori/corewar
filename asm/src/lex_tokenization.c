@@ -6,34 +6,34 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:11:12 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/08 13:15:28 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/09 17:04:01 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static bool ft_isupper(int c)
+static int	ft_isupper(int c)
 {
 	if (c >= 'A' && c <= 'Z')
-		return (true);
-	return (false);
+		return (1);
+	return (0);
 }
 
 void	lex_tokenization(t_sh *d, t_src *s, t_token *t)
 {
-	char	*target;
+	char	*p;
 
-	target = (char *)&s->buf.data[s->index];
-	if (ft_isupper(*target))
+	p = (char *)&s->buf.data[s->index];
+	if (ft_isupper(*p))
 		panic_lex(NULL, s->row, s->col);
-	if (*target == '\n' || *target == '\0')
+	if (*p == '\n' || *p == '\0')
 		lex_endof(s, t);
-	else if (*target == '#' || *target == ';')
+	else if (*p == '#' || *p == ';')
 		lex_comment(s, t);
-	else if (*target == '.')
+	else if (*p == '.')
 		lex_header(d, s, t);
-	else if (is_label_chars(*target) && !is_register(s))
+	else if (is_label_chars(*p) && !is_register(s))
 		lex_command(d, s, t); //name hello?
-	//else if (is_label_char (*target) || *target == DIRECT_CHAR);
-	//	lex_argument(s, t);
+	else if (is_label_chars(*p) || *p == DIRECT_CHAR || *p == '-')
+		lex_argument(d, s, t);
 }
