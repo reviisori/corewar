@@ -38,7 +38,7 @@ unsigned int	get_argument(t_info *info, unsigned char n, t_car *car)
 				+ (info->memory[(car->pc + 3) % MEM_SIZE] << 2)
 				+ (info->memory[(car->pc + 4) % MEM_SIZE]));
 		return ((info->memory[(car->pc + 1) % MEM_SIZE] << 2) 
-			+ (info->memory[(car->pc + 2) % MEM_SIZE]);
+			+ (info->memory[(car->pc + 2) % MEM_SIZE]));
 	}
 	return (0);
 	//arg_type = get_crumb(info->memory[car->pc + ])
