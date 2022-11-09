@@ -97,7 +97,7 @@ void	execute_op(t_car *car, t_info *info)
 		{
 			car->jump = calculate_jump(info->memory[(car->pc + 1) % MEM_SIZE], car->op);
 			//run op[op]
-			g_op_jump_table[0](info, car);//temp for the only operation st
+			g_op_jump_table[car->op](info, car);
 		}
 	}
 	else
