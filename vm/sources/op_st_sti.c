@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_st_ld.c                                         :+:      :+:    :+:   */
+/*   op_st_sti.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 12:45:54 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/11/08 12:45:55 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/11/09 12:07:23 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/11/09 12:07:25 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ void	op_st(t_info *info, t_car *car)
 	arg2 = (info->memory[(car->pc + 3) % MEM_SIZE] << 2) + \
 		info->memory[(car->pc + 4) % MEM_SIZE];
 	ft_memcpy(&info->memory[(car->pc + arg2) % MEM_SIZE], &car->reg[arg1], REG_SIZE);
+}
+
+void	op_sti(t_info *info, t_car *car)
+{
+	(void)info;
+	(void)car;
 }
