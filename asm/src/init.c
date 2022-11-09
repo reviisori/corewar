@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:12:50 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/04 17:12:27 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/09 17:14:37 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_source(t_src *s)
 	s->next = NULL;
 }
 
-static void	optab_init(t_hashmap *ops)
+static void	init_optab(t_hashmap *ops)
 {
 	size_t	i;
 
@@ -56,5 +56,8 @@ void	init_handler(t_sh *d)
 	ft_bzero(&d->header, sizeof(&d->header));
 	d->header.magic = COREWAR_EXEC_MAGIC;
 	d->header.prog_size = 0;
-	optab_init(&d->operations);
+	if (ft_vecnew(&d->code, 1, sizeof(t_statement)) < 0)
+		panic("Couldn't initialize exec code.");
+	init_optab(&d->ops);
+	d->byte = 0;
 }
