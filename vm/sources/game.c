@@ -40,12 +40,7 @@ int	calculate_jump(unsigned char c_byte, unsigned char op)
 			break;
 		if ((g_arg_types[op][CRUMBS_IN_BYTE - i - 1] & c_byte) != 0)
 		{
-			if (c_byte == DIR_CODE)
-				sum += g_op[op][OP_DIR];
-			else if (c_byte == IND_CODE)
-				sum += IND_SIZE;
-			else
-				sum += c_byte;
+			sum += cast_arg_type_to_bytes(c_byte, op);
 			store -= c_byte << (2 * i);
 		}
 		else
