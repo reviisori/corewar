@@ -187,6 +187,7 @@ void			usage_exit(void);
 void			error_kill(char *reason);
 
 /* VM tools */
+unsigned int	get_argument(t_info *info, unsigned char n, t_car *car);
 unsigned int	cast_arg_type_to_bytes(unsigned char arg_type, unsigned char op);
 
 /* Game functions */
