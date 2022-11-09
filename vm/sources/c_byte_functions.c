@@ -48,7 +48,7 @@ static unsigned int	get_argument_wo_cbyte(t_info *info, unsigned char n, t_car *
 
 unsigned int	cat_n_bytes(unsigned char *offset, unsigned int bytes)
 {
-	int				i;
+	unsigned int	i;
 	unsigned int	sum;
 	unsigned char 	*c;
 
