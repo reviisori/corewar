@@ -51,7 +51,7 @@ int	calculate_jump(unsigned char c_byte, unsigned char op)
 			return (1);
 		i--;
 	}
-	return (sum + 2);
+	return (sum + 1 + g_op[op][C_BYTE]);
 }
 
 int	no_cars_alive(t_info *info)

@@ -65,6 +65,7 @@ differs from what its header says"
 # define ARG_COUNT 0
 # define WAIT_TIME 1
 # define OP_DIR 2
+# define C_BYTE 3
 
 /* General macros */
 # define BITS_IN_BYTE 8
@@ -89,10 +90,13 @@ static const t_jump_opts	g_jump_table[OPTION_COUNT] = {
 
 /* 0 = number of arguments
 1 = wait time*/
-static const unsigned int	g_op[17][3] = 
+static const unsigned int	g_op[17][4] = 
 {
-	{0, 0, 0}, {1, 10, 4}, {2, 5, 4}, {2, 5, 4}, {3, 10, 4}, {3, 10, 4}, {3, 6, 4}, {3, 6, 4}, {3, 6, 4},
-	{1, 20, 2}, {3, 25, 2}, {3, 25, 2}, {1, 800, 2}, {2, 10, 4}, {3, 50, 2}, {1, 1000, 2}, {1, 2, 4}
+	{0, 0, 0, 0},
+	{1, 10, 4, 0}, {2, 5, 4, 1}, {2, 5, 4, 1},{3, 10, 4, 1},
+	{3, 10, 4, 1}, {3, 6, 4, 1}, {3, 6, 4, 1}, {3, 6, 4, 1},
+	{1, 20, 2, 0}, {3, 25, 2, 1}, {3, 25, 2, 1}, {1, 800, 2, 0},
+	{2, 10, 4, 1}, {3, 50, 2, 1}, {1, 1000, 2}, {1, 2, 4, 1}
 };
 
 static const unsigned char	g_arg_types[17][4] = 
