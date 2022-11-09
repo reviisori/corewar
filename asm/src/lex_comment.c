@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 12:21:12 by atenhune          #+#    #+#             */
-/*   Updated: 2022/10/31 14:30:40 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/02 18:09:36 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	lex_comment(t_src *s, t_token *t)
 {
-	char *p;
+	char	*p;
 
 	p = ft_strchr(&s->buf.data[s->index], '\n');
 	if (!p)

@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:30:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/28 18:29:25 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/09 14:43:31 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 # include "libft.h"
 # include "op.h"
+# include "optab.h"
 # include "source.h"
 # include "sh.h"
 # include "parse.h"
 # include "symtypes.h"
+# include "label.h"
 # include "lex.h"
 
 # define ASM_USAGE "\nusage: ./asm [-WIP] <file.s>\n\
