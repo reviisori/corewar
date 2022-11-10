@@ -107,7 +107,7 @@ void	op_ldi(t_info *info, t_car *car)
 		value += car->reg[get_argument(info, 2, car)];
 	else if (arg_type2 == DIR_CODE)
 		value += get_argument(info, 2, car);
-	car->reg[reg] = cat_n_bytes(info->memory[(car->pc + value) % IDX_MOD], 4);
+	car->reg[reg] = cat_n_bytes(&info->memory[(car->pc + value) % IDX_MOD], 4);
 }
 
 void	op_lldi(t_info *info, t_car *car)
@@ -134,5 +134,5 @@ void	op_lldi(t_info *info, t_car *car)
 		value += car->reg[get_argument(info, 2, car)];
 	else if (arg_type2 == DIR_CODE)
 		value += get_argument(info, 2, car);
-	car->reg[reg] = cat_n_bytes(info->memory[car->pc + value], 4);
+	car->reg[reg] = cat_n_bytes(&info->memory[car->pc + value], 4);
 }
