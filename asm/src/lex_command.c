@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/10 15:08:16 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:03:03 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 	{
 		t->symbol = la_label;
 		t->is_label = true;
-		//add to hashmap
 		p = ft_strchr(&s->buf.data[s->index], LABEL_CHAR);
 		ofs = p - (char *)&s->buf.data[s->index] + 1;
 		ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
+		//
 		s->index += ofs;
 		s->col += ofs;
 	}
