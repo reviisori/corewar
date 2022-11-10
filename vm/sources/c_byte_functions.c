@@ -37,7 +37,7 @@ static unsigned int	get_argument_wo_cbyte(t_info *info, unsigned char n, t_car *
 {
 	if (n != 1)
 		error_kill("invalid argument count ");//shouldn't ever ever ever happen
-	if(car->op == 0x01)
+	if (car->op == 0x01)
 		return ((info->memory[(car->pc + 1) % MEM_SIZE] << 24) 
 			+ (info->memory[(car->pc + 2) % MEM_SIZE] << 16)
 			+ (info->memory[(car->pc + 3) % MEM_SIZE] << 8)
