@@ -31,7 +31,10 @@ void	op_add(t_info *info, t_car *car)
 		return ;
 	sum = car->reg[args[0]] + car->reg[args[1]];
 	car->reg[args[2]] = sum;
-	car->carry = 1;
+	if (!sum)
+		car->carry = 1;
+	else
+		car->carry = 0;
 }
 
 void	op_sub(t_info *info, t_car *car)
@@ -53,5 +56,8 @@ void	op_sub(t_info *info, t_car *car)
 		return ;
 	sub = car->reg[args[0]] - car->reg[args[1]];
 	car->reg[args[2]] = sub;
-	car->carry = 1;
+	if (!sub)
+		car->carry = 1;
+	else
+		car->carry = 0;
 }
