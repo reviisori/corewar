@@ -14,8 +14,8 @@
 
 void	op_zjmp(t_info *info, t_car *car)
 {
-	(void)info;
-	(void)car;
+	if (car->carry)
+		car->pc = (get_argument(info, 1, car) % IDX_MOD);
 }
 
 void	op_fork(t_info *info, t_car *car)
