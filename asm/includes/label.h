@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   label.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:12:18 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/09 14:58:36 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/10 15:03:21 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 
 typedef struct s_undeflab
 {
-	u_int32_t			op;
-	int					arg;
+	u_int32_t			stmt;
+	u_int8_t			arg;
 	u_int32_t			loc;
 	struct s_undeflab	*next;
 }						t_undeflab;
 
 typedef struct s_label
 {
-	u_int32_t			op;
-	bool				declared;
-	int					value;
+	bool				declared; //
+	int					value; // 
 	struct s_undeflab	*head;
 }						t_label;
 
