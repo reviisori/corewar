@@ -12,6 +12,27 @@
 
 #include "operations.h"
 
+int	ldi_arg_validity(t_info *info, t_car *car)
+{
+	unsigned char	arg_type1;
+	unsigned char	arg_type2;
+	unsigned int	reg;
+
+	arg_type1 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
+	arg_type2 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2);
+	reg = get_argument(info, 3, car);
+	if (!arg_type1 || (arg_type2 != DIR_CODE && arg_type2 != REG_CODE)
+		|| get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 3) != REG_CODE
+		|| reg < 0x01 || reg > 0x10 || (arg_type1 == REG_CODE
+			&& (get_argument(info, 1, car) < 0x01
+				|| get_argument(info, 1, car) > 0x10))
+		|| (arg_type2 == REG_CODE
+			&& (get_argument(info, 2, car) < 0x01
+				|| get_argument(info, 2, car) > 0x10)))
+		return (0);
+	return (1);
+}
+
 void	op_ld(t_info *info, t_car *car)
 {
 	unsigned char	arg_type1;
@@ -20,15 +41,15 @@ void	op_ld(t_info *info, t_car *car)
 
 	arg_type1 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
 	reg = get_argument(info, 2, car);
-	if ((arg_type1 != DIR_CODE && arg_type1 != IND_CODE) 
+	if ((arg_type1 != DIR_CODE && arg_type1 != IND_CODE)
 		|| get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2) != 0x01
-		||  reg < 0x01 || reg > 0x10)
+		|| reg < 0x01 || reg > 0x10)
 		return ;
 	if (arg_type1 == DIR_CODE)
 		value = get_argument(info, 1, car);
 	else
 		value = cat_n_bytes(&info->memory[(car->pc + get_argument(info, 1, car))
-			% MEM_SIZE], REG_SIZE);
+				% IDX_MOD], REG_SIZE);
 	car->reg[reg] = value % IDX_MOD;
 	car->carry = 0;
 	if (!value)
@@ -37,12 +58,34 @@ void	op_ld(t_info *info, t_car *car)
 
 void	op_ldi(t_info *info, t_car *car)
 {
-	(void)info;
-	(void)car;
+	unsigned char	arg_type1;
+	unsigned char	arg_type2;
+	unsigned int	reg;
+	unsigned int	value;
+
+	arg_type1 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
+	arg_type2 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2);
+	reg = get_argument(info, 3, car);
+	if (!ldi_arg_validity(info, car))
+		return ;
+	value = 0;
+	if (arg_type1 == REG_CODE)
+		value += car->reg[get_argument(info, 1, car)];
+	else if (arg_type1 == DIR_CODE)
+		value += get_argument(info, 1, car);
+	else if (arg_type1 == IND_CODE)
+		value += cat_n_bytes(&info->memory[(car->pc
+					+ get_argument(info, 1, car)) % IDX_MOD], 4);
+	if (arg_type2 == REG_CODE)
+		value += car->reg[get_argument(info, 2, car)];
+	else if (arg_type2 == DIR_CODE)
+		value += get_argument(info, 2, car);
+	car->reg[reg] = value % IDX_MOD;
 }
 
 /* 
-	Resource VM is told to have a mistake, where instead of REG_SIZE, it reads only 2 bytes.
+	Resource VM is told to have a mistake, 
+	where instead of REG_SIZE, it reads only 2 bytes.
  */
 void	op_lld(t_info *info, t_car *car)
 {
@@ -52,15 +95,15 @@ void	op_lld(t_info *info, t_car *car)
 
 	arg_type1 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
 	reg = get_argument(info, 2, car);
-	if ((arg_type1 != DIR_CODE && arg_type1 != IND_CODE) 
+	if ((arg_type1 != DIR_CODE && arg_type1 != IND_CODE)
 		|| get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2) != 0x01
-		||  reg < 0x01 || reg > 0x10)
+		|| reg < 0x01 || reg > 0x10)
 		return ;
 	if (arg_type1 == DIR_CODE)
 		value = get_argument(info, 1, car);
 	else
 		value = cat_n_bytes(&info->memory[(car->pc + get_argument(info, 1, car))
-			% MEM_SIZE], REG_SIZE);//Resource VM is told to have a mistake, where instead of REG_SIZE it uses 2
+				% MEM_SIZE], REG_SIZE);//Resource VM is told to have a mistake, where instead of REG_SIZE it uses 2
 	car->reg[reg] = value;
 	car->carry = 0;
 	if (!value)
@@ -69,6 +112,27 @@ void	op_lld(t_info *info, t_car *car)
 
 void	op_lldi(t_info *info, t_car *car)
 {
-	(void)info;
-	(void)car;
+	unsigned char	arg_type1;
+	unsigned char	arg_type2;
+	unsigned int	reg;
+	unsigned int	value;
+
+	arg_type1 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
+	arg_type2 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2);
+	reg = get_argument(info, 3, car);
+	if (!ldi_arg_validity(info, car))
+		return ;
+	value = 0;
+	if (arg_type1 == REG_CODE)
+		value += car->reg[get_argument(info, 1, car)];
+	else if (arg_type1 == DIR_CODE)
+		value += get_argument(info, 1, car);
+	else if (arg_type1 == IND_CODE)
+		value += cat_n_bytes(&info->memory[(car->pc
+					+ get_argument(info, 1, car)) % IDX_MOD], 4);
+	if (arg_type2 == REG_CODE)
+		value += car->reg[get_argument(info, 2, car)];
+	else if (arg_type2 == DIR_CODE)
+		value += get_argument(info, 2, car);
+	car->reg[reg] = value;
 }

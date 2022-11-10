@@ -86,14 +86,9 @@ void	execute_op(t_car *car, t_info *info)
 {
 	if (car->op > 0 && car->op < 0x11)
 	{
-		if (car->op == 0x01)
-			car->jump = g_op[0x01][WAIT_TIME] * 4;//
-		else
-		{
+		if (g_op[car->op][C_BYTE])
 			car->jump = calculate_jump(info->memory[(car->pc + 1) % MEM_SIZE], car->op);
-			//run op[op]
-			g_op_jump_table[car->op](info, car);
-		}
+		g_op_jump_table[car->op](info, car);
 	}
 	else
 		car->jump = 1;

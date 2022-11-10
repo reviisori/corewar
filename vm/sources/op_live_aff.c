@@ -16,6 +16,7 @@ void	op_live(t_info *info, t_car *car)
 {
 	unsigned int	arg;
 
+	car->jump = 1 + REG_SIZE;
 	car->last_live = info->cycle;
 	info->lives_this_check++;
 	arg = cat_n_bytes(&info->memory[car->pc + 1], REG_SIZE);
