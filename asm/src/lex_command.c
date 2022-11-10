@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/09 20:07:46 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/10 15:08:16 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ static void	lex_operation(t_sh *d, t_src *s, t_token *t)
 	s->col += ofs;
 }
 
-void	lex_command(t_sh *d, t_src *s, t_token *t)
+void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 {
 	char	*p;
 	size_t	ofs;
-
+	(void)lt;
 	if (is_label(s))
 	{
 		t->symbol = la_label;
