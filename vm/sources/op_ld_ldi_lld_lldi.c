@@ -56,33 +56,6 @@ void	op_ld(t_info *info, t_car *car)
 		car->carry = 1;
 }
 
-void	op_ldi(t_info *info, t_car *car)
-{
-	unsigned char	arg_type1;
-	unsigned char	arg_type2;
-	unsigned int	reg;
-	unsigned int	value;
-
-	arg_type1 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
-	arg_type2 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2);
-	reg = get_argument(info, 3, car);
-	if (!ldi_arg_validity(info, car))
-		return ;
-	value = 0;
-	if (arg_type1 == REG_CODE)
-		value += car->reg[get_argument(info, 1, car)];
-	else if (arg_type1 == DIR_CODE)
-		value += get_argument(info, 1, car);
-	else if (arg_type1 == IND_CODE)
-		value += cat_n_bytes(&info->memory[(car->pc
-					+ get_argument(info, 1, car)) % IDX_MOD], 4);
-	if (arg_type2 == REG_CODE)
-		value += car->reg[get_argument(info, 2, car)];
-	else if (arg_type2 == DIR_CODE)
-		value += get_argument(info, 2, car);
-	car->reg[reg] = value % IDX_MOD;
-}
-
 /* 
 	Resource VM is told to have a mistake, 
 	where instead of REG_SIZE, it reads only 2 bytes.
@@ -110,6 +83,33 @@ void	op_lld(t_info *info, t_car *car)
 		car->carry = 1;
 }
 
+void	op_ldi(t_info *info, t_car *car)
+{
+	unsigned char	arg_type1;
+	unsigned char	arg_type2;
+	unsigned int	reg;
+	unsigned int	value;
+
+	arg_type1 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
+	arg_type2 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2);
+	reg = get_argument(info, 3, car);
+	if (!ldi_arg_validity(info, car))
+		return ;
+	value = 0;
+	if (arg_type1 == REG_CODE)
+		value += car->reg[get_argument(info, 1, car)];
+	else if (arg_type1 == DIR_CODE)
+		value += get_argument(info, 1, car);
+	else if (arg_type1 == IND_CODE)
+		value += cat_n_bytes(&info->memory[(car->pc
+					+ get_argument(info, 1, car)) % IDX_MOD], 4);
+	if (arg_type2 == REG_CODE)
+		value += car->reg[get_argument(info, 2, car)];
+	else if (arg_type2 == DIR_CODE)
+		value += get_argument(info, 2, car);
+	car->reg[reg] = cat_n_bytes(info->memory[(car->pc + value) % IDX_MOD], 4);
+}
+
 void	op_lldi(t_info *info, t_car *car)
 {
 	unsigned char	arg_type1;
@@ -134,5 +134,5 @@ void	op_lldi(t_info *info, t_car *car)
 		value += car->reg[get_argument(info, 2, car)];
 	else if (arg_type2 == DIR_CODE)
 		value += get_argument(info, 2, car);
-	car->reg[reg] = value;
+	car->reg[reg] = cat_n_bytes(info->memory[car->pc + value], 4);
 }
