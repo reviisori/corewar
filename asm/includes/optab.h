@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 12:54:13 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/04 15:55:48 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/10 12:27:35 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_op
 	u_int8_t	op_code;
 	char		*name;
 	int			argc;
-	int			args[3];
+	t_arg_type	args[3];
 	bool		acb;
 	u_int8_t	size;
 }				t_op;
