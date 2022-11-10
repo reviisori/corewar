@@ -43,11 +43,13 @@ static void	read_magic_header(int fd, char *file)
 {
 	unsigned char	buf[HEADER_SIZE];
 	unsigned int	header;
+	unsigned int	header_be;
 
 	if (read(fd, buf, HEADER_SIZE) == -1)
 		error_handler(READ_PREFIX, strerror(errno), 0, 0);
-	header = big_endian_converter(buf, HEADER_SIZE);
-	if (header != COREWAR_EXEC_MAGIC)
+	ft_memcpy(&header, buf, HEADER_SIZE);
+	header_be = big_endian_converter(header, HEADER_SIZE);
+	if (header_be != COREWAR_EXEC_MAGIC)
 		error_handler(HEADER_ERROR, file, 0, 0);
 }
 

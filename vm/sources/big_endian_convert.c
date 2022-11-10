@@ -12,22 +12,28 @@
 
 #include "corewar.h"
 
-unsigned int	big_endian_converter(unsigned char *bytes, int size)
+#define RIGHTMOST_BYTE 0xFF
+
+unsigned int	big_endian_converter(unsigned int src, int size)
 {
 	int				i;
-	unsigned int	byte_count;
+	int				byte_pos;
 	unsigned int	byte;
 	unsigned int	ret;
 
 	ret = 0;
-	byte_count = size - 1;
+	byte_pos = size - 1;
 	i = -1;
 	while (++i < size)
 	{
-		byte = bytes[i];
-		byte = byte << BITS_IN_BYTE * byte_count;
+		byte = 0;
+		byte = (RIGHTMOST_BYTE << i * BITS_IN_BYTE & src);
+		if (i < byte_pos)
+			byte = byte << (byte_pos - i) * BITS_IN_BYTE;
+		else
+			byte = byte >> (i - byte_pos) * BITS_IN_BYTE;
 		ret = ret | byte;
-		byte_count--;
+		byte_pos--;
 	}
 	return (ret);
 }

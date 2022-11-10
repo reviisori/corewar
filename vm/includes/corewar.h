@@ -96,7 +96,7 @@ static const unsigned int	g_op[17][4] =
 	{1, 10, 4, 0}, {2, 5, 4, 1}, {2, 5, 4, 1},{3, 10, 4, 1},
 	{3, 10, 4, 1}, {3, 6, 4, 1}, {3, 6, 4, 1}, {3, 6, 4, 1},
 	{1, 20, 2, 0}, {3, 25, 2, 1}, {3, 25, 2, 1}, {1, 800, 2, 0},
-	{2, 10, 4, 1}, {3, 50, 2, 1}, {1, 1000, 2}, {1, 2, 4, 1}
+	{2, 10, 4, 1}, {3, 50, 2, 1}, {1, 1000, 2, 0}, {1, 2, 4, 1}
 };
 
 static const unsigned char	g_arg_types[17][4] = 
@@ -172,7 +172,7 @@ int				set_player_id(int *id, t_champion ch_list[]);
 
 unsigned char	get_crumb(unsigned char c_byte, int c_number);
 
-unsigned int	big_endian_converter(unsigned char *bytes, int size);
+unsigned int	big_endian_converter(unsigned int src, int size);
 
 void			check_champions(t_champion ch_list[], int ch_count);
 void			deploy_champions(unsigned char memory[],
@@ -193,5 +193,6 @@ unsigned int	cat_n_bytes(unsigned char *offset, unsigned int bytes);
 
 /* Game functions */
 int				run_game(t_info *info);
+void			push_new_car(t_info *info, t_car *parent, int forkjump);
 
 #endif

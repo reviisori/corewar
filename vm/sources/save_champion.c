@@ -42,11 +42,13 @@ static void	save_code_size(int fd, t_champion *champion)
 {
 	unsigned char	buf[CODE_SIZE];
 	unsigned int	size;
+	unsigned int	size_be;
 
 	if (read(fd, buf, CODE_SIZE) == -1)
 		error_handler(READ_PREFIX, strerror(errno), 0, 0);
-	size = big_endian_converter(buf, CODE_SIZE);
-	champion->code_size = size;
+	ft_memcpy(&size, buf, CODE_SIZE);
+	size_be = big_endian_converter(size, CODE_SIZE);
+	champion->code_size = size_be;
 }
 
 static void	save_name(int fd, t_champion *champion)
