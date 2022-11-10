@@ -6,21 +6,21 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 16:33:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/09 17:24:06 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/10 15:07:38 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEX_H
 # define LEX_H
 
-void	init_token(t_token *t);
+void	init_lex(t_token *t, t_labtab *lt);
 void	panic_lex(const char *msg, size_t row, size_t col);
-void	lex_tokenization(t_sh *d, t_src *s, t_token *t);
+void	lex_tokenization(t_sh *d, t_src *s, t_token *t, t_labtab *lt);
 void	lex_endof(t_src *s, t_token *t);
 void	lex_comment(t_src *s, t_token *t);
 void	lex_header(t_sh *d, t_src *s, t_token *t);
-void	lex_command(t_sh *d, t_src *s, t_token *t);
-void	lex_argument(t_sh *d, t_src *s, t_token *t);
+void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt);
+void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt);
 
 bool	is_label_chars(int c);
 bool	is_label(t_src *s);
