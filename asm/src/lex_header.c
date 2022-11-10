@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 11:45:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/08 13:04:16 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/10 12:48:59 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	lex_header(t_sh *d, t_src *s, t_token *t)
 		t->symbol = la_champname;
 		s->index += 5;
 		s->col += 5;
-		skip_whitespace(s);
+		source_next(s);
 		get_header_info(d, s, t, 'n');
 	}
 	else if (!ft_strncmp(&s->buf.data[s->index], ".comment", 8))
@@ -76,7 +76,7 @@ void	lex_header(t_sh *d, t_src *s, t_token *t)
 		t->symbol = la_champcomm;
 		s->index += 8;
 		s->col += 8;
-		skip_whitespace(s);
+		source_next(s);
 		get_header_info(d, s, t, 'c');
 	}
 }
