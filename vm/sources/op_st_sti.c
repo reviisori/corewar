@@ -14,30 +14,34 @@
 
 void	op_st(t_info *info, t_car *car)
 {
-	unsigned char	arg_type;
-	unsigned char	arg1;
-	unsigned char	arg2;
+	unsigned char	arg_types[2];
+	unsigned char	args[2];
+	unsigned char	reg_bytes[4];
+	unsigned int	be_reg_content;
 
-	arg_type = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
-	if (arg_type != REG_CODE)
+	ft_bzero(reg_bytes, REG_SIZE);
+	arg_types[0] = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
+	arg_types[1] = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2);
+	if (arg_types[0] != REG_CODE
+		|| (arg_types[1] != REG_CODE && arg_types[1] != IND_CODE))
 		return ;
-	arg1 = info->memory[(car->pc + 2) % MEM_SIZE];
-	if (arg1 > 0x10 || !arg1)
+	args[0] = info->memory[(car->pc + 2) % MEM_SIZE];
+	if (args[0] > REG_NUMBER || !args[0])
 		return ;
-	arg_type = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2);
-	if (arg_type != REG_CODE && arg_type != IND_CODE)
-		return ;
-	if (arg_type == REG_CODE)
+	if (arg_types[1] == REG_CODE)
 	{
-		arg2 = info->memory[(car->pc + 3) % MEM_SIZE];
-		if (arg2 > 0x10 || !arg2)
+		args[1] = info->memory[(car->pc + 3) % MEM_SIZE];
+		if (args[1] > REG_NUMBER || !args[1])
 			return ;
-		car->reg[arg2] = car->reg[arg1];
+		car->reg[args[1]] = car->reg[args[0]];
 		return ;
 	}
-	arg2 = (info->memory[(car->pc + 3) % MEM_SIZE] << 2) + \
+	args[1] = (info->memory[(car->pc + 3) % MEM_SIZE] << 2) + \
 		info->memory[(car->pc + 4) % MEM_SIZE];
-	ft_memcpy(&info->memory[(car->pc + arg2) % MEM_SIZE], &car->reg[arg1], REG_SIZE);
+	ft_memcpy(reg_bytes, &car->reg[args[0]], REG_SIZE);
+	be_reg_content = big_endian_converter(reg_bytes, REG_SIZE);
+	ft_memcpy(&info->memory[(car->pc + args[1] % IDX_MOD) % MEM_SIZE],
+		&be_reg_content, REG_SIZE);
 }
 
 void	op_sti(t_info *info, t_car *car)
