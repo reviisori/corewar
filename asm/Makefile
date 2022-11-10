@@ -6,7 +6,7 @@
 #    By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/11/09 17:25:56 by altikka          ###   ########.fr        #
+#    Updated: 2022/11/10 17:16:44 by altikka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC_FILES	= main.c \
 			  lex_header.c \
 			  lex_command.c \
 			  lex_argument.c \
+			  lex_label.c \
 			  source_read.c \
 			  source_next.c \
 			  cleanup_source.c \
