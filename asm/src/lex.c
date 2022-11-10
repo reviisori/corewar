@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/04 17:13:39 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/10 15:06:39 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,16 @@ static void	debug_lex(t_token *t)
 
 int	lex(t_sh *d, t_src *s)
 {
-	t_token	t;
-	size_t	count;
+	t_token		t;
+	t_labtab	lt;
+	size_t		count;
 
 	count = 1;
-	init_token(&t);
+	init_lex(&t, &lt);
 	while (t.symbol != la_eof)
 	{
 		source_next(s);
-		lex_tokenization(d, s, &t);
+		lex_tokenization(d, s, &t, &lt);
 		t.num = (int ) count++; //what is this
 		debug_lex(&t);
 		if (t.symbol == la_eof)
