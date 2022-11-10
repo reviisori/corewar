@@ -20,12 +20,10 @@ void	op_zjmp(t_info *info, t_car *car)
 
 void	op_fork(t_info *info, t_car *car)
 {
-	(void)info;
-	(void)car;
+	push_new_car(info, car, (get_argument(info, 1, car) % IDX_MOD));
 }
 
 void	op_lfork(t_info *info, t_car *car)
 {
-	(void)info;
-	(void)car;
+	push_new_car(info, car, get_argument(info, 1, car));
 }

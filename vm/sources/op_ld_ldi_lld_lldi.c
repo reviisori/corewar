@@ -49,7 +49,7 @@ void	op_ld(t_info *info, t_car *car)
 		value = get_argument(info, 1, car);
 	else
 		value = cat_n_bytes(&info->memory[(car->pc + get_argument(info, 1, car))
-				% IDX_MOD], REG_SIZE);
+				% IDX_MOD], g_op[car->op][OP_DIR]);
 	car->reg[reg] = value % IDX_MOD;
 	car->carry = 0;
 	if (!value)
@@ -76,7 +76,7 @@ void	op_lld(t_info *info, t_car *car)
 		value = get_argument(info, 1, car);
 	else
 		value = cat_n_bytes(&info->memory[(car->pc + get_argument(info, 1, car))
-				% MEM_SIZE], REG_SIZE);//Resource VM is told to have a mistake, where instead of REG_SIZE it uses 2
+				% MEM_SIZE], g_op[car->op][OP_DIR]);//Resource VM is told to have a mistake with OP_DIR == 2
 	car->reg[reg] = value;
 	car->carry = 0;
 	if (!value)

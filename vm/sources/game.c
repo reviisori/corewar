@@ -167,16 +167,18 @@ void	init_car(t_car *car, t_info *info, t_car *parent, int forkjump)
 		car->reg[1] = MAX_UINT - car->index + 1;
 		car->pc = ((MEM_SIZE / info->champion_count)
 				* (car->index - 1)) % MEM_SIZE;
+		car->last_live = 0;
+		car->carry = 0;
 	}
 	else
 	{
 		copy_parent_reg(car, parent);
 		car->pc = (parent->pc + forkjump) % MEM_SIZE;
+		car->last_live = parent->last_live;
+		car->carry = parent->carry;
 	}
-	car->carry = 0;
 	car->op = info->memory[car->pc];
-	car->last_live = 0;//check if gets this from parent or not
-	car->wait = 0;
+	car->wait = 0;//might be an issue, if op happens to change between this cycle and next. Which one is correct?
 	car->jump = 0;
  	if (car->op > 0 && car->op < 0x11)
 		car->wait = g_op[car->op][WAIT_TIME];
