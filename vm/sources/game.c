@@ -137,9 +137,9 @@ void	check_aliveness(t_info *info)
 		|| info->checks_after_mod >= MAX_CHECKS)
 	{
 		info->cycles_to_die -= CYCLE_DELTA;
-		info->next_check_cycle = info->cycle + info->cycles_to_die;
 		info->checks_after_mod = 0;
 	}
+	info->next_check_cycle = info->cycle + info->cycles_to_die;
 	info->lives_this_check = 0;
 }
 
