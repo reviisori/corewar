@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/11 18:04:30 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/11 20:51:35 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 {
 	t_statement	*stmt;
 	char		*p;
-	(void)lt;
 	
 	stmt = ft_vecget(&d->code, d->code.len - 1);
 	if (!stmt)
