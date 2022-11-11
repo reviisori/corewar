@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:39:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/11 18:32:33 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/11 21:31:10 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	label_fill(t_sh *d, t_vec *entries, t_hash *entry)
 {
 	//t_statement	*temp;
-	t_label		*lab;
+	t_label		*label;
 
-	lab = ft_vecget(entries, ft_abs(entry->value + 1));
+	label = ft_vecget(entries, ft_abs(entry->value + 1));
 	ft_printf("....>%d\n", entry->value);
 	entry->value = d->byte;
 	ft_printf("....>%d\n", entry->value);
@@ -77,30 +77,30 @@ static char	*get_label(t_src *s, bool *is_arg)
 
 void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 {
-	t_label	lab;
 	t_hash	*entry;
+	t_label	label;
 	bool	is_arg;
+
 
 	is_arg = false;
 	if (!key)
 		key = get_label(s, &is_arg);
 	entry = hash_get(&lt->labels, key);
-	if (!entry)
-		ft_printf("dfghfsdfg::::  |%s|\n", key);
 	if (!entry && is_arg == false)
 		hash_insert(&lt->labels, key, d->byte);
 	else if (!entry && is_arg == true)
 	{
-		lab.declared = false;
-		//lab.is_dir = REMEMBER ME
-		lab.head = NULL;
-		label_add(d, &lab);
-		ft_vecpush(&lt->entries, &lab);
+		label.declared = false;
+		//label.is_dir = REMEMBER ME
+		label.head = NULL;
+		label_add(d, &label);
+		ft_vecpush(&lt->entries, &label);
 		hash_insert(&lt->labels, key, ((int)lt->entries.len * -1));
-		ft_printf("putten\n");
 	}
+	else if (entry && is_arg == true)
+		ft_printf("you need me!\n");
 	else if (entry && is_arg == false)
 		label_fill(d, &lt->entries, entry);
-	if (is_arg == true)
-		ft_strdel(&key);
+	//if (is_arg == true)
+	//	ft_strdel(&key);
 }
