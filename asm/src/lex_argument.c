@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/10 15:08:30 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:18:57 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	t->symbol = la_ind;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	d->byte += T_IND;
-	s->index += ofs;
-	s->col += ofs;
+	source_adjust(s, ofs);
 }
 
 static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
@@ -56,8 +55,7 @@ static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	t->symbol = la_dir;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	d->byte += T_DIR;
-	s->index += ofs;
-	s->col += ofs;
+	source_adjust(s, ofs);
 }
 
 static void	lex_reg(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
@@ -75,8 +73,7 @@ static void	lex_reg(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	t->symbol = la_reg;
 	ft_vecncat(&t->content, &s->buf.data[s->index - 1], ofs + 1);
 	d->byte += T_REG;
-	s->index += ofs;
-	s->col += ofs;
+	source_adjust(s, ofs);
 }
 
 void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)

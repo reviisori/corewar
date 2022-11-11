@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/10 16:03:03 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/11 15:19:21 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ static void	lex_operation(t_sh *d, t_src *s, t_token *t)
 	if (!hash_lookup(&d->ops, (char *)t->content.data))
 		panic_lex("...", 0, 0); //?
 	create_statement(d, (char *)t->content.data);
-	s->index += ofs;
-	s->col += ofs;
+	source_adjust(s, ofs);
 }
 
 void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
@@ -56,8 +55,7 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		ofs = p - (char *)&s->buf.data[s->index] + 1;
 		ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 		//
-		s->index += ofs;
-		s->col += ofs;
+		source_adjust(s, ofs);
 	}
 	else
 		lex_operation(d, s, t);
