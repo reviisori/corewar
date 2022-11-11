@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/11 18:15:49 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/11 20:29:17 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 {
 	char	*p;
 	size_t	ofs;
-	(void)lt;
+
 	if (is_label(s))
 	{
 		t->symbol = la_label;
