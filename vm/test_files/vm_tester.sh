@@ -6,8 +6,8 @@ YELLOW=$(tput setaf 220)
 BLACK=$(tput setaf 235)
 EOC=$(tput sgr0)
 
-ORIG_VM="./test_vm/corewar_orig "
-OUR_VM="../corewar "
+ORIG_VM="./test_vm/corewar_orig"
+OUR_VM="../corewar"
 
 ARGS="$*"
 

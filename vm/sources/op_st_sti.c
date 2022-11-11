@@ -12,6 +12,24 @@
 
 #include "corewar.h"
 
+#define RIGHTMOST_BYTE 0xFF000000
+
+static void	copy_to_memory(unsigned char memory[], unsigned int adr,
+	unsigned int value)
+{
+	int				byte_count;
+	unsigned int	byte;
+
+	byte_count = -1;
+	while (++byte_count < REG_SIZE)
+	{
+		byte = value << BITS_IN_BYTE * byte_count & RIGHTMOST_BYTE;
+		byte = byte >> (REG_SIZE - 1) * BITS_IN_BYTE;
+		memory[adr % MEM_SIZE] = byte;
+		adr++;
+	}
+}
+
 void	op_st(t_info *info, t_car *car)
 {
 	unsigned char	arg_types[2];
@@ -33,10 +51,9 @@ void	op_st(t_info *info, t_car *car)
 		car->reg[args[1]] = car->reg[args[0]];
 		return ;
 	}
-	args[1] = args[1] % IDX_MOD;
-	args[0] = big_endian_converter(car->reg[args[0]], REG_SIZE);
-	ft_memcpy(&info->memory[car->pc + args[1] % IDX_MOD],
-		&args[0], REG_SIZE);
+	//args[1] = args[1] % IDX_MOD;
+	args[0] = car->reg[args[0]];
+	copy_to_memory(info->memory, car->pc + args[1], args[0]);
 }
 
 void	op_sti(t_info *info, t_car *car)
