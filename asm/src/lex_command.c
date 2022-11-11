@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/11 15:19:21 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/11 18:15:49 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 static void	create_statement(t_sh *d, char *key)
 {
 	t_statement	temp;
+	t_hash		*entry;
 
-	temp.op = g_optab[hash_get(&d->ops, key) - 1];
+	entry = hash_get(&d->ops, key);
+	temp.op = g_optab[entry->value - 1];
 	temp.loc = d->byte;
 	d->byte += 1 + g_optab[temp.op.op_code - 1].acb;
 	temp.cur_arg = 0;
@@ -53,8 +55,9 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		t->is_label = true;
 		p = ft_strchr(&s->buf.data[s->index], LABEL_CHAR);
 		ofs = p - (char *)&s->buf.data[s->index] + 1;
-		ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
-		//
+		ft_vecncat(&t->content, &s->buf.data[s->index], ofs - 1);
+		ft_vecpush(&t->content, "\0");
+		lex_label(d, s, lt, (char *)t->content.data);
 		source_adjust(s, ofs);
 	}
 	else
