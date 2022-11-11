@@ -59,22 +59,8 @@ then
 	printf "Saved files to ${YELLOW}$ORIG_OUTPUT${EOC} and ${YELLOW}$OUR_OUTPUT${EOC}\n"
 else
 	printf "Diff ${GREEN}OK${EOC}\n"
-	while [[ "$ANSWER" != "n" && "$ANSWER" != "y" ]]
-	do
-		printf "Do you want to keep the output files? (y/n)\n"
-		read ANSWER
-		if [ "$ANSWER" == "y" ]
-		then
-			printf "Saved files to ${YELLOW}$ORIG_OUTPUT${EOC} and ${YELLOW}$OUR_OUTPUT${EOC}\n"
-			break
-		elif [ "$ANSWER" == "n" ]
-		then
-			rm -rf $ORIG_OUTPUT
-			rm -rf $OUR_OUTPUT
-			printf "Removed files\n"
-			break
-		fi
-	done
+		rm -rf $ORIG_OUTPUT
+		rm -rf $OUR_OUTPUT
 	rm -rf $DIFF_FILE
 fi
 exit
