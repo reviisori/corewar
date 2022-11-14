@@ -46,7 +46,7 @@ static unsigned int	get_argument_wo_cbyte(t_info *info, unsigned char n, t_car *
 		+ (info->memory[(car->pc + 2) % MEM_SIZE]));
 }
 
-unsigned int	cat_n_bytes(unsigned char *offset, unsigned int bytes)
+unsigned int	cat_n_bytes(unsigned char *offset, unsigned int bytes, unsigned char memory[])
 {
 	unsigned int	i;
 	unsigned int	sum;
@@ -59,7 +59,10 @@ unsigned int	cat_n_bytes(unsigned char *offset, unsigned int bytes)
 	{
 		sum = sum << 8;
 		sum += *c;
-		c++;
+		if (c == &memory[MEM_SIZE - 1])
+			c = &memory[0];
+		else
+			c++;
 		i++;
 	}
 	return (sum);
@@ -88,5 +91,5 @@ unsigned int	get_argument(t_info *info, unsigned char n, t_car *car)
 	arg_type = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], n);
 	i = cast_arg_type_to_bytes(arg_type, car->op);
 	return (cat_n_bytes(&info->memory[(car->pc + 2 + sum)
-		% MEM_SIZE], i));
+		% MEM_SIZE], i, info->memory));
 }

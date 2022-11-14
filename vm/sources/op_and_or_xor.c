@@ -30,7 +30,7 @@ void	op_and(t_info *info, t_car *car)
 		args[0] = car->reg[args[0]];
 	}
 	else if (arg_types[0] == IND_CODE)
-		args[0] = cat_n_bytes(&info->memory[car->pc + args[0] % IDX_MOD], REG_SIZE);
+		args[0] = cat_n_bytes(&info->memory[car->pc + args[0] % IDX_MOD], REG_SIZE, info->memory);
 	args[1] = get_argument(info, 2, car);
 	if (arg_types[1] == REG_CODE)
 	{
@@ -39,7 +39,7 @@ void	op_and(t_info *info, t_car *car)
 		args[1] = car->reg[args[1]];
 	}
 	else if (arg_types[1] == IND_CODE)
-		args[1] = cat_n_bytes(&info->memory[car->pc + args[1] % IDX_MOD], REG_SIZE);
+		args[1] = cat_n_bytes(&info->memory[car->pc + args[1] % IDX_MOD], REG_SIZE, info->memory);
 	args[2] = get_argument(info, 3, car);
 	if (args[2] > REG_NUMBER || !args[2])
 		return ;
@@ -68,7 +68,7 @@ void	op_or(t_info *info, t_car *car)
 		args[0] = car->reg[args[0]];
 	}
 	else if (arg_types[0] == IND_CODE)
-		args[0] = cat_n_bytes(&info->memory[car->pc + args[0] % IDX_MOD], REG_SIZE);
+		args[0] = cat_n_bytes(&info->memory[car->pc + args[0] % IDX_MOD], REG_SIZE, info->memory);
 	args[1] = get_argument(info, 2, car);
 	if (arg_types[1] == REG_CODE)
 	{
@@ -77,7 +77,7 @@ void	op_or(t_info *info, t_car *car)
 		args[1] = car->reg[args[1]];
 	}
 	else if (arg_types[1] == IND_CODE)
-		args[1] = cat_n_bytes(&info->memory[car->pc + args[1] % IDX_MOD], REG_SIZE);
+		args[1] = cat_n_bytes(&info->memory[car->pc + args[1] % IDX_MOD], REG_SIZE, info->memory);
 	args[2] = get_argument(info, 3, car);
 	if (args[2] > REG_NUMBER || !args[2])
 		return ;
@@ -106,7 +106,7 @@ void	op_xor(t_info *info, t_car *car)
 		args[0] = car->reg[args[0]];
 	}
 	else if (arg_types[0] == IND_CODE)
-		args[0] = cat_n_bytes(&info->memory[car->pc + args[0] % IDX_MOD], REG_SIZE);
+		args[0] = cat_n_bytes(&info->memory[car->pc + args[0] % IDX_MOD], REG_SIZE, info->memory);
 	args[1] = get_argument(info, 2, car);
 	if (arg_types[1] == REG_CODE)
 	{
@@ -115,7 +115,7 @@ void	op_xor(t_info *info, t_car *car)
 		args[1] = car->reg[args[1]];
 	}
 	else if (arg_types[1] == IND_CODE)
-		args[1] = cat_n_bytes(&info->memory[car->pc + args[1] % IDX_MOD], REG_SIZE);
+		args[1] = cat_n_bytes(&info->memory[car->pc + args[1] % IDX_MOD], REG_SIZE, info->memory);
 	args[2] = get_argument(info, 3, car);
 	if (args[2] > REG_NUMBER || !args[2])
 		return ;

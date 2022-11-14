@@ -189,7 +189,7 @@ void			error_kill(char *reason);
 /* VM tools */
 unsigned int	get_argument(t_info *info, unsigned char n, t_car *car);
 unsigned int	cast_arg_type_to_bytes(unsigned char arg_type, unsigned char op);
-unsigned int	cat_n_bytes(unsigned char *offset, unsigned int bytes);
+unsigned int	cat_n_bytes(unsigned char *offset, unsigned int bytes, unsigned char memory[]);
 
 /* Game functions */
 int				run_game(t_info *info);

@@ -1,6 +1,7 @@
 .name "Sheeeeeeeeeeesh"
 .comment "xD"
 
+ld -1, r2
 st	r2, -24
 ldi %1, %0, r3
 st r3, 20
