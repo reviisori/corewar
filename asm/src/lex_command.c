@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/11 20:29:17 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/14 14:09:13 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	create_statement(t_sh *d, char *key)
 	temp.loc = d->byte;
 	d->byte += 1 + g_optab[temp.op.op_code - 1].acb;
 	temp.cur_arg = 0;
+	temp.is_dir = false;
 	if (ft_vecpush(&d->code, &temp) < 0)
 		panic("Malloc error with exec code.");
 }
