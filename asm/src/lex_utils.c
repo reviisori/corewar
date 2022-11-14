@@ -6,11 +6,22 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:02:35 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/11 15:22:55 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:42:42 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+void	calc_arg_size(t_sh *d, t_statement *stmt, const char c)
+{
+		if (c == DIRECT_CHAR)
+		{
+			stmt->is_dir = true;
+			d->byte += stmt->op.size;
+		}
+		else
+			d->byte += T_IND;
+}
 
 bool	is_label_chars(int c)
 {
@@ -37,18 +48,6 @@ bool	is_register(t_src *s)
 	while (ft_isdigit(*p))
 		p++;
 	return ((ft_isspace(*p) || *p == SEPARATOR_CHAR));
-}
-
-void	skip_whitespace(t_src *s)
-{
-	while (*(char *)&s->buf.data[s->index])
-	{
-		if (*(char *)&s->buf.data[s->index] == '\n')
-			return ;
-		if (!ft_isspace(*(char *)&s->buf.data[s->index]))
-			return ;
-		source_adjust(s, 1);
-	}
 }
 
 void	panic_lex(const char *msg, size_t row, size_t col)
