@@ -50,7 +50,7 @@ void	op_ld(t_info *info, t_car *car)
 	else
 		value = cat_n_bytes(&info->memory[(car->pc + get_argument(info, 1, car))
 				% IDX_MOD], g_op[car->op][OP_DIR]);
-	car->reg[reg] = value % IDX_MOD;
+	car->reg[reg] = value;
 	car->carry = 0;
 	if (!value)
 		car->carry = 1;

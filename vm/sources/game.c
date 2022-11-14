@@ -38,13 +38,13 @@ int	calculate_jump(unsigned char c_byte, unsigned char op)
 		c_byte = c_byte >> (2 * i);
 		if (!g_arg_types[op][CRUMBS_IN_BYTE - i - 1])
 			break;
-		if ((g_arg_types[op][CRUMBS_IN_BYTE - i - 1] & c_byte) != 0)
-		{
+/* 		if ((g_arg_types[op][CRUMBS_IN_BYTE - i - 1] & c_byte) != 0)
+		{ */
 			sum += cast_arg_type_to_bytes(c_byte, op);
 			store -= c_byte << (2 * i);
-		}
+/* 		}
 		else
-			return (1);
+			return (1); */
 		i--;
 	}
 	return (sum + 1 + g_op[op][C_BYTE]);
@@ -86,9 +86,9 @@ void	execute_op(t_car *car, t_info *info)
 {
 	if (car->op > 0 && car->op < 0x11)
 	{
+		g_op_jump_table[car->op](info, car);
 		if (g_op[car->op][C_BYTE])
 			car->jump = calculate_jump(info->memory[(car->pc + 1) % MEM_SIZE], car->op);
-		g_op_jump_table[car->op](info, car);
 	}
 	else
 		car->jump = 1;
@@ -137,9 +137,9 @@ void	check_aliveness(t_info *info)
 		|| info->checks_after_mod >= MAX_CHECKS)
 	{
 		info->cycles_to_die -= CYCLE_DELTA;
-		info->next_check_cycle = info->cycle + info->cycles_to_die;
 		info->checks_after_mod = 0;
 	}
+	info->next_check_cycle = info->cycle + info->cycles_to_die;
 	info->lives_this_check = 0;
 }
 

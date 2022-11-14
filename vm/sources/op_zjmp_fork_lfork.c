@@ -15,15 +15,18 @@
 void	op_zjmp(t_info *info, t_car *car)
 {
 	if (car->carry)
-		car->pc = (get_argument(info, 1, car) % IDX_MOD);
+		car->pc = car->pc + ((short)get_argument(info, 1, car) % IDX_MOD);
+	car->jump = 3;
 }
 
 void	op_fork(t_info *info, t_car *car)
 {
 	push_new_car(info, car, (get_argument(info, 1, car) % IDX_MOD));
+	car->jump = 3;
 }
 
 void	op_lfork(t_info *info, t_car *car)
 {
 	push_new_car(info, car, get_argument(info, 1, car));
+	car->jump = 3;
 }
