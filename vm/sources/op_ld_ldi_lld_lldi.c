@@ -75,8 +75,8 @@ void	op_lld(t_info *info, t_car *car)
 	if (arg_type1 == DIR_CODE)
 		value = get_argument(info, 1, car);
 	else
-		value = cat_n_bytes(&info->memory[(car->pc + (int)get_argument(info, 1, car))
-				% MEM_SIZE], g_op[car->op][OP_DIR], info->memory);//Resource VM is told to have a mistake with OP_DIR == 2
+		value = cat_n_bytes(&info->memory[(car->pc + (short)get_argument(info, 1, car)
+			+ MEM_SIZE) % MEM_SIZE], g_op[car->op][OP_DIR], info->memory);//Resource VM is told to have a mistake with OP_DIR == 2
 	car->reg[reg] = value;
 	car->carry = 0;
 	if (!value)
@@ -101,8 +101,8 @@ void	op_ldi(t_info *info, t_car *car)
 	else if (arg_type1 == DIR_CODE)
 		value += get_argument(info, 1, car);
 	else if (arg_type1 == IND_CODE)
-		value += cat_n_bytes(&info->memory[(car->pc
-					+ get_argument(info, 1, car)) % IDX_MOD], 4, info->memory);
+		value += cat_n_bytes(&info->memory[((car->pc + ((short)get_argument(info, 1, car))
+				% IDX_MOD) + MEM_SIZE) % MEM_SIZE], g_op[car->op][OP_DIR], info->memory);
 	if (arg_type2 == REG_CODE)
 		value += car->reg[get_argument(info, 2, car)];
 	else if (arg_type2 == DIR_CODE)
@@ -128,8 +128,8 @@ void	op_lldi(t_info *info, t_car *car)
 	else if (arg_type1 == DIR_CODE)
 		value += get_argument(info, 1, car);
 	else if (arg_type1 == IND_CODE)
-		value += cat_n_bytes(&info->memory[(car->pc
-					+ get_argument(info, 1, car)) % IDX_MOD], 4, info->memory);
+		value += cat_n_bytes(&info->memory[(car->pc + (short)get_argument(info, 1, car)
+			+ MEM_SIZE) % MEM_SIZE], g_op[car->op][OP_DIR], info->memory);
 	if (arg_type2 == REG_CODE)
 		value += car->reg[get_argument(info, 2, car)];
 	else if (arg_type2 == DIR_CODE)
