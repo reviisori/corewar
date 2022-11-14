@@ -86,8 +86,5 @@ void	op_sti(t_info *info, t_car *car)
 			return ;
 		args[2] = car->reg[args[2]];
 	}
-	if (arg_types[1] == IND_CODE)
-		copy_to_memory(info->memory, car->pc + (((short)args[1] + (int)args[2]) % IDX_MOD), args[0]);
-	else
-		copy_to_memory(info->memory, car->pc + ((args[1] + args[2]) % IDX_MOD), args[0]);
+	copy_to_memory(info->memory, car->pc + ((int)(args[1] + args[2]) % IDX_MOD), args[0]);
 }
