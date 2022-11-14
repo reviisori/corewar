@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:12:18 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/11 14:52:42 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:49:34 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ typedef struct s_undeflab
 
 typedef struct s_label
 {
-	bool				declared; //
+	bool				declared;	//for error check at end
 	bool				is_dir;
-	int					value; // 
+	int					value;		//del? 
 	struct s_undeflab	*head;
 }						t_label;
 
