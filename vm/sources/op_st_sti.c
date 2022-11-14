@@ -51,9 +51,8 @@ void	op_st(t_info *info, t_car *car)
 		car->reg[args[1]] = car->reg[args[0]];
 		return ;
 	}
-	//args[1] = args[1] % IDX_MOD;
 	args[0] = car->reg[args[0]];
-	copy_to_memory(info->memory, car->pc + args[1], args[0]);
+	copy_to_memory(info->memory, car->pc + ((short)args[1] % IDX_MOD), args[0]);
 }
 
 void	op_sti(t_info *info, t_car *car)
@@ -70,7 +69,7 @@ void	op_sti(t_info *info, t_car *car)
 	args[0] = get_argument(info, 1, car);
 	if (args[0] > REG_NUMBER || !args[0])
 		return ;
-	args[0] = big_endian_converter(car->reg[args[0]], REG_SIZE);
+	args[0] = car->reg[args[0]];
 	args[1] = get_argument(info, 2, car);
 	if (arg_types[1] == REG_CODE)
 	{
@@ -87,6 +86,8 @@ void	op_sti(t_info *info, t_car *car)
 			return ;
 		args[2] = car->reg[args[2]];
 	}
-	ft_memcpy(&info->memory[(car->pc + (args[1] + args[2]) % IDX_MOD) % MEM_SIZE],
-		&args[0], REG_SIZE);
+	if (arg_types[1] == IND_CODE)
+		copy_to_memory(info->memory, car->pc + (((short)args[1] + (int)args[2]) % IDX_MOD), args[0]);
+	else
+		copy_to_memory(info->memory, car->pc + ((args[1] + args[2]) % IDX_MOD), args[0]);
 }
