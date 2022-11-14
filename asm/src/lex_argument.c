@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/11 20:51:35 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/14 16:40:09 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,10 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		lex_ind(d, s, t, stmt);
 	else
 	{
-		t->symbol = la_plus;
+			stmt->is_dir = true;
 		lex_label(d, s, lt, NULL);
+		calc_arg_size(d, stmt, *p);
+		t->symbol = la_plus;
+		stmt->cur_arg++;
 	}
 }
