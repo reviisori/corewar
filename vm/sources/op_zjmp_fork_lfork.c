@@ -15,7 +15,7 @@
 void	op_zjmp(t_info *info, t_car *car)
 {
 	if (car->carry)
-		car->pc = car->pc + ((short)get_argument(info, 1, car) % IDX_MOD);
+		car->pc = (car->pc + ((short)get_argument(info, 1, car) % IDX_MOD)) % MEM_SIZE;
 	car->jump = 3;
 }
 
