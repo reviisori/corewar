@@ -57,8 +57,9 @@ void	op_ld(t_info *info, t_car *car)
 }
 
 /* 
-	Resource VM is told to have a mistake, 
-	where instead of REG_SIZE, it reads only 2 bytes.
+	Resource VM is told to have a mistake, where instead of REG_SIZE, it reads
+	only 2 bytes when given an indirect argument. It also doesn't always write
+	the correct value to the registry even compared to those read two bytes...
  */
 void	op_lld(t_info *info, t_car *car)
 {
@@ -76,7 +77,7 @@ void	op_lld(t_info *info, t_car *car)
 		value = get_argument(info, 1, car);
 	else
 		value = cat_n_bytes(&info->memory[(car->pc + ((short)get_argument(info, 1, car))
-				+ MEM_SIZE) % MEM_SIZE], 4, info->memory);
+			+ MEM_SIZE) % MEM_SIZE], g_op[car->op][OP_DIR], info->memory);
 	car->reg[reg] = value;
 	car->carry = 0;
 	if (!value)
