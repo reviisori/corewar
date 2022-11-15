@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:12:50 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/11 20:18:51 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/15 15:28:55 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_lex(t_token *t, t_labtab *lt)
 	t->declared = false;
 	t->is_label = false;
 	t->num = 1;
-	t->next = NULL;
+	t->next = NULL;  //  <---------- remove?
 	ft_bzero(lt, sizeof(*lt));
 	init_hashmap(&lt->labels, 100, false);
 	if (ft_vecnew(&lt->entries, 1, sizeof(t_labtab)) < 0)
