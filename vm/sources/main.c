@@ -18,6 +18,7 @@ static void	init_info(t_info *info)
 	info->champion_count = 0;
 	ft_bzero(info->champions, sizeof(t_champion) * MAX_PLAYERS);
 	ft_bzero(info->memory, MEM_SIZE);
+	info->verbose_opts = 0;
 }
 
 int	main(int argc, char **argv)

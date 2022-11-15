@@ -115,7 +115,11 @@ void	run_all_cars(t_info *info)
 		if (flag)
 			car->wait--;
 		if (car->wait == 0)
-			execute_op(car, info);//
+		{
+			execute_op(car, info);
+			if (info->verbose_opts & SHOW_OP && car->op > 0 && car->op <= 0x10)
+				print_operation(car);
+		}
 		car = car->next;
 	}
 }
@@ -178,6 +182,8 @@ void	init_car(t_car *car, t_info *info, t_car *parent, int forkjump)
 		car->carry = parent->carry;
 	}
 	car->op = info->memory[car->pc];
+	ft_bzero(car->op_arg_types, MAX_ARGS_NUMBER * sizeof(unsigned char));
+	ft_bzero(car->op_args, MAX_ARGS_NUMBER * sizeof(unsigned int));
 	car->wait = 0;//might be an issue, if op happens to change between this cycle and next. Which one is correct?
 	car->jump = 0;
  	if (car->op > 0 && car->op < 0x11)

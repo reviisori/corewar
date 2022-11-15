@@ -57,4 +57,43 @@ static const t_operations	g_op_jump_table[OP_COUNT + 1] = {
 	op_aff
 };
 
+void	print_live(t_car *car);
+void	print_ld(t_car *car);
+void	print_st(t_car *car);
+void	print_add(t_car *car);
+void	print_sub(t_car *car);
+void	print_and(t_car *car);
+void	print_or(t_car *car);
+void	print_xor(t_car *car);
+void	print_zjmp(t_car *car);
+void	print_ldi(t_car *car);
+void	print_sti(t_car *car);
+void	print_fork(t_car *car);
+void	print_lld(t_car *car);
+void	print_lldi(t_car *car);
+void	print_lfork(t_car *car);
+void	print_aff(t_car *car);
+
+typedef void				(*t_op_print)(t_car *);
+
+static const t_op_print		g_op_print[OP_COUNT + 1] = {
+	NULL,
+	print_live,
+	print_ld,
+	print_st,
+	print_add,
+	print_sub,
+	print_and,
+	print_or,
+	print_xor,
+	print_zjmp,
+	print_ldi,
+	print_sti,
+	print_fork,
+	print_lld,
+	print_lldi,
+	print_lfork,
+	print_aff
+};
+
 #endif

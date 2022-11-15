@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   options_text_op.c                                  :+:      :+:    :+:   */
+/*   print_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:40:48 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/25 14:40:51 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/11/15 13:06:18 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/11/15 13:06:20 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "operations.h"
 
-int	set_dump(t_options *opts, char *nbr)
+void	print_operation(t_car *car)
 {
-	if (nbr == NULL)
-		return (-1);
-	opts->dump = ft_atoi(nbr);
-	return (1);
-}
-
-int	set_verbose_flag(t_options *opts, char *nbr)
-{
-	if (nbr == NULL)
-		return (-1);
-	opts->verbose_flags += ft_atoi(nbr);
-	return (1);
+	ft_printf("P%5d | ", car->index);
+	g_op_print[car->op](car);
+	ft_bzero(car->op_args, MAX_ARGS_NUMBER * sizeof(unsigned int));
+	ft_bzero(car->op_arg_types, MAX_ARGS_NUMBER * sizeof(unsigned char));
 }

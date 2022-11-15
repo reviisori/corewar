@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   options_text_op.c                                  :+:      :+:    :+:   */
+/*   print_ld_ldi_lld_lldi.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:40:48 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/25 14:40:51 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/11/15 14:52:08 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/11/15 14:52:09 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "operations.h"
 
-int	set_dump(t_options *opts, char *nbr)
+void	print_ld(t_car *car)
 {
-	if (nbr == NULL)
-		return (-1);
-	opts->dump = ft_atoi(nbr);
-	return (1);
+	(void)car;
 }
 
-int	set_verbose_flag(t_options *opts, char *nbr)
+void	print_ldi(t_car *car)
 {
-	if (nbr == NULL)
-		return (-1);
-	opts->verbose_flags += ft_atoi(nbr);
-	return (1);
+	(void)car;
+}
+
+void	print_lld(t_car *car)
+{
+	(void)car;
+}
+
+void	print_lldi(t_car *car)
+{
+	(void)car;
 }

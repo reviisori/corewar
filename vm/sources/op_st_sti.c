@@ -14,6 +14,13 @@
 
 #define RIGHTMOST_BYTE 0xFF000000
 
+static void	save_args(t_car *car, unsigned char arg_t[],
+	unsigned int args[], int count)
+{
+	ft_memcpy(car->op_arg_types, arg_t, sizeof(unsigned char) * count);
+	ft_memcpy(car->op_args, args, sizeof(unsigned int) * count);
+}
+
 static void	copy_to_memory(unsigned char memory[], unsigned int adr,
 	unsigned int value)
 {
@@ -44,6 +51,8 @@ void	op_st(t_info *info, t_car *car)
 	if (args[0] > REG_NUMBER || !args[0])
 		return ;
 	args[1] = get_argument(info, 2, car);
+	if (info->verbose_opts & SHOW_OP)
+		save_args(car, arg_types, args, 2);
 	if (arg_types[1] == REG_CODE)
 	{
 		if (args[1] > REG_NUMBER || !args[1])
@@ -69,8 +78,8 @@ void	op_sti(t_info *info, t_car *car)
 	args[0] = get_argument(info, 1, car);
 	if (args[0] > REG_NUMBER || !args[0])
 		return ;
-	args[0] = car->reg[args[0]];
 	args[1] = get_argument(info, 2, car);
+	args[2] = get_argument(info, 3, car);
 	if (arg_types[1] == REG_CODE)
 	{
 		if (args[1] > REG_NUMBER || !args[1])
@@ -79,12 +88,14 @@ void	op_sti(t_info *info, t_car *car)
 	}
 	else if (arg_types[1] == IND_CODE)
 		args[1] = cat_n_bytes(&info->memory[car->pc + args[1] % IDX_MOD], REG_SIZE, info->memory);
-	args[2] = get_argument(info, 3, car);
 	if (arg_types[2] == REG_CODE)
 	{
 		if (args[2] > REG_NUMBER || !args[2])
 			return ;
 		args[2] = car->reg[args[2]];
 	}
+	if (info->verbose_opts & SHOW_OP)
+		save_args(car, arg_types, args, 3);
+	args[0] = car->reg[args[0]];
 	copy_to_memory(info->memory, car->pc + ((int)(args[1] + args[2]) % IDX_MOD), args[0]);
 }
