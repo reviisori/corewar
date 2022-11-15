@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:02:35 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/14 16:42:42 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/15 16:50:51 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	calc_arg_size(t_sh *d, t_statement *stmt, const char c)
 {
-		if (c == DIRECT_CHAR)
-		{
-			stmt->is_dir = true;
-			d->byte += stmt->op.size;
-		}
-		else
-			d->byte += T_IND;
+	if (c == DIRECT_CHAR)
+	{
+		stmt->is_dir = true;
+		d->byte += stmt->op.size;
+	}
+	else
+		d->byte += T_IND;
 }
 
 bool	is_label_chars(int c)
@@ -47,7 +47,8 @@ bool	is_register(t_src *s)
 		return (false);
 	while (ft_isdigit(*p))
 		p++;
-	return ((ft_isspace(*p) || *p == SEPARATOR_CHAR));
+	return ((ft_isspace(*p) || *p == SEPARATOR_CHAR || *p == COMMENT_CHAR
+			|| *p == ';'));
 }
 
 void	panic_lex(const char *msg, size_t row, size_t col)
@@ -60,3 +61,5 @@ void	panic_lex(const char *msg, size_t row, size_t col)
 		ft_dprintf(2, "call panic_syntax() maybe\n");
 	exit(EXIT_FAILURE);
 }
+
+//Invalid parameter count for instruction add
