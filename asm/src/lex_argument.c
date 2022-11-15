@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/14 16:40:09 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/15 16:20:05 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 	stmt = ft_vecget(&d->code, d->code.len - 1);
 	if (!stmt)
 		panic_lex("...", 0, 0); //?
+	validate_separators(stmt, s->row, s->col);
 	p = (char *)&s->buf.data[s->index];
 	if (stmt->cur_arg == stmt->op.argc)
 		panic_lex(NULL, s->row, s->col); //
@@ -95,7 +96,7 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		lex_ind(d, s, t, stmt);
 	else
 	{
-			stmt->is_dir = true;
+		stmt->is_dir = true;
 		lex_label(d, s, lt, NULL);
 		calc_arg_size(d, stmt, *p);
 		t->symbol = la_plus;
