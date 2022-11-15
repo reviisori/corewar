@@ -19,7 +19,7 @@ void	op_live(t_info *info, t_car *car)
 	car->jump = 1 + REG_SIZE;
 	car->last_live = info->cycle;
 	info->lives_this_check++;
-	arg = cat_n_bytes(&info->memory[car->pc + 1], REG_SIZE);
+	arg = cat_n_bytes(&info->memory[car->pc + 1], REG_SIZE, info->memory);
 	if (arg && (0x00 - arg) <= (unsigned int)info->champion_count)
 		info->champions[0x00 - arg - 1].last_live = info->cycle;
 }
