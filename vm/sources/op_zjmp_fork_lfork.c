@@ -14,9 +14,11 @@
 
 void	op_zjmp(t_info *info, t_car *car)
 {
+	car->jump = 3;
 	if (car->carry)
 		car->pc = (car->pc + ((short)get_argument(info, 1, car) % IDX_MOD)) % MEM_SIZE;
-	car->jump = 3;
+	else
+		return ;
 	car->op = info->memory[car->pc];
 	if (car->op > 0x00 && car->op <= 0x10)
 		car->wait = g_op[car->op][WAIT_TIME];
