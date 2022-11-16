@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   options_text_op.c                                  :+:      :+:    :+:   */
+/*   print_live_aff.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:40:48 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/25 14:40:51 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/11/15 14:52:20 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/11/15 14:52:21 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "operations.h"
 
-int	set_dump(t_options *opts, char *nbr)
+void	print_live(t_car *car)
 {
-	if (nbr == NULL)
-		return (-1);
-	opts->dump = ft_atoi(nbr);
-	return (1);
+	ft_printf("live %d\n", (int)car->op_args[0]);
 }
 
-int	set_verbose_flag(t_options *opts, char *nbr)
+void	print_aff(t_car *car)
 {
-	if (nbr == NULL)
-		return (-1);
-	opts->verbose_flags += ft_atoi(nbr);
-	return (1);
+	(void)car;
 }

@@ -12,10 +12,17 @@
 
 #include "corewar.h"
 
+static void	set_options(t_info *info, t_options *opts)
+{
+	info->dump_cycles = opts->dump;
+	info->verbose_opts = opts->verbose_flags;
+}
+
 static void	init_options(t_options *opts)
 {
 	opts->dump = -1;
 	opts->next_id = 0;
+	opts->verbose_flags = 0;
 }
 
 static int	get_index(char *opt)
@@ -77,6 +84,6 @@ int	read_arguments(int argc, char **argv, t_info *info)
 	}
 	if (info->champion_count == 0)
 		return (-1);
-	info->dump_cycles = options.dump;
+	set_options(info, &options);
 	return (1);
 }

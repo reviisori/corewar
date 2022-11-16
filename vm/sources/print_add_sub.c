@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   options_text_op.c                                  :+:      :+:    :+:   */
+/*   print_add_sub.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:40:48 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/25 14:40:51 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/11/15 14:51:35 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/11/15 14:51:37 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "operations.h"
 
-int	set_dump(t_options *opts, char *nbr)
+void	print_add(t_car *car)
 {
-	if (nbr == NULL)
-		return (-1);
-	opts->dump = ft_atoi(nbr);
-	return (1);
+	ft_printf("add r%hhd r%hhd r%hhd\n",
+		car->op_args[0],
+		car->op_args[1],
+		car->op_args[2]);
 }
 
-int	set_verbose_flag(t_options *opts, char *nbr)
+void	print_sub(t_car *car)
 {
-	if (nbr == NULL)
-		return (-1);
-	opts->verbose_flags += ft_atoi(nbr);
-	return (1);
+	ft_printf("add r%hhd r%hhd r%hhd\n",
+		car->op_args[0],
+		car->op_args[1],
+		car->op_args[2]);
 }
