@@ -58,8 +58,9 @@ void	op_ld(t_info *info, t_car *car)
 }
 
 /* 
-	Resource VM is told to have a mistake, 
-	where instead of REG_SIZE, it reads only 2 bytes.
+	Resource VM is told to have a mistake, where instead of REG_SIZE, it reads
+	only 2 bytes when given an indirect argument. It also doesn't always write
+	the correct value to the registry even compared to those read two bytes...
  */
 void	op_lld(t_info *info, t_car *car)
 {
@@ -76,8 +77,8 @@ void	op_lld(t_info *info, t_car *car)
 	if (arg_type1 == DIR_CODE)
 		value = get_argument(info, 1, car);
 	else
-		value = cat_n_bytes(&info->memory[(car->pc + (int)get_argument(info, 1, car))
-				% MEM_SIZE], g_op[car->op][OP_DIR], info->memory);//Resource VM is told to have a mistake with OP_DIR == 2
+		value = cat_n_bytes(&info->memory[(car->pc + ((short)get_argument(info, 1, car))
+			+ MEM_SIZE) % MEM_SIZE], g_op[car->op][OP_DIR], info->memory);
 	car->reg[reg] = value;
 	car->carry = 0;
 	if (!value)
@@ -107,7 +108,7 @@ void	op_ldi(t_info *info, t_car *car)
 		args[1] = get_argument(info, 2, car);
 	if (info->verbose_opts & SHOW_OP)
 		ft_memcpy(car->op_args, args, sizeof(unsigned int) * sizeof(args));
-	car->reg[args[2]] = cat_n_bytes(&info->memory[(car->pc + (int)(args[0] + args[1])) % IDX_MOD], 4, info->memory);
+	car->reg[args[2]] = cat_n_bytes(&info->memory[((car->pc + (short)(args[0] + args[1])) % IDX_MOD + MEM_SIZE) % MEM_SIZE], 4, info->memory);
 }
 
 void	op_lldi(t_info *info, t_car *car)
@@ -128,11 +129,11 @@ void	op_lldi(t_info *info, t_car *car)
 	else if (arg_type1 == DIR_CODE)
 		value += get_argument(info, 1, car);
 	else if (arg_type1 == IND_CODE)
-		value += cat_n_bytes(&info->memory[(car->pc
-					+ get_argument(info, 1, car)) % IDX_MOD], 4, info->memory);
+		value += cat_n_bytes(&info->memory[(car->pc + (short)get_argument(info, 1, car)
+			+ MEM_SIZE) % MEM_SIZE], 4, info->memory);
 	if (arg_type2 == REG_CODE)
 		value += car->reg[get_argument(info, 2, car)];
 	else if (arg_type2 == DIR_CODE)
 		value += get_argument(info, 2, car);
-	car->reg[reg] = cat_n_bytes(&info->memory[car->pc + (int)value], 4, info->memory);
+	car->reg[reg] = cat_n_bytes(&info->memory[((car->pc + (short)value) + MEM_SIZE) % MEM_SIZE], 4, info->memory);
 }

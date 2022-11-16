@@ -14,9 +14,21 @@
 
 void	op_zjmp(t_info *info, t_car *car)
 {
+<<<<<<< HEAD
 	if (car->carry)
 		car->pc = (car->pc + ((short)get_argument(info, 1, car) % IDX_MOD)) % MEM_SIZE;
+=======
+>>>>>>> vm_champions
 	car->jump = 3;
+	if (car->carry)
+		car->pc = (car->pc + ((short)get_argument(info, 1, car) % IDX_MOD)) % MEM_SIZE;
+	else
+		return ;
+	car->op = info->memory[car->pc];
+	if (car->op > 0x00 && car->op <= 0x10)
+		car->wait = g_op[car->op][WAIT_TIME];
+	else
+		car->wait = 0;
 }
 
 void	op_fork(t_info *info, t_car *car)
