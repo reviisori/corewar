@@ -50,7 +50,7 @@ void	op_ld(t_info *info, t_car *car)
 		args[0] = cat_n_bytes(&info->memory[((car->pc + ((short)get_argument(info, 1, car))
 				% IDX_MOD) + MEM_SIZE) % MEM_SIZE], g_op[car->op][OP_DIR], info->memory);
 	if (info->verbose_opts & SHOW_OP)
-		ft_memcpy(car->op_args, args, sizeof(unsigned int) * 2);
+		print_operation(car, args, 2);
 	car->reg[args[1]] = args[0];
 	car->carry = 0;
 	if (!args[0])
@@ -79,7 +79,7 @@ void	op_lld(t_info *info, t_car *car)
 		args[0] = cat_n_bytes(&info->memory[(car->pc + ((short)get_argument(info, 1, car))
 			+ MEM_SIZE) % MEM_SIZE], g_op[car->op][OP_DIR], info->memory);
 	if (info->verbose_opts & SHOW_OP)
-		ft_memcpy(car->op_args, args, sizeof(unsigned int) * 2);
+		print_operation(car, args, 2);
 	car->reg[args[1]] = args[0];
 	car->carry = 0;
 	if (!args[0])
@@ -108,7 +108,7 @@ void	op_ldi(t_info *info, t_car *car)
 	else if (arg_types[1] == DIR_CODE)
 		args[1] = get_argument(info, 2, car);
 	if (info->verbose_opts & SHOW_OP)
-		ft_memcpy(car->op_args, args, sizeof(unsigned int) * 3);
+		print_operation(car, args, 3);
 	car->reg[args[2]] = cat_n_bytes(&info->memory[((car->pc + (short)(args[0] + args[1])) % IDX_MOD + MEM_SIZE) % MEM_SIZE], 4, info->memory);
 }
 
@@ -134,6 +134,6 @@ void	op_lldi(t_info *info, t_car *car)
 	else if (arg_types[1] == DIR_CODE)
 		args[1] = get_argument(info, 2, car);
 	if (info->verbose_opts & SHOW_OP)
-		ft_memcpy(car->op_args, args, sizeof(unsigned int) * 3);
+		print_operation(car, args, 3);
 	car->reg[args[2]] = cat_n_bytes(&info->memory[((car->pc + (short)(args[0] + args[1])) + MEM_SIZE) % MEM_SIZE], 4, info->memory);
 }

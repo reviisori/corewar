@@ -14,10 +14,16 @@
 
 void	print_add(t_car *car)
 {
-	(void)car;
+	ft_printf("add r%hhd r%hhd r%hhd\n",
+		car->op_args[0],
+		car->op_args[1],
+		car->op_args[2]);
 }
 
 void	print_sub(t_car *car)
 {
-	(void)car;
+	ft_printf("add r%hhd r%hhd r%hhd\n",
+		car->op_args[0],
+		car->op_args[1],
+		car->op_args[2]);
 }

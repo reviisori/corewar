@@ -43,11 +43,12 @@ void	op_and(t_info *info, t_car *car)
 	args[2] = get_argument(info, 3, car);
 	if (args[2] > REG_NUMBER || !args[2])
 		return ;
+	if (info->verbose_opts & SHOW_OP)
+		print_operation(car, args, 3);
 	car->reg[args[2]] = args[0] & args[1];
+	car->carry = 0;
 	if (!car->reg[args[2]])
 		car->carry = 1;
-	else
-		car->carry = 0;
 }
 
 void	op_or(t_info *info, t_car *car)
@@ -81,11 +82,12 @@ void	op_or(t_info *info, t_car *car)
 	args[2] = get_argument(info, 3, car);
 	if (args[2] > REG_NUMBER || !args[2])
 		return ;
+	if (info->verbose_opts & SHOW_OP)
+		print_operation(car, args, 3);
 	car->reg[args[2]] = args[0] | args[1];
+	car->carry = 0;
 	if (!car->reg[args[2]])
 		car->carry = 1;
-	else
-		car->carry = 0;
 }
 
 void	op_xor(t_info *info, t_car *car)
@@ -119,9 +121,10 @@ void	op_xor(t_info *info, t_car *car)
 	args[2] = get_argument(info, 3, car);
 	if (args[2] > REG_NUMBER || !args[2])
 		return ;
+	if (info->verbose_opts & SHOW_OP)
+		print_operation(car, args, 3);
 	car->reg[args[2]] = args[0] ^ args[1];
+	car->carry = 0;
 	if (!car->reg[args[2]])
 		car->carry = 1;
-	else
-		car->carry = 0;
 }

@@ -23,7 +23,7 @@ void	op_live(t_info *info, t_car *car)
 	if (arg && (0x00 - arg) <= (unsigned int)info->champion_count)
 		info->champions[0x00 - arg - 1].last_live = info->cycle;
 	if (info->verbose_opts & SHOW_OP)
-		car->op_args[0] = arg;
+		print_operation(car, &arg, 1);
 }
 
 void	op_aff(t_info *info, t_car *car)

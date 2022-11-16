@@ -14,10 +14,7 @@
 
 void	print_st(t_car *car)
 {
-	if (car->op_arg_types[1] == IND_CODE)
-		ft_printf("st r%hhd %hd\n", car->op_args[0], car->op_args[1]);
-	else
-		ft_printf("st r%hhd %hhd\n", car->op_args[0], car->op_args[1]);
+	ft_printf("st r%hhd %hd\n", car->op_args[0], car->op_args[1]);
 }
 
 void	print_sti(t_car *car)

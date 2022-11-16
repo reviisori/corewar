@@ -149,7 +149,6 @@ typedef struct s_car
 	unsigned int	pc;//current position, always %MEM_SIZE
 	bool			carry;
 	unsigned char	op;//the current statement the car stands on
-	unsigned char	op_arg_types[MAX_ARGS_NUMBER];
 	unsigned int	op_args[MAX_ARGS_NUMBER];
 	unsigned int	last_live;//the last cycle the car declared alive
 	unsigned int	wait;//cycles until current op tries to run and this car moves
@@ -205,6 +204,6 @@ int				run_game(t_info *info);
 void			push_new_car(t_info *info, t_car *parent, int forkjump);
 
 /* Print functions */
-void			print_operation(t_car *car);
+void			print_operation(t_car *car, unsigned int args[], size_t count);
 
 #endif

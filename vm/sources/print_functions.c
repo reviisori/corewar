@@ -12,10 +12,10 @@
 
 #include "operations.h"
 
-void	print_operation(t_car *car)
+void	print_operation(t_car *car, unsigned int args[], size_t count)
 {
+	ft_memcpy(car->op_args, args, count * sizeof(unsigned int));
 	ft_printf("P%5d | ", car->index);
 	g_op_print[car->op](car);
 	ft_bzero(car->op_args, MAX_ARGS_NUMBER * sizeof(unsigned int));
-	ft_bzero(car->op_arg_types, MAX_ARGS_NUMBER * sizeof(unsigned char));
 }

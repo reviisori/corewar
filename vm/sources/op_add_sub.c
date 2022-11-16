@@ -14,7 +14,7 @@
 
 void	op_add(t_info *info, t_car *car)
 {
-	unsigned char	args[3];
+	unsigned int	args[3];
 	unsigned int	sum;
 
 	ft_bzero(args, sizeof(args));
@@ -31,15 +31,16 @@ void	op_add(t_info *info, t_car *car)
 		return ;
 	sum = car->reg[args[0]] + car->reg[args[1]];
 	car->reg[args[2]] = sum;
+	car->carry = 0;
 	if (!sum)
 		car->carry = 1;
-	else
-		car->carry = 0;
+	if (info->verbose_opts & SHOW_OP)
+		print_operation(car, args, 3);
 }
 
 void	op_sub(t_info *info, t_car *car)
 {
-	unsigned char	args[3];
+	unsigned int	args[3];
 	unsigned int	sub;
 
 	ft_bzero(args, sizeof(args));
@@ -56,8 +57,9 @@ void	op_sub(t_info *info, t_car *car)
 		return ;
 	sub = car->reg[args[0]] - car->reg[args[1]];
 	car->reg[args[2]] = sub;
+	car->carry = 0;
 	if (!sub)
 		car->carry = 1;
-	else
-		car->carry = 0;
+	if (info->verbose_opts & SHOW_OP)
+		print_operation(car, args, 3);
 }
