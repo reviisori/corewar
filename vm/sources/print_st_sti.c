@@ -20,7 +20,7 @@ void	print_st(t_car *car)
 		ft_printf("st r%hhd %hhd\n", car->op_args[0], car->op_args[1]);
 }
 
-void	print_sti(t_car *car) //continue!!!
+void	print_sti(t_car *car)
 {
 	int				sum;
 	unsigned short	target_adr;

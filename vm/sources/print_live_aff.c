@@ -14,7 +14,7 @@
 
 void	print_live(t_car *car)
 {
-	(void)car;
+	ft_printf("live %d\n", (int)car->op_args[0]);
 }
 
 void	print_aff(t_car *car)

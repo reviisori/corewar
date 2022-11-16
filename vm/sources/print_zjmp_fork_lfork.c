@@ -14,15 +14,21 @@
 
 void	print_zjmp(t_car *car)
 {
-	(void)car;
+	ft_printf("zjmp %hd OK\n", car->op_args[0]);
 }
 
 void	print_fork(t_car *car)
 {
-	(void)car;
+	short	adr;
+
+	adr = (car->pc + car->op_args[0] % IDX_MOD) % MEM_SIZE;
+	ft_printf("fork %hd (%hd)\n", car->op_args[0], adr);
 }
 
 void	print_lfork(t_car *car)
 {
-	(void)car;
+	short	adr;
+
+	adr = (car->pc + car->op_args[0]) % MEM_SIZE;
+	ft_printf("fork %hd (%hd)\n", car->op_args[0], adr);
 }

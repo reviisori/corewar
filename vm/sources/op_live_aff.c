@@ -22,6 +22,8 @@ void	op_live(t_info *info, t_car *car)
 	arg = cat_n_bytes(&info->memory[car->pc + 1], REG_SIZE, info->memory);
 	if (arg && (0x00 - arg) <= (unsigned int)info->champion_count)
 		info->champions[0x00 - arg - 1].last_live = info->cycle;
+	if (info->verbose_opts & SHOW_OP)
+		car->op_args[0] = arg;
 }
 
 void	op_aff(t_info *info, t_car *car)
@@ -34,6 +36,6 @@ void	op_aff(t_info *info, t_car *car)
 	reg = get_argument(info, 1, car);
 	if (arg_type != REG_CODE || reg < 1 || reg > 0x10)
 		return ;
-	value = (char) car->reg[reg];
+	value = (char)car->reg[reg];
 	write(1, &value, 1);
 }
