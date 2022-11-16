@@ -14,11 +14,6 @@
 
 void	op_zjmp(t_info *info, t_car *car)
 {
-<<<<<<< HEAD
-	if (car->carry)
-		car->pc = (car->pc + ((short)get_argument(info, 1, car) % IDX_MOD)) % MEM_SIZE;
-=======
->>>>>>> vm_champions
 	car->jump = 3;
 	if (car->carry)
 		car->pc = (car->pc + ((short)get_argument(info, 1, car) % IDX_MOD)) % MEM_SIZE;
