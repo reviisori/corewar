@@ -92,5 +92,5 @@ void	op_sti(t_info *info, t_car *car)
 	if (info->verbose_opts & SHOW_OP)
 		print_sti(car, args);
 	args[0] = car->reg[args[0]];
-	copy_to_memory(info->memory, car->pc + ((int)(args[1] + args[2]) % IDX_MOD), args[0]);
+	copy_to_memory(info->memory, car->pc + ((short)(args[1] + args[2]) % IDX_MOD), args[0]);
 }
