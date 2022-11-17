@@ -26,7 +26,7 @@ void	print_fork(t_car *car, unsigned int arg)
 	short	adr;
 
 	ft_printf("P%5d | ", car->index);
-	adr = car->pc + (short)arg % IDX_MOD % MEM_SIZE;
+	adr = car->pc + (short)arg % IDX_MOD;
 	ft_printf("fork %hd (%hd)\n", arg, adr);
 }
 
@@ -35,6 +35,6 @@ void	print_lfork(t_car *car, unsigned int arg)
 	short	adr;
 
 	ft_printf("P%5d | ", car->index);
-	adr = (car->pc + arg) % MEM_SIZE;
+	adr = car->pc + arg;
 	ft_printf("lfork %hd (%hd)\n", arg, adr);
 }
