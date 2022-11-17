@@ -27,7 +27,7 @@ void	op_zjmp(t_info *info, t_car *car)
 		return ;
 	}
 	if (info->verbose_opts & SHOW_OP)
-		print_zjmp(car, arg, 0);
+		print_zjmp(car, arg, 1);
 	car->op = info->memory[car->pc];
 	if (car->op > 0x00 && car->op <= 0x10)
 		car->wait = g_op[car->op][WAIT_TIME];
