@@ -36,5 +36,5 @@ void	print_lfork(t_car *car, unsigned int arg)
 
 	ft_printf("P%5d | ", car->index);
 	adr = (car->pc + arg) % MEM_SIZE;
-	ft_printf("fork %hd (%hd)\n", arg, adr);
+	ft_printf("lfork %hd (%hd)\n", arg, adr);
 }

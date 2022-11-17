@@ -34,7 +34,7 @@ void	op_zjmp(t_info *info, t_car *car)
 	else
 	{
 		car->jump = 1;
-		car->wait = 0;
+		car->wait = 1;
 	}
 }
 
