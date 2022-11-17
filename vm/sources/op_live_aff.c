@@ -23,7 +23,7 @@ void	op_live(t_info *info, t_car *car)
 	if (arg && (0x00 - arg) <= (unsigned int)info->champion_count)
 		info->champions[0x00 - arg - 1].last_live = info->cycle;
 	if (info->verbose_opts & SHOW_OP)
-		print_operation(car, &arg, 1);
+		print_live(car, arg);
 }
 
 void	op_aff(t_info *info, t_car *car)
@@ -37,5 +37,7 @@ void	op_aff(t_info *info, t_car *car)
 	if (arg_type != REG_CODE || reg < 1 || reg > 0x10)
 		return ;
 	value = (char)car->reg[reg];
+	if (info->verbose_opts & SHOW_OP)
+		print_aff(car, reg);
 	write(1, &value, 1);
 }

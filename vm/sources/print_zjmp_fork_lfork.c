@@ -12,23 +12,29 @@
 
 #include "operations.h"
 
-void	print_zjmp(t_car *car)
+void	print_zjmp(t_car *car, unsigned int arg, bool success)
 {
-	ft_printf("zjmp %hd OK\n", car->op_args[0]);
+	ft_printf("P%5d | ", car->index);
+	if (success)
+		ft_printf("zjmp %hd OK\n", arg);
+	if (!success)
+		ft_printf("zjmp %hd FAILED\n", arg);
 }
 
-void	print_fork(t_car *car)
+void	print_fork(t_car *car, unsigned int arg)
 {
 	short	adr;
 
-	adr = (car->pc + car->op_args[0] % IDX_MOD) % MEM_SIZE;
-	ft_printf("fork %hd (%hd)\n", car->op_args[0], adr);
+	ft_printf("P%5d | ", car->index);
+	adr = (car->pc + arg % IDX_MOD) % MEM_SIZE;
+	ft_printf("fork %hd (%hd)\n", arg, adr);
 }
 
-void	print_lfork(t_car *car)
+void	print_lfork(t_car *car, unsigned int arg)
 {
 	short	adr;
 
-	adr = (car->pc + car->op_args[0]) % MEM_SIZE;
-	ft_printf("fork %hd (%hd)\n", car->op_args[0], adr);
+	ft_printf("P%5d | ", car->index);
+	adr = (car->pc + arg) % MEM_SIZE;
+	ft_printf("fork %hd (%hd)\n", arg, adr);
 }

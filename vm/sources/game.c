@@ -178,7 +178,6 @@ void	init_car(t_car *car, t_info *info, t_car *parent, int forkjump)
 		car->carry = parent->carry;
 	}
 	car->op = info->memory[car->pc];
-	ft_bzero(car->op_args, MAX_ARGS_NUMBER * sizeof(unsigned int));
 	car->wait = 0;//might be an issue, if op happens to change between this cycle and next. Which one is correct?
 	car->jump = 0;
  	if (car->op > 0 && car->op < 0x11)

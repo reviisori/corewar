@@ -12,18 +12,20 @@
 
 #include "operations.h"
 
-void	print_add(t_car *car)
+void	print_add(t_car *car, unsigned int args[])
 {
+	ft_printf("P%5d | ", car->index);
 	ft_printf("add r%hhd r%hhd r%hhd\n",
-		car->op_args[0],
-		car->op_args[1],
-		car->op_args[2]);
+		args[0],
+		args[1],
+		args[2]);
 }
 
-void	print_sub(t_car *car)
+void	print_sub(t_car *car, unsigned int args[])
 {
+	ft_printf("P%5d | ", car->index);
 	ft_printf("add r%hhd r%hhd r%hhd\n",
-		car->op_args[0],
-		car->op_args[1],
-		car->op_args[2]);
+		args[0],
+		args[1],
+		args[2]);
 }

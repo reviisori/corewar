@@ -149,7 +149,6 @@ typedef struct s_car
 	unsigned int	pc;//current position, always %MEM_SIZE
 	bool			carry;
 	unsigned char	op;//the current statement the car stands on
-	unsigned int	op_args[MAX_ARGS_NUMBER];
 	unsigned int	last_live;//the last cycle the car declared alive
 	unsigned int	wait;//cycles until current op tries to run and this car moves
 	unsigned int	jump;// amount of bytes the car moves next jump, ≥ 1
