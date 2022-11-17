@@ -29,6 +29,8 @@ int	calculate_jump(unsigned char c_byte, unsigned char op)
 
  	if (op < 1 || op > 0x10)
 		return (1);
+	if (!c_byte)
+		return (2);
 	i = 3;
 	sum = 0;
 	store = c_byte;

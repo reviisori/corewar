@@ -80,7 +80,7 @@ void	op_lld(t_info *info, t_car *car)
 			+ MEM_SIZE) % MEM_SIZE], g_op[car->op][OP_DIR], info->memory);
 	car->reg[reg] = value;
 	car->carry = 0;
-	if (!value)
+	if (!car->reg[reg])
 		car->carry = 1;
 }
 
@@ -136,4 +136,7 @@ void	op_lldi(t_info *info, t_car *car)
 	else if (arg_type2 == DIR_CODE)
 		value += get_argument(info, 2, car);
 	car->reg[reg] = cat_n_bytes(&info->memory[((car->pc + (short)value) + MEM_SIZE) % MEM_SIZE], 4, info->memory);
+	car->carry = 0;
+	if (!car->reg[reg])
+		car->carry = 1;
 }
