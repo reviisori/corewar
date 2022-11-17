@@ -117,7 +117,7 @@ void	run_all_cars(t_info *info)
 		if (flag)
 			car->wait--;
 		if (car->wait == 0)
-			execute_op(car, info);//
+			execute_op(car, info);
 		car = car->next;
 	}
 }

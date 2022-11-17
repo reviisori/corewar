@@ -59,8 +59,8 @@ then
 	printf "Saved files to ${YELLOW}$ORIG_OUTPUT${EOC} and ${YELLOW}$OUR_OUTPUT${EOC}\n"
 else
 	printf "Diff ${GREEN}OK${EOC}\n"
-		rm -rf $ORIG_OUTPUT
-		rm -rf $OUR_OUTPUT
+	rm -rf $ORIG_OUTPUT
+	rm -rf $OUR_OUTPUT
 	rm -rf $DIFF_FILE
 fi
 exit

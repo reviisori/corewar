@@ -14,11 +14,20 @@
 
 void	op_zjmp(t_info *info, t_car *car)
 {
+	unsigned int	arg;
+
 	car->jump = 3;
+	arg = get_argument(info, 1, car);
 	if (car->carry)
-		car->pc = (car->pc + ((short)get_argument(info, 1, car) % IDX_MOD)) % MEM_SIZE;
+		car->pc = (car->pc + ((short)arg % IDX_MOD)) % MEM_SIZE;
 	else
+	{
+		if (info->verbose_opts & SHOW_OP)
+			print_zjmp(car, arg, 0);
 		return ;
+	}
+	if (info->verbose_opts & SHOW_OP)
+		print_zjmp(car, arg, 0);
 	car->op = info->memory[car->pc];
 	if (car->op > 0x00 && car->op <= 0x10)
 		car->wait = g_op[car->op][WAIT_TIME];
@@ -31,12 +40,22 @@ void	op_zjmp(t_info *info, t_car *car)
 
 void	op_fork(t_info *info, t_car *car)
 {
-	push_new_car(info, car, ((short)get_argument(info, 1, car) % IDX_MOD));
+	unsigned int	arg;
+
+	arg = get_argument(info, 1, car);
+	push_new_car(info, car, ((short)arg % IDX_MOD));
+	if (info->verbose_opts & SHOW_OP)
+		print_fork(car, arg);
 	car->jump = 3;
 }
 
 void	op_lfork(t_info *info, t_car *car)
 {
-	push_new_car(info, car, (short)get_argument(info, 1, car));
+	unsigned int	arg;
+
+	arg = get_argument(info, 1, car);
+	push_new_car(info, car, (short)arg);
+	if (info->verbose_opts & SHOW_OP)
+		print_lfork(car, arg);
 	car->jump = 3;
 }

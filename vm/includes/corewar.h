@@ -53,8 +53,11 @@ differs from what its header says"
 # define HEADER_ERROR "File %s has an invalid header"
 
 /* Option macros, struct, functions and the jump table implemented for them */
-# define OPTIONS "dn"
-# define OPTION_COUNT 2
+# define OPTIONS "dnv"
+# define OPTION_COUNT 3
+
+/* Verbose print macros */
+# define SHOW_OP 4
 
 /* Macros describing .cor file standard */
 # define HEADER_SIZE 4		/* sizeof(unsigned int) */
@@ -72,20 +75,24 @@ differs from what its header says"
 # define CRUMBS_IN_BYTE 4
 # define MAX_UINT 0xFFFFFFFF
 
+
 typedef struct s_options
 {
-	int	next_id;
-	int	dump;
-}		t_options;
+	int		next_id;
+	int		dump;
+	int		verbose_flags;
+}	t_options;
 
 int				set_player_number(t_options *opts, char *nbr);
 int				set_dump(t_options *opts, char *nbr);
+int				set_verbose_flag(t_options *opts, char *nbr);
 
 typedef int					(*t_jump_opts)(t_options *, char *);
 
 static const t_jump_opts	g_jump_table[OPTION_COUNT] = {
 	set_dump,
-	set_player_number
+	set_player_number,
+	set_verbose_flag
 };
 
 /* 0 = number of arguments
@@ -141,7 +148,6 @@ typedef struct s_car
 	unsigned int	reg[REG_NUMBER + 1];// 1+15 registries, 0 never used 
 	unsigned int	pc;//current position, always %MEM_SIZE
 	bool			carry;
-	
 	unsigned char	op;//the current statement the car stands on
 	unsigned int	last_live;//the last cycle the car declared alive
 	unsigned int	wait;//cycles until current op tries to run and this car moves
@@ -164,6 +170,7 @@ typedef struct s_info
 	t_car			*liststart;
 	unsigned int	lives_this_check;//live _statements_
 	unsigned int	checks_after_mod;
+	int				verbose_opts;
 }				t_info;
 
 /* VM functions */
@@ -194,5 +201,8 @@ unsigned int	cat_n_bytes(unsigned char *offset, unsigned int bytes, unsigned cha
 /* Game functions */
 int				run_game(t_info *info);
 void			push_new_car(t_info *info, t_car *parent, int forkjump);
+
+/* Print functions */
+void			print_operation(t_car *car, unsigned int args[], size_t count);
 
 #endif
