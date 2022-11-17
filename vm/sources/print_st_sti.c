@@ -20,13 +20,13 @@ void	print_st(t_car *car, unsigned int args[])
 
 void	print_sti(t_car *car, unsigned int args[])
 {
-	int				sum;
+	int		sum;
 	short	target_adr;
 
 	ft_printf("P%5d | ", car->index);
 	ft_printf("sti r%hhd ", args[0]);
-	ft_printf("%d ", args[1]);
-	ft_printf("%d\n", args[2]);
+	ft_printf("%hd ", args[1]);
+	ft_printf("%hd\n", args[2]);
 	sum = args[1] + args[2];
 	target_adr = (car->pc + ((short)sum % IDX_MOD));
 	ft_printf("%7c| -> store to %d + %d = %d (with pc and mod %hu)\n",
