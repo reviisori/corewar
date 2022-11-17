@@ -12,26 +12,29 @@
 
 #include "operations.h"
 
-void	print_and(t_car *car)
+void	print_and(t_car *car, unsigned int args[])
 {
+	ft_printf("P%5d | ", car->index);
 	ft_printf("and %d %d r%hhd\n",
-		car->op_args[0],
-		car->op_args[1],
-		car->op_args[2]);
+		args[0],
+		args[1],
+		args[2]);
 }
 
-void	print_or(t_car *car)
+void	print_or(t_car *car, unsigned int args[])
 {
+	ft_printf("P%5d | ", car->index);
 	ft_printf("or %d %d r%hhd\n",
-		car->op_args[0],
-		car->op_args[1],
-		car->op_args[2]);
+		args[0],
+		args[1],
+		args[2]);
 }
 
-void	print_xor(t_car *car)
+void	print_xor(t_car *car, unsigned int args[])
 {
+	ft_printf("P%5d | ", car->index);
 	ft_printf("xor %d %d r%hhd\n",
-		car->op_args[0],
-		car->op_args[1],
-		car->op_args[2]);
+		args[0],
+		args[1],
+		args[2]);
 }

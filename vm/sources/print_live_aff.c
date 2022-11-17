@@ -12,12 +12,14 @@
 
 #include "operations.h"
 
-void	print_live(t_car *car)
+void	print_live(t_car *car, unsigned int arg)
 {
-	ft_printf("live %d\n", (int)car->op_args[0]);
+	ft_printf("P%5d | ", car->index);
+	ft_printf("live %d\n", (int)arg);
 }
 
-void	print_aff(t_car *car)
+void	print_aff(t_car *car, unsigned int arg)
 {
-	(void)car;
+	ft_printf("P%5d | ", car->index);
+	ft_printf("aff r%hhd", arg);
 }

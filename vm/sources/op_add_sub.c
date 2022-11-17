@@ -35,7 +35,7 @@ void	op_add(t_info *info, t_car *car)
 	if (!sum)
 		car->carry = 1;
 	if (info->verbose_opts & SHOW_OP)
-		print_operation(car, args, 3);
+		print_add(car, args);
 }
 
 void	op_sub(t_info *info, t_car *car)
@@ -61,5 +61,5 @@ void	op_sub(t_info *info, t_car *car)
 	if (!sub)
 		car->carry = 1;
 	if (info->verbose_opts & SHOW_OP)
-		print_operation(car, args, 3);
+		print_sub(car, args);
 }
