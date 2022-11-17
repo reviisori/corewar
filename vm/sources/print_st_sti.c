@@ -28,7 +28,7 @@ void	print_sti(t_car *car, unsigned int args[])
 	ft_printf("%d ", args[1]);
 	ft_printf("%d\n", args[2]);
 	sum = args[1] + args[2];
-	target_adr = (car->pc + ((short)sum % IDX_MOD)) % MEM_SIZE;
+	target_adr = (car->pc + ((short)sum % IDX_MOD));
 	ft_printf("%7c| -> store to %d + %d = %d (with pc and mod %hu)\n",
 		' ',
 		args[1],
