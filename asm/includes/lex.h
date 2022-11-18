@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 16:33:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/15 15:59:39 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/18 14:49:56 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt);
 void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key);
 void	lex_comma(t_sh *d, t_src *s, t_token *t);
 void	validate_separators(t_statement *stmt, int row, int col);
+void	label_fill(t_sh *d, t_vec *entries, t_hash *entry);
+void	check_labels(t_src *s, t_labtab *lt);
 
 bool	is_label_chars(int c);
 bool	is_label(t_src *s);
