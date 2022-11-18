@@ -16,11 +16,13 @@ CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address #-Wpedantic -Wunused -Wco
 SRC_FILES	= main.c arguments.c error.c options_champion.c 			\
 			  options_text_op.c parse_champion.c champion_id.c			\
 			  save_champion.c big_endian_convert.c check_champions.c	\
-			  game.c deploy.c c_byte_functions.c op_add_sub.c			\
+			  game.c deploy.c byte_reading.c op_add_sub.c				\
 			  op_and_or_xor.c op_ld_ldi_lld_lldi.c op_live_aff.c		\
 			  op_st_sti.c op_zjmp_fork_lfork.c print_add_sub.c			\
 			  print_and_or_xor.c print_live_aff.c print_st_sti.c		\
-			  print_ld_ldi_lld_lldi.c print_zjmp_fork_lfork.c
+			  print_ld_ldi_lld_lldi.c print_zjmp_fork_lfork.c			\
+			  carriage.c carriage_update.c print_options.c				\
+			  game_auxiliaries.c
 SRCS_DIR	= ./sources/
 SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS_DIR	= ./objects/

@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_live_aff.c                                   :+:      :+:    :+:   */
+/*   print_options.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 14:52:20 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/11/15 14:52:21 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/11/18 11:23:19 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/11/18 11:23:20 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "operations.h"
+#include "corewar.h"
 
-void	print_live(t_car *car, unsigned int arg)
+void	print_memory(unsigned char memory[])
 {
-	ft_printf("P%5d | ", car->index);
-	ft_printf("live %d\n", (int)arg);
-}
+	int				i;
+	int				line_len;
+	unsigned int	line_count;
 
-void	print_aff(t_car *car, unsigned int arg)
-{
-	ft_printf("P%5d | ", car->index);
-	ft_printf("aff r%hhd\n", arg);
+	line_len = 64;
+	line_count = 0;
+	i = -1;
+	while (++i < MEM_SIZE)
+	{
+		if (i % line_len == 0)
+			ft_printf("0x%04x : ", line_len * line_count++);
+		ft_printf("%02x ", memory[i]);
+		if ((i + 1) % line_len == 0)
+			ft_putchar('\n');
+	}
+	exit(0);
 }
