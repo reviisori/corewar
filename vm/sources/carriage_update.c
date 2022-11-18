@@ -48,14 +48,37 @@ int	calculate_jump(unsigned char c_byte, unsigned char op)
 	return (sum + 1 + g_op[op][C_BYTE]);
 }
 
+void	print_verbose_move(t_car *car, t_info *info)
+{
+	unsigned int	i;
+
+	ft_printf("ADV %u (0x%04x -> 0x%04x)", car->jump, car->pc, (car->pc + car->jump));
+	i = 0;
+	while (i < car->jump)
+	{
+		ft_printf(" %02x", info->memory[(car->pc + i) % MEM_SIZE]);
+		i++;
+	}
+	ft_printf(" \n");
+}
+
 void	execute_op(t_car *car, t_info *info)
 {
+	int	zjmp_flag;
+
+	zjmp_flag = 1;
 	if (car->op > 0 && car->op < 0x11)
 	{
+		if (car->op == 0x09)
+			zjmp_flag = 0;
 		if (g_op[car->op][C_BYTE])
 			car->jump = calculate_jump(info->memory[(car->pc + 1) % MEM_SIZE],
 					car->op);
 		g_op_jump_table[car->op](info, car);
+/* 		if (car->op == 0x09)
+			zjmp_flag = 1; */
+		if (info->verbose_opts & SHOW_MOVE && zjmp_flag)
+			print_verbose_move(car, info);
 	}
 	else
 		car->jump = 1;
