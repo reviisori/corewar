@@ -176,17 +176,12 @@ typedef struct s_info
 /* VM functions */
 int				read_arguments(int argc, char **argv, t_info *info);
 int				set_player_id(int *id, t_champion ch_list[]);
-
-unsigned char	get_crumb(unsigned char c_byte, int c_number);
-
 unsigned int	big_endian_converter(unsigned int src, int size);
-
 void			check_champions(t_champion ch_list[], int ch_count);
 void			deploy_champions(unsigned char memory[],
 					t_champion ch_list[], int count);
 void			error_handler(char *message, char *arg1,
 					unsigned int arg2, unsigned int arg3);
-void			execute_cycles(t_info *info);
 void			parse_champion(t_info *info, char *file, int *id);
 void			print_usage(char *usage);
 void			save_champion(int fd, t_champion *champion, char *file);
@@ -194,15 +189,23 @@ void			usage_exit(void);
 void			error_kill(char *reason);
 
 /* VM tools */
+unsigned char	get_crumb(unsigned char c_byte, int c_number);
 unsigned int	get_argument(t_info *info, unsigned char n, t_car *car);
 unsigned int	cast_arg_type_to_bytes(unsigned char arg_type, unsigned char op);
 unsigned int	cat_n_bytes(unsigned char *offset, unsigned int bytes, unsigned char memory[]);
 
 /* Game functions */
+int				no_cars_alive(t_info *info);
 int				run_game(t_info *info);
+void			check_aliveness(t_info *info);
+void			init_pregame_cars(t_info *info);
 void			push_new_car(t_info *info, t_car *parent, int forkjump);
 
+/* Carriage functions */
+int				calculate_jump(unsigned char c_byte, unsigned char op);
+void			run_all_cars(t_info *info);
+
 /* Print functions */
-void			print_operation(t_car *car, unsigned int args[], size_t count);
+void    		print_memory(unsigned char memory[]);
 
 #endif

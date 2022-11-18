@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "operations.h"
+#include "operations.h"
 
 #define RIGHTMOST_BYTE 0xFF000000
 
@@ -59,6 +59,31 @@ void	op_st(t_info *info, t_car *car)
 	copy_to_memory(info->memory, car->pc + ((short)args[1] % IDX_MOD), args[0]);
 }
 
+static int	save_args_sti(t_car *car, unsigned int args[],
+	unsigned char arg_types[], unsigned char memory[])
+{
+	short	adr;
+
+	if (arg_types[1] == REG_CODE)
+	{
+		if (args[1] > REG_NUMBER || !args[1])
+			return (-1);
+		args[1] = car->reg[args[1]];
+	}
+	else if (arg_types[1] == IND_CODE)
+	{
+		adr = (car->pc + ((short)args[1] % IDX_MOD)) % MEM_SIZE;
+		args[1] = cat_n_bytes(&memory[adr], REG_SIZE, memory);
+	}
+	if (arg_types[2] == REG_CODE)
+	{
+		if (args[2] > REG_NUMBER || !args[2])
+			return (-1);
+		args[2] = car->reg[args[2]];
+	}
+	return (1);
+}
+
 void	op_sti(t_info *info, t_car *car)
 {
 	unsigned char	arg_types[3];
@@ -75,22 +100,12 @@ void	op_sti(t_info *info, t_car *car)
 		return ;
 	args[1] = get_argument(info, 2, car);
 	args[2] = get_argument(info, 3, car);
-	if (arg_types[1] == REG_CODE)
-	{
-		if (args[1] > REG_NUMBER || !args[1])
-			return ;
-		args[1] = car->reg[args[1]];
-	}
-	else if (arg_types[1] == IND_CODE)
-		args[1] = cat_n_bytes(&info->memory[(car->pc + ((short)args[1] % IDX_MOD)) % MEM_SIZE], REG_SIZE, info->memory);
-	if (arg_types[2] == REG_CODE)
-	{
-		if (args[2] > REG_NUMBER || !args[2])
-			return ;
-		args[2] = car->reg[args[2]];
-	}
+	if (save_args_sti(car, args, arg_types, info->memory) == -1)
+		return ;
 	if (info->verbose_opts & SHOW_OP)
 		print_sti(car, args);
 	args[0] = car->reg[args[0]];
-	copy_to_memory(info->memory, car->pc + ((short)(args[1] + args[2]) % IDX_MOD), args[0]);
+	copy_to_memory(info->memory,
+		car->pc + ((short)(args[1] + args[2]) % IDX_MOD),
+		args[0]);
 }
