@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:39:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/14 17:11:31 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/18 14:34:45 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static void	label_set_arg(t_sh *d, t_hash *entry)
 		temp_stmt->args[temp_stmt->cur_arg] = d->byte - entry->value;
 }
 
-
-static void	label_fill(t_sh *d, t_vec *entries, t_hash *entry)
+void	label_fill(t_sh *d, t_vec *entries, t_hash *entry)
 {
 	t_statement	*temp_stmt;
 	t_undeflab	*temp_undeflab;
@@ -89,12 +88,11 @@ static void	label_new(t_sh *d, t_label *lab)
 	lab->head = node;
 }
 
-static char	*get_label(t_src *s, bool *is_arg)
+static char	*get_label(t_src *s)
 {
 	char	*key;
 	char	*p;
 
-	*is_arg = true;
 	p = (char *)&s->buf.data[s->index];
 	if (*p == DIRECT_CHAR && *s->next == LABEL_CHAR)
 	{
@@ -129,23 +127,18 @@ void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 {
 	t_hash	*entry;
 	t_label	label;
-	bool	is_arg;
 
-
-	is_arg = false;
 	if (!key)
-		key = get_label(s, &is_arg);
+		key = get_label(s);
 	entry = hash_get(&lt->labels, key);
-	if (!entry && is_arg == false)
-		hash_insert(&lt->labels, key, d->byte);
-	else if (!entry && is_arg == true)
+	if (!entry)
 	{
 		label_init(d, &label, false, true);
 		label_new(d, &label);
 		ft_vecpush(&lt->entries, &label);
 		hash_insert(&lt->labels, key, ((int)lt->entries.len * -1));
 	}
-	else if (entry && is_arg == true)
+	else if (entry)
 	{
 		if (entry->value < 0)
 		{
@@ -156,6 +149,4 @@ void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 		else
 			label_fill(d, &lt->entries, entry);
 	}
-	else if (entry && is_arg == false)
-		label_fill(d, &lt->entries, entry);
 }
