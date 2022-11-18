@@ -109,7 +109,7 @@ void	op_ldi(t_info *info, t_car *car)
 		args[1] = get_argument(info, 2, car);
 	if (info->verbose_opts & SHOW_OP)
 		print_ldi(car, args);
-	car->reg[args[2]] = cat_n_bytes(&info->memory[((car->pc + (short)(args[0] + args[1])) % IDX_MOD + MEM_SIZE) % MEM_SIZE], 4, info->memory);
+	car->reg[args[2]] = cat_n_bytes(&info->memory[(car->pc + (short)(args[0] + args[1]) % IDX_MOD + MEM_SIZE) % MEM_SIZE], 4, info->memory);
 }
 
 void	op_lldi(t_info *info, t_car *car)
