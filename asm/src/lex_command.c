@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/15 16:59:44 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/18 14:28:36 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ static void	lex_operation(t_sh *d, t_src *s, t_token *t)
 	source_adjust(s, ofs);
 }
 
+static void	command_label(t_sh *d, t_labtab *lt, char *key)
+{
+	t_hash	*entry;
+
+	entry = hash_get(&lt->labels, key);
+	if (!entry)
+		hash_insert(&lt->labels, key, d->byte);
+	else if (entry)
+		label_fill(d, &lt->entries, entry);
+}
+
 void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 {
 	char	*p;
@@ -59,7 +70,7 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		ofs = p - (char *)&s->buf.data[s->index] + 1;
 		ft_vecncat(&t->content, &s->buf.data[s->index], ofs - 1);
 		ft_vecpush(&t->content, "\0");
-		lex_label(d, s, lt, ft_strndup((char *)t->content.data, t->content.len));
+		command_label(d, lt, ft_strndup((char *)t->content.data, t->content.len));
 		source_adjust(s, ofs);
 	}
 	else
