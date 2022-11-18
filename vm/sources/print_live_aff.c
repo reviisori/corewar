@@ -21,5 +21,5 @@ void	print_live(t_car *car, unsigned int arg)
 void	print_aff(t_car *car, unsigned int arg)
 {
 	ft_printf("P%5d | ", car->index);
-	ft_printf("aff r%hhd", arg);
+	ft_printf("aff r%hhd\n", arg);
 }

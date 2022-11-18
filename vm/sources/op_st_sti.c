@@ -82,7 +82,7 @@ void	op_sti(t_info *info, t_car *car)
 		args[1] = car->reg[args[1]];
 	}
 	else if (arg_types[1] == IND_CODE)
-		args[1] = cat_n_bytes(&info->memory[(car->pc + (short)args[1] % IDX_MOD) % MEM_SIZE], REG_SIZE, info->memory);
+		args[1] = cat_n_bytes(&info->memory[(car->pc + ((short)args[1] % IDX_MOD)) % MEM_SIZE], REG_SIZE, info->memory);
 	if (arg_types[2] == REG_CODE)
 	{
 		if (args[2] > REG_NUMBER || !args[2])
@@ -92,5 +92,5 @@ void	op_sti(t_info *info, t_car *car)
 	if (info->verbose_opts & SHOW_OP)
 		print_sti(car, args);
 	args[0] = car->reg[args[0]];
-	copy_to_memory(info->memory, car->pc + ((int)(args[1] + args[2]) % IDX_MOD), args[0]);
+	copy_to_memory(info->memory, car->pc + ((short)(args[1] + args[2]) % IDX_MOD), args[0]);
 }

@@ -29,6 +29,8 @@ int	calculate_jump(unsigned char c_byte, unsigned char op)
 
  	if (op < 1 || op > 0x10)
 		return (1);
+	if (!c_byte)
+		return (2);
 	i = 3;
 	sum = 0;
 	store = c_byte;
@@ -86,9 +88,9 @@ void	execute_op(t_car *car, t_info *info)
 {
 	if (car->op > 0 && car->op < 0x11)
 	{
-		g_op_jump_table[car->op](info, car);
 		if (g_op[car->op][C_BYTE])
 			car->jump = calculate_jump(info->memory[(car->pc + 1) % MEM_SIZE], car->op);
+		g_op_jump_table[car->op](info, car);
 	}
 	else
 		car->jump = 1;

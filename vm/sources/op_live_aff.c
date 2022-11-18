@@ -32,12 +32,15 @@ void	op_aff(t_info *info, t_car *car)
 	unsigned int	reg;
 	char			value;
 
-	arg_type = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
-	reg = get_argument(info, 1, car);
-	if (arg_type != REG_CODE || reg < 1 || reg > 0x10)
-		return ;
-	value = (char)car->reg[reg];
-	if (info->verbose_opts & SHOW_OP)
-		print_aff(car, reg);
-	write(1, &value, 1);
+	if (0)
+	{
+		arg_type = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
+		reg = get_argument(info, 1, car);
+		if (arg_type != REG_CODE || reg < 1 || reg > 0x10)
+			return ;
+		value = (char)car->reg[reg];
+		if (info->verbose_opts & SHOW_OP)
+			print_aff(car, reg);
+		write(1, &value, 1);
+	}
 }
