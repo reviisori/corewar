@@ -14,7 +14,18 @@
 
 int	declare_winner(t_info *info)
 {
-	(void)info;
+	t_champion	winner;
+	int			i;
+
+	winner = info->champions[0];
+	i = 1;
+	while (i < info->champion_count)
+	{
+		if (info->champions[i].last_live > winner.last_live)
+			winner = info->champions[i];
+		i++;
+	}
+	ft_printf("Contestant %i, \"%s\", has won !\n", winner.id, winner.name);
 	return (1);
 }
 
@@ -37,6 +48,8 @@ int	run_game(t_info *info)
 	{
 		if (no_cars_alive(info))
 			return (declare_winner(info));
+		if (info->verbose_opts & SHOW_CYCLE)
+			ft_printf("It is now cycle %u\n", info->cycle);
 		run_all_cars(info);
 		if (info->cycle == info->next_check_cycle || info->cycles_to_die < 1)
 			check_aliveness(info);

@@ -57,7 +57,11 @@ differs from what its header says"
 # define OPTION_COUNT 3
 
 /* Verbose print macros */
+# define SHOW_ALIVE 1
+# define SHOW_CYCLE 2
 # define SHOW_OP 4
+# define SHOW_DEATH 8
+# define SHOW_MOVE 16
 
 /* Macros describing .cor file standard */
 # define HEADER_SIZE 4		/* sizeof(unsigned int) */
@@ -207,5 +211,6 @@ void			run_all_cars(t_info *info);
 
 /* Print functions */
 void    		print_memory(unsigned char memory[]);
+void			print_process_id(unsigned int id);
 
 #endif

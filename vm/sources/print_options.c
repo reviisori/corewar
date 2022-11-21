@@ -12,6 +12,11 @@
 
 #include "corewar.h"
 
+void	print_process_id(unsigned int id)
+{
+	ft_printf("P %4u | ", id);
+}
+
 void	print_memory(unsigned char memory[])
 {
 	int				i;

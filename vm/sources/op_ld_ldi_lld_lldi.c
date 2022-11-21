@@ -113,14 +113,14 @@ void	op_ldi(t_info *info, t_car *car)
 		args[0] = get_argument(info, 1, car);
 	else if (arg_types[0] == IND_CODE)
 		args[0] = cat_n_bytes(&info->memory[
-				(car->pc + get_argument(info, 1, car) % IDX_MOD) % MEM_SIZE],
+				(car->pc + (short)get_argument(info, 1, car) % IDX_MOD) % MEM_SIZE],
 				4, info->memory);
 	if (arg_types[1] == REG_CODE)
 		args[1] = car->reg[get_argument(info, 2, car)];
 	else if (arg_types[1] == DIR_CODE)
 		args[1] = get_argument(info, 2, car);
 	if (info->verbose_opts & SHOW_OP)
-		print_ldi(car, args);
+		print_ldi(car, args, arg_types);
 	adr = (car->pc + (short)(args[0] + args[1]) % IDX_MOD + MEM_SIZE) % MEM_SIZE;
 	car->reg[args[2]] = cat_n_bytes(&info->memory[adr], 4, info->memory);
 }

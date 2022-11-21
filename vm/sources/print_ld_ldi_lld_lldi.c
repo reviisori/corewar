@@ -12,28 +12,36 @@
 
 #include "operations.h"
 
+#define RIGHTMOST_TWO_BYTES 0xFFFF0000
+
 void	print_ld(t_car *car, unsigned int args[])
 {
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	ft_printf("ld %d r%hhd\n", args[0], args[1]);
 }
 
-void	print_ldi(t_car *car, unsigned int args[])
+void	print_ldi(t_car *car, unsigned int args[], unsigned char arg_types[])
 {
 	int		sum;
+	int		args_final[3];
 	short	target_adr;
 
-	sum = args[0] + args[1];
+	ft_memcpy(args_final, args, sizeof(unsigned int) * 3);
+	if (arg_types[0] == DIR_CODE && (short)args_final[0] < 0)
+		args_final[0] = args_final[0] | RIGHTMOST_TWO_BYTES;
+	if (arg_types[1] == DIR_CODE && (short)args_final[1] < 0)
+		args_final[1] = args_final[1] | RIGHTMOST_TWO_BYTES;
+	sum = args_final[0] + args_final[1];
 	target_adr = car->pc + sum % IDX_MOD;
-	ft_printf("P%5d | ", car->index);
-	ft_printf("ldi %hd %hd r%hhd\n", args[0], args[1], args[2]);
-	ft_printf("%7c| -> load from %hd + %hd = %hd (with pc and mod %hd)\n",
-		' ', args[0], args[1], sum, target_adr);
+	print_process_id(car->index);
+	ft_printf("ldi %d %d r%hhd\n", args_final[0], args_final[1], args_final[2]);
+	ft_printf("%7c| -> load from %d + %d = %d (with pc and mod %hd)\n",
+		' ', args_final[0], args_final[1], sum, target_adr);
 }
 
 void	print_lld(t_car *car, unsigned int args[])
 {
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	ft_printf("lld %d r%hhd\n", args[0], args[1]);
 }
 
@@ -42,7 +50,7 @@ void	print_lldi(t_car *car, unsigned int args[])
 	int				sum;
 	unsigned int	with_pc;
 
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	ft_printf("lldi %d ", args[0]);
 	ft_printf("%d ", args[1]);
 	ft_printf("r%hhd\n", args[2]);
