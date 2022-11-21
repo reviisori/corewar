@@ -14,12 +14,12 @@
 
 void	print_live(t_car *car, unsigned int arg)
 {
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	ft_printf("live %d\n", (int)arg);
 }
 
 void	print_aff(t_car *car, unsigned int arg)
 {
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	ft_printf("aff r%hhd\n", arg);
 }

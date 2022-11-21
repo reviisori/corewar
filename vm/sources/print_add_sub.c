@@ -14,7 +14,7 @@
 
 void	print_add(t_car *car, unsigned int args[])
 {
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	ft_printf("add r%hhd r%hhd r%hhd\n",
 		args[0],
 		args[1],
@@ -23,7 +23,7 @@ void	print_add(t_car *car, unsigned int args[])
 
 void	print_sub(t_car *car, unsigned int args[])
 {
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	ft_printf("sub r%hhd r%hhd r%hhd\n",
 		args[0],
 		args[1],

@@ -14,7 +14,7 @@
 
 void	print_zjmp(t_car *car, unsigned int arg, bool success)
 {
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	if (success)
 		ft_printf("zjmp %hd OK\n", arg);
 	if (!success)
@@ -25,7 +25,7 @@ void	print_fork(t_car *car, unsigned int arg)
 {
 	short	adr;
 
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	adr = car->pc + (short)arg % IDX_MOD;
 	ft_printf("fork %hd (%hd)\n", arg, adr);
 }
@@ -34,7 +34,7 @@ void	print_lfork(t_car *car, unsigned int arg)
 {
 	short	adr;
 
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	adr = car->pc + arg;
 	ft_printf("lfork %hd (%hd)\n", arg, adr);
 }

@@ -14,7 +14,7 @@
 
 void	print_and(t_car *car, unsigned int args[])
 {
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	ft_printf("and %d %d r%hhd\n",
 		args[0],
 		args[1],
@@ -23,7 +23,7 @@ void	print_and(t_car *car, unsigned int args[])
 
 void	print_or(t_car *car, unsigned int args[])
 {
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	ft_printf("or %d %d r%hhd\n",
 		args[0],
 		args[1],
@@ -32,7 +32,7 @@ void	print_or(t_car *car, unsigned int args[])
 
 void	print_xor(t_car *car, unsigned int args[])
 {
-	ft_printf("P%5d | ", car->index);
+	print_process_id(car->index);
 	ft_printf("xor %d %d r%hhd\n",
 		args[0],
 		args[1],
