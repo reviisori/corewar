@@ -26,6 +26,7 @@ void	print_sti(t_car *car, unsigned int args[], unsigned char arg_types[])
 	int		args_final[3];
 	short	target_adr;
 
+<<<<<<< HEAD
 	ft_memcpy(args_final, args, sizeof(unsigned int) * 3);
 	if (arg_types[1] == DIR_CODE && (short)args_final[1] < 0)
 		args_final[1] = args_final[1] | RIGHTMOST_TWO_BYTES;
@@ -37,4 +38,12 @@ void	print_sti(t_car *car, unsigned int args[], unsigned char arg_types[])
 	ft_printf("sti r%hhd %d %d\n", args_final[0], args_final[1], args_final[2]);
 	ft_printf("%7c| -> store to %d + %d = %d (with pc and mod %hd)\n",
 		' ', args_final[1], args_final[2], sum, target_adr);
+=======
+	sum = args[1] + args[2];
+	target_adr = (car->pc + ((short)sum % IDX_MOD));
+	ft_printf("P%5d | ", car->index);//vittumaisesti prosessi voi olla yli neljä numeroa == error
+	ft_printf("sti r%hhd %hd %hd\n", args[0], args[1], args[2]);
+	ft_printf("%7c| -> store to %hd + %hd = %hd (with pc and mod %hd)\n",
+		' ', args[1], args[2], sum, target_adr);
+>>>>>>> vm_champions
 }
