@@ -48,10 +48,12 @@ int	calculate_jump(unsigned char c_byte, unsigned char op)
 	return (sum + 1 + g_op[op][C_BYTE]);
 }
 
-void	print_verbose_move(t_car *car, t_info *info)
+void	print_verbose_move(t_car *car, t_info *info, unsigned int zjmp_pc, unsigned int zjmp_op)
 {
 	unsigned int	i;
 
+	if (zjmp_op == 0x09 && zjmp_pc != car->pc)
+		return ;
 	ft_printf("ADV %u (0x%04x -> 0x%04x)", car->jump, car->pc, (car->pc + car->jump));
 	i = 0;
 	while (i < car->jump)
@@ -64,21 +66,24 @@ void	print_verbose_move(t_car *car, t_info *info)
 
 void	execute_op(t_car *car, t_info *info)
 {
-	int	zjmp_flag;
+	unsigned int zjmp_pc;
+	unsigned int zjmp_op;
 
-	zjmp_flag = 1;
 	if (car->op > 0 && car->op < 0x11)
 	{
+		zjmp_pc = 0;
+		zjmp_op = 0;
 		if (car->op == 0x09)
-			zjmp_flag = 0;
+		{
+			zjmp_pc = car->pc;
+			zjmp_op = car->op;
+		}
 		if (g_op[car->op][C_BYTE])
 			car->jump = calculate_jump(info->memory[(car->pc + 1) % MEM_SIZE],
 					car->op);
 		g_op_jump_table[car->op](info, car);
-/* 		if (car->op == 0x09)
-			zjmp_flag = 1; */
-		if (info->verbose_opts & SHOW_MOVE && zjmp_flag)
-			print_verbose_move(car, info);
+		if (info->verbose_opts & SHOW_MOVE)
+			print_verbose_move(car, info, zjmp_pc, zjmp_op);
 	}
 	else
 		car->jump = 1;

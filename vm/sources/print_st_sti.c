@@ -27,7 +27,7 @@ void	print_sti(t_car *car, unsigned int args[])
 
 	sum = args[1] + args[2];
 	target_adr = (car->pc + ((short)sum % IDX_MOD));
-	ft_printf("P%5d | ", car->index);
+	ft_printf("P%5d | ", car->index);//vittumaisesti prosessi voi olla yli neljä numeroa == error
 	ft_printf("sti r%hhd %hd %hd\n", args[0], args[1], args[2]);
 	ft_printf("%7c| -> store to %hd + %hd = %hd (with pc and mod %hd)\n",
 		' ', args[1], args[2], sum, target_adr);
