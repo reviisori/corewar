@@ -211,5 +211,6 @@ void			run_all_cars(t_info *info);
 
 /* Print functions */
 void    		print_memory(unsigned char memory[]);
+void			print_process_id(unsigned int id);
 
 #endif

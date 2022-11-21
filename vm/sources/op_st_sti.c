@@ -103,7 +103,7 @@ void	op_sti(t_info *info, t_car *car)
 	if (save_args_sti(car, args, arg_types, info->memory) == -1)
 		return ;
 	if (info->verbose_opts & SHOW_OP)
-		print_sti(car, args);
+		print_sti(car, args, arg_types);
 	args[0] = car->reg[args[0]];
 	copy_to_memory(info->memory,
 		car->pc + (short)((args[1] + args[2]) % IDX_MOD),
