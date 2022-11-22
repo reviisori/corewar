@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:12:18 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/14 15:49:34 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/22 14:00:40 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ typedef struct s_labtab
 	t_hashmap	labels;
 	t_vec		entries;
 }				t_labtab;
+
+void	free_labtab(t_labtab *lt);
 
 #endif
