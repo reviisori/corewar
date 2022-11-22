@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:29:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/14 14:57:30 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/22 16:09:00 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,11 @@ int	main(int argc, char **argv)
 	if (!parse(&d, argv[1]))
 		panic("Parsing failed.");
 	debug_statement(&d);
-	exit(1);
-	if (!assemble(argv[1])) //send asm
+	// exit(1);
+	if (!assemble(&d, argv[1])) //send asm
 		panic("Avengers didn't assemble.");
+	ft_vecdel(&d.code);  //
+	ft_strdel(&d.filename);  //
+	hash_free(&d.ops); //
 	return (0);
 }
