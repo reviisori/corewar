@@ -61,6 +61,6 @@ dkms.conf
 *.cor
 *test
 .vscode/
-vm/run_tests.sh
+vm/tests
 vm/corewar
 vm/test_files/temp_files
