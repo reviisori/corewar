@@ -28,7 +28,10 @@ void	op_zjmp(t_info *info, t_car *car)
 	}
 	if (info->verbose_opts & SHOW_OP)
 		print_zjmp(car, arg, 1);
-	car->op = info->memory[car->pc];
+
+	car->jump = 0;
+	car->wait = 0;
+/* 	car->op = info->memory[car->pc];
 	if (car->op > 0x00 && car->op <= 0x10)
 		car->wait = g_op[car->op][WAIT_TIME];
 	else
@@ -36,6 +39,7 @@ void	op_zjmp(t_info *info, t_car *car)
 		car->jump = 1;
 		car->wait = 1;
 	}
+	car->last_zjmp = 1;//should this happen always or only in the second gate? */
 }
 
 void	op_fork(t_info *info, t_car *car)
