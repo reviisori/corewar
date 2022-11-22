@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/18 14:28:36 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:27:40 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ static void	command_label(t_sh *d, t_labtab *lt, char *key)
 	if (!entry)
 		hash_insert(&lt->labels, key, d->byte);
 	else if (entry)
+	{
 		label_fill(d, &lt->entries, entry);
+		ft_strdel(&key);
+	}
 }
 
 void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
