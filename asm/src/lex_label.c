@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:39:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/18 14:34:45 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:16:04 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,6 @@ void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 		}
 		else
 			label_fill(d, &lt->entries, entry);
+		ft_strdel(&key);
 	}
 }
