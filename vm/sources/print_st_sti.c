@@ -14,7 +14,7 @@
 
 #define RIGHTMOST_TWO_BYTES 0xFFFF0000
 
-void	print_st(t_car *car, unsigned int args[])
+void	print_st(t_car *car, int args[])
 {
 	print_process_id(car->index);
 	ft_printf("st r%hhd %hd\n", args[0], args[1]);

@@ -59,7 +59,7 @@ static const t_operations	g_op_jump_table[OP_COUNT + 1] = {
 
 void	print_live(t_car *car, unsigned int arg);
 void	print_ld(t_car *car, unsigned int args[]);
-void	print_st(t_car *car, unsigned int args[]);
+void	print_st(t_car *car, int args[]);
 void	print_add(t_car *car, unsigned int args[]);
 void	print_sub(t_car *car, unsigned int args[]);
 void	print_and(t_car *car, unsigned int args[]);
