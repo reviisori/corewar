@@ -6,7 +6,7 @@
 #    By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/11/18 15:45:42 by atenhune         ###   ########.fr        #
+#    Updated: 2022/11/22 16:05:56 by atenhune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,9 @@ SRC_FILES	= main.c \
 			  source_utils.c \
 			  cleanup_source.c \
 			  cleanup_lex.c \
-			  assemble.c
+			  assemble.c \
+			  write_file.c \
+			  write_utils.c
 
 SRC_DIR		= ./src/
 SRCS		= $(addprefix $(SRC_DIR), $(SRCS_FILES))
