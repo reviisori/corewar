@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/18 14:55:02 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:59:56 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,7 @@ int	lex(t_sh *d, t_src *s)
 		reset_token(&t);
 	}
 	check_labels(s, &lt);
+	free_labtab(&lt);
+	ft_vecdel(&t.content);
 	return (1);
 }
