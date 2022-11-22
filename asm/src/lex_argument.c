@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/15 16:20:05 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/22 12:41:55 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	if (!ft_isdigit(*p) && *p != '-')
 		panic_lex(NULL, s->row, s->col);
 	arg = ft_atoi(p);
-		stmt->args[stmt->cur_arg++] = arg;
+	stmt->arg_type[stmt->cur_arg] = T_IND;
+	stmt->args[stmt->cur_arg++] = arg;
 	ofs = ft_intlen(arg);
 	t->symbol = la_ind;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
@@ -50,6 +51,7 @@ static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	if (!ft_isdigit(*p))
 		panic_lex(NULL, s->row, s->col);
 	arg = ft_atoi(p);
+	stmt->arg_type[stmt->cur_arg] = T_DIR;
 	stmt->args[stmt->cur_arg++] = arg;
 	ofs = ft_intlen(arg);
 	t->symbol = la_dir;
@@ -68,6 +70,7 @@ static void	lex_reg(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	reg = ft_atoi((char *)&s->buf.data[++s->index]);
 	if (reg < 1 || reg > REG_NUMBER)
 		panic_lex(NULL, s->row, s->col);
+	stmt->arg_type[stmt->cur_arg] = T_REG;
 	stmt->args[stmt->cur_arg++] = reg;
 	ofs = ft_intlen(reg);
 	t->symbol = la_reg;
