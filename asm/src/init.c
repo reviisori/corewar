@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:12:50 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/15 15:28:55 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/22 12:57:47 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,5 @@ void	init_handler(t_sh *d)
 		panic("Couldn't initialize exec code.");
 	init_hashmap(&d->ops, 32, true);
 	d->byte = 0;
+	d->filename = NULL;
 }
