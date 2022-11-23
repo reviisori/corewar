@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:30:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/22 16:09:08 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:09:39 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		valid_file(int argc, char *filename);
 void	panic(const char *msg);
 int		parse(t_sh *d, char *filename);
 int		assemble(t_sh *d, char *filename);
-int		write_file(t_sh *d, char *filename);
+int		write_file(t_sh *d, const int fd);
 char	*create_filename(char *src);
 
 #endif
