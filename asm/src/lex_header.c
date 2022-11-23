@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 11:45:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/11 15:22:41 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:00:43 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ static void	get_header_info(t_sh *d, t_src *s, t_token *t, char c)
 			&& c == 'c')
 			panic_lex("comment", COMMENT_LENGTH, 0);
 		ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
+		ft_vecpush(&t->content, "\0");
 		if (c == 'n')
-			ft_memcpy(&d->header.prog_name, &t->content, ofs);
+			ft_memcpy(d->header.prog_name, t->content.data, ofs);
 		else
-			ft_memcpy(&d->header.comment, &t->content, ofs);
+			ft_memcpy(d->header.comment, t->content.data, ofs);
 		source_adjust(s, ofs + 1);
 	}
 	else
