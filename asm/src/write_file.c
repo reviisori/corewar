@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 13:55:19 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/23 16:47:08 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/23 17:02:35 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,22 @@ static u_int32_t uint_to_bigendian(u_int32_t nbr)
 static void	write_header(t_sh *d, const int fd)
 {
 	u_int32_t	magic;
+	u_int32_t	exec_size;
 	size_t		i;
 
 	magic = uint_to_bigendian(d->header.magic);
 	write(fd, &magic, 4);
 	i = 0;
-	while (i < PROG_NAME_LENGTH)
+	while (i < PROG_NAME_LENGTH + 4)
 	{
 		if (d->header.prog_name[i])
-			ft_dprintf(fd, "%X", d->header.prog_name[i]);
+			write(fd, &d->header.prog_name[i], 1);
 		else
-			ft_dprintf(fd, "%02X", 0);
+			write(fd, "\0", 1);
 		i++;
-
 	}
+	exec_size = uint_to_bigendian(d->byte);
+	write(fd, &exec_size, 4);
 	exit(0);
 }
 
