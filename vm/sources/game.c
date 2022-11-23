@@ -21,7 +21,7 @@ int	declare_winner(t_info *info)
 	i = 1;
 	while (i < info->champion_count)
 	{
-		if (info->champions[i].last_live > winner.last_live)
+		if (info->last_live_champ == (unsigned int) info->champions[i].id)
 			winner = info->champions[i];
 		i++;
 	}
@@ -36,6 +36,7 @@ void	init_vars(t_info *info)
 	info->next_check_cycle = CYCLE_TO_DIE;
 	info->lives_this_check = 0;
 	info->checks_after_mod = 0;
+	info->last_live_champ = 1;
 }
 
 int	run_game(t_info *info)
