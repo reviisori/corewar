@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/22 14:27:40 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:27:24 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	create_statement(t_sh *d, char *key)
 
 	entry = hash_get(&d->ops, key);
 	temp.op = g_optab[entry->value - 1];
+	temp.acb = 0;
 	temp.loc = d->byte;
 	d->byte += 1 + g_optab[temp.op.op_code - 1].acb;
 	temp.cur_arg = 0;
