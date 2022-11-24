@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:39:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/22 14:16:04 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:14:19 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,7 @@ void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 	t_hash	*entry;
 	t_label	label;
 
-	if (!key)
-		key = get_label(s);
+	key = get_label(s);
 	entry = hash_get(&lt->labels, key);
 	if (!entry)
 	{
