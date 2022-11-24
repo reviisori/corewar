@@ -6,7 +6,7 @@
 #    By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/11/22 16:05:56 by atenhune         ###   ########.fr        #
+#    Updated: 2022/11/24 11:35:18 by atenhune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRC_FILES	= main.c \
 			  cleanup_lex.c \
 			  assemble.c \
 			  write_file.c \
+			  write_header.c \
 			  write_utils.c
 
 SRC_DIR		= ./src/
