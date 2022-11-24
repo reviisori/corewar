@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:39:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/24 14:14:19 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/24 16:39:53 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	label_set_arg(t_sh *d, t_hash *entry)
 	if (temp_stmt->is_dir)
 		temp_stmt->args[temp_stmt->cur_arg] = entry->value;
 	else
-		temp_stmt->args[temp_stmt->cur_arg] = d->byte - entry->value;
+		temp_stmt->args[temp_stmt->cur_arg] = entry->value - temp_stmt->loc;
 }
 
 void	label_fill(t_sh *d, t_vec *entries, t_hash *entry)
