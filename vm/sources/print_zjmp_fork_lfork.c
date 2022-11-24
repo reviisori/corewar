@@ -32,9 +32,9 @@ void	print_fork(t_car *car, unsigned int arg)
 
 void	print_lfork(t_car *car, unsigned int arg)
 {
-	short	adr;
+	int	adr;
 
 	print_process_id(car->index);
-	adr = car->pc + arg;
-	ft_printf("lfork %hd (%hd)\n", arg, adr);
+	adr = car->pc + (short)arg;
+	ft_printf("lfork %hd (%d)\n", arg, adr);
 }

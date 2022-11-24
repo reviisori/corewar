@@ -46,13 +46,13 @@ int	run_game(t_info *info)
 		print_memory(info->memory);
 	while (1)
 	{
-		if (no_cars_alive(info))
-			return (declare_winner(info));
 		if (info->verbose_opts & SHOW_CYCLE)
 			ft_printf("It is now cycle %u\n", info->cycle);
 		run_all_cars(info);
 		if (info->cycle == info->next_check_cycle || info->cycles_to_die < 1)
 			check_aliveness(info);
+		if (no_cars_alive(info))
+			return (declare_winner(info));
 		if ((int)info->cycle == info->dump_cycles)
 			print_memory(info->memory);
 		info->cycle++;
