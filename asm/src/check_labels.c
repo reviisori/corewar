@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   source_next.c                                      :+:      :+:    :+:   */
+/*   check_labels.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 17:43:55 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/02 18:04:26 by altikka          ###   ########.fr       */
+/*   Created: 2022/11/18 14:40:27 by atenhune          #+#    #+#             */
+/*   Updated: 2022/11/18 15:53:38 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	source_next(t_src *s)
+void	check_labels(t_src *s, t_labtab *lt)
 {
-	skip_whitespace(s);
-	if (s->index)
-		s->prev = &s->buf.data[s->index - 1];
-	if (s->index < s->buf.len)
-		s->next = &s->buf.data[s->index + 1];
+	t_label *temp;
+	size_t	i;
+	(void)s;
+	i = 0;
+	while (i < lt->entries.len)
+	{
+		temp = ft_vecget(&lt->entries, i);
+		if (temp->declared == false)
+			panic("Label missing"); // this needs to print label's "name" and location.
+		i++;
+	}
 }
+// No such label kissa while attempting to dereference token [TOKEN][004:009] DIRECT_LABEL "%:kissa"

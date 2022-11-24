@@ -3,43 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   lex_argument.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/09 17:35:30 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/22 12:41:55 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void	lex_reg(t_sh *d, t_src *s, t_token *t)
+static	int	validate_arg(t_statement *s, int arg)
 {
-	t_statement	*temp;
+	return (s->op.args[s->cur_arg] == (s->op.args[s->cur_arg] | arg));
+}
+
+static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
+{
+	char	*p;
+	int		arg;
+	int		ofs;
+
+	if (!validate_arg(stmt, T_IND))
+		panic_lex(NULL, s->row, s->col);
+	p = (char *)&s->buf.data[s->index];
+	if (!ft_isdigit(*p) && *p != '-')
+		panic_lex(NULL, s->row, s->col);
+	arg = ft_atoi(p);
+	stmt->arg_type[stmt->cur_arg] = T_IND;
+	stmt->args[stmt->cur_arg++] = arg;
+	ofs = ft_intlen(arg);
+	t->symbol = la_ind;
+	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
+	d->byte += T_IND;
+	source_adjust(s, ofs);
+}
+
+static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
+{
+	char	*p;
+	int		arg;
+	int		ofs;
+
+	if (!validate_arg(stmt, T_DIR))
+		panic_lex(NULL, s->row, s->col);
+	source_next(s);
+	p = (char *)&s->buf.data[++s->index];
+	if (!ft_isdigit(*p))
+		panic_lex(NULL, s->row, s->col);
+	arg = ft_atoi(p);
+	stmt->arg_type[stmt->cur_arg] = T_DIR;
+	stmt->args[stmt->cur_arg++] = arg;
+	ofs = ft_intlen(arg);
+	t->symbol = la_dir;
+	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
+	d->byte += T_DIR;
+	source_adjust(s, ofs);
+}
+
+static void	lex_reg(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
+{
 	int			reg;
 	int			ofs;
 
-	reg = ft_atoi((char *)&s->buf.data[++s->index]);
-	if (reg > REG_NUMBER || reg <= 0)
+	if (!validate_arg(stmt, T_REG))
 		panic_lex(NULL, s->row, s->col);
-	temp = ft_vecget(&d->code, d->code.len - 1);
-	temp->args[temp->cur_arg++] = reg;
+	reg = ft_atoi((char *)&s->buf.data[++s->index]);
+	if (reg < 1 || reg > REG_NUMBER)
+		panic_lex(NULL, s->row, s->col);
+	stmt->arg_type[stmt->cur_arg] = T_REG;
+	stmt->args[stmt->cur_arg++] = reg;
 	ofs = ft_intlen(reg);
 	t->symbol = la_reg;
 	ft_vecncat(&t->content, &s->buf.data[s->index - 1], ofs + 1);
-	d->byte += 1;
-	s->index += ofs;
-	s->col += ofs;
+	d->byte += T_REG;
+	source_adjust(s, ofs);
 }
 
-void	lex_argument(t_sh *d, t_src *s, t_token *t)
+void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 {
-	char	*p;
-
+	t_statement	*stmt;
+	char		*p;
+	
+	stmt = ft_vecget(&d->code, d->code.len - 1);
+	if (!stmt)
+		panic_lex("...", 0, 0); //?
+	validate_separators(stmt, s->row, s->col);
 	p = (char *)&s->buf.data[s->index];
+	if (stmt->cur_arg == stmt->op.argc)
+		panic_lex(NULL, s->row, s->col); //
 	if (is_register(s))
-		lex_reg(d, s, t);
-	//else if (*p == DIRECT_CHAR)
-	//	lex_dir();
-	//else
-	//	lex_ind();
+		lex_reg(d, s, t, stmt);
+	else if (*p == DIRECT_CHAR && *s->next != LABEL_CHAR)
+		lex_dir(d, s, t, stmt);
+	else if (*p != DIRECT_CHAR && *p == LABEL_CHAR)
+		lex_ind(d, s, t, stmt);
+	else
+	{
+		stmt->is_dir = true;
+		lex_label(d, s, lt, NULL);
+		calc_arg_size(d, stmt, *p);
+		t->symbol = la_plus;
+		stmt->cur_arg++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 12:54:13 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/04 15:55:48 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/15 15:00:52 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_op
 	u_int8_t	op_code;
 	char		*name;
 	int			argc;
-	int			args[3];
+	t_arg_type	args[3];
 	bool		acb;
 	u_int8_t	size;
 }				t_op;
@@ -34,7 +34,7 @@ static const t_op	g_optab[OPTAB_SIZE] = {
 {6, "and", 3, {T_REG | T_DIR | T_IND, T_REG | T_DIR | T_IND, T_REG}, true, 4},
 {7, "or", 3, {T_REG | T_DIR | T_IND, T_REG | T_DIR | T_IND, T_REG}, true, 4},
 {8, "xor", 3, {T_REG | T_DIR | T_IND, T_REG | T_DIR | T_IND, T_REG}, true, 4},
-{9, "jzmp", 1, {T_DIR}, false, 2},
+{9, "zjmp", 1, {T_DIR}, false, 2},
 {10, "ldi", 3, {T_REG | T_DIR | T_IND, T_REG | T_DIR, T_REG}, true, 2},
 {11, "sti", 4, {T_REG, T_REG | T_DIR | T_IND, T_REG | T_DIR}, true, 2},
 {12, "fork", 1, {T_DIR}, false, 2},

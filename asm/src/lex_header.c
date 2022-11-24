@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 11:45:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/08 13:04:16 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/23 14:00:43 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,12 @@ static void	get_header_info(t_sh *d, t_src *s, t_token *t, char c)
 			&& c == 'c')
 			panic_lex("comment", COMMENT_LENGTH, 0);
 		ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
+		ft_vecpush(&t->content, "\0");
 		if (c == 'n')
-			ft_memcpy(&d->header.prog_name, &t->content, ofs);
+			ft_memcpy(d->header.prog_name, t->content.data, ofs);
 		else
-			ft_memcpy(&d->header.comment, &t->content, ofs);
-		s->index += ofs + 1;
+			ft_memcpy(d->header.comment, t->content.data, ofs);
+		source_adjust(s, ofs + 1);
 	}
 	else
 		panic_lex("...", 0, 0); //?
@@ -66,17 +67,15 @@ void	lex_header(t_sh *d, t_src *s, t_token *t)
 	if (!ft_strncmp(&s->buf.data[s->index], ".name", 5))
 	{
 		t->symbol = la_champname;
-		s->index += 5;
-		s->col += 5;
-		skip_whitespace(s);
+		source_adjust(s, 5);
+		source_next(s);
 		get_header_info(d, s, t, 'n');
 	}
 	else if (!ft_strncmp(&s->buf.data[s->index], ".comment", 8))
 	{
 		t->symbol = la_champcomm;
-		s->index += 8;
-		s->col += 8;
-		skip_whitespace(s);
+		source_adjust(s, 8);
+		source_next(s);
 		get_header_info(d, s, t, 'c');
 	}
 }

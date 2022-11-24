@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_endof.c                                        :+:      :+:    :+:   */
+/*   write_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 11:21:04 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/11 15:21:22 by atenhune         ###   ########.fr       */
+/*   Created: 2022/11/22 13:55:19 by atenhune          #+#    #+#             */
+/*   Updated: 2022/11/24 11:44:01 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	lex_endof(t_src *s, t_token *t)
+void	write_file(t_sh *d, const int fd)
 {
-	if (*(char *)&s->buf.data[s->index] == '\n')
-	{
-		t->symbol = la_eol;
-		*(char *)&t->content.data[0] = '\n';
-		s->row++;
-		s->col = 0;
-		s->index++;
-	}
-	if (*(char *)&s->buf.data[s->index] == '\0')
-	{
-		t->symbol = la_eof;
-		*(char *)&t->content.data[0] = '\0';
-	}
+	write_header(d, fd);
 }

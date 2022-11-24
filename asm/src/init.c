@@ -6,13 +6,30 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:12:50 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/09 17:14:37 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/22 12:57:47 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	init_token(t_token *t)
+static void	init_hashmap(t_hashmap *hm, size_t size, bool is_optab)
+{
+	size_t	i;
+
+	if (hash_new(hm, size) < 0)
+		panic("Couldn't initialize hashmap.");
+	if (is_optab)
+	{
+		i = 0;
+		while (i < OPTAB_SIZE)
+		{	
+			hash_insert(hm, g_optab[i].name, g_optab[i].op_code);
+			i++;
+		}
+	}
+}
+
+void	init_lex(t_token *t, t_labtab *lt)
 {
 	ft_bzero(t, sizeof(*t));
 	t->symbol = la_unknown;
@@ -21,7 +38,11 @@ void	init_token(t_token *t)
 	t->declared = false;
 	t->is_label = false;
 	t->num = 1;
-	t->next = NULL;
+	t->next = NULL;  //  <---------- remove?
+	ft_bzero(lt, sizeof(*lt));
+	init_hashmap(&lt->labels, 100, false);
+	if (ft_vecnew(&lt->entries, 1, sizeof(t_labtab)) < 0)
+		panic("Couldn't initialize label table entries.");
 }
 
 void	init_source(t_src *s)
@@ -36,20 +57,6 @@ void	init_source(t_src *s)
 	s->next = NULL;
 }
 
-static void	init_optab(t_hashmap *ops)
-{
-	size_t	i;
-
-	if (hash_new(ops, 32) < 0)
-		panic("Couldn't initialize hashmap.");
-	i = 0;
-	while (i < OPTAB_SIZE)
-	{
-		hash_insert(ops, g_optab[i].name, g_optab[i].op_code);
-		i++;
-	}
-}
-
 void	init_handler(t_sh *d)
 {
 	ft_bzero(d, sizeof(*d));
@@ -58,6 +65,7 @@ void	init_handler(t_sh *d)
 	d->header.prog_size = 0;
 	if (ft_vecnew(&d->code, 1, sizeof(t_statement)) < 0)
 		panic("Couldn't initialize exec code.");
-	init_optab(&d->ops);
+	init_hashmap(&d->ops, 32, true);
 	d->byte = 0;
+	d->filename = NULL;
 }
