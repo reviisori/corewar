@@ -66,11 +66,11 @@ void	print_and(t_car *car, unsigned int args[]);
 void	print_or(t_car *car, unsigned int args[]);
 void	print_xor(t_car *car, unsigned int args[]);
 void	print_zjmp(t_car *car, unsigned int arg, bool success);
-void	print_ldi(t_car *car, unsigned int args[], unsigned char arg_types[]);
+void	print_ldi(t_car *car, int args[]);
 void	print_sti(t_car *car, int args[]);
 void	print_fork(t_car *car, unsigned int arg);
 void	print_lld(t_car *car, unsigned int args[]);
-void	print_lldi(t_car *car, unsigned int args[]);
+void	print_lldi(t_car *car, int args[]);
 void	print_lfork(t_car *car, unsigned int arg);
 void	print_aff(t_car *car, unsigned int arg);
 
