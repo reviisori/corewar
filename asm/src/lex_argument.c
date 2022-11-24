@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/24 15:34:13 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/24 16:33:46 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	lex_label_arg(t_sh *d, t_src *s, t_labtab *lt, t_statement *stmt)
 	char		*p;
 
 	p = (char *)&s->buf.data[s->index];
-	if (*p == DIRECT_CHAR)
+	if (*p == DIRECT_CHAR && stmt->op.size == 2)
 		stmt->is_dir = true;
 	lex_label(d, s, lt, NULL);
 	calc_arg_size(d, stmt, *p);
