@@ -6,11 +6,16 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:02:35 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/15 16:50:51 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:37:07 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+int	validate_arg(t_statement *s, int arg)
+{
+	return (s->op.args[s->cur_arg] == (s->op.args[s->cur_arg] | arg));
+}
 
 void	calc_arg_size(t_sh *d, t_statement *stmt, const char c)
 {
@@ -21,34 +26,6 @@ void	calc_arg_size(t_sh *d, t_statement *stmt, const char c)
 	}
 	else
 		d->byte += T_IND;
-}
-
-bool	is_label_chars(int c)
-{
-	return ((c >= 'a' && c <= 'z') || c == '_' || (c >= '0' && c <= '9'));
-}
-
-bool	is_label(t_src *s)
-{
-	char	*p;
-
-	p = (char *)&s->buf.data[s->index];
-	while (is_label_chars(*p))
-		p++;
-	return (*p == LABEL_CHAR);
-}
-
-bool	is_register(t_src *s)
-{
-	char	*p;
-
-	p = (char *)&s->buf.data[s->index];
-	if (*p++ != 'r')
-		return (false);
-	while (ft_isdigit(*p))
-		p++;
-	return ((ft_isspace(*p) || *p == SEPARATOR_CHAR || *p == COMMENT_CHAR
-			|| *p == ';'));
 }
 
 void	panic_lex(const char *msg, size_t row, size_t col)
