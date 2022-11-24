@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:30:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/23 13:09:39 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/24 11:43:48 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,19 @@
  \t\e[1m-h\e[m\thelp - NOT IMPLEMENTED\n\
  \t\e[1m-q\e[m\tquiet mode - NOT IMPLEMENTED\n\n"
 
-int		valid_file(int argc, char *filename);
-void	panic(const char *msg);
-int		parse(t_sh *d, char *filename);
-int		assemble(t_sh *d, char *filename);
-int		write_file(t_sh *d, const int fd);
-char	*create_filename(char *src);
+int			valid_file(int argc, char *filename);
+void		panic(const char *msg);
+int			parse(t_sh *d, char *filename);
+int			assemble(t_sh *d, char *filename);
+
+/*
+** Utility functions for the assembly stage
+*/
+
+char		*create_filename(char *src);
+void		write_file(t_sh *d, const int fd);
+void		write_header(t_sh *d, const int fd);
+u_int32_t	uint_to_bigendian(u_int32_t nbr);
+u_int16_t	ushort_to_bigendian(u_int16_t nbr);
 
 #endif
