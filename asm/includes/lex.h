@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 16:33:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/18 14:49:56 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:36:37 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ bool	is_label_chars(int c);
 bool	is_label(t_src *s);
 bool	is_register(t_src *s);
 void	calc_arg_size(t_sh *d, t_statement *stmt, const char c);
+int		validate_arg(t_statement *s, int arg);
 
 #endif
