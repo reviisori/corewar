@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:30:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/24 11:43:48 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/24 12:49:14 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void		write_file(t_sh *d, const int fd);
 void		write_header(t_sh *d, const int fd);
 u_int32_t	uint_to_bigendian(u_int32_t nbr);
 u_int16_t	ushort_to_bigendian(u_int16_t nbr);
+void		write_bytecode(t_sh *d, const int fd);
 
 #endif
