@@ -6,7 +6,7 @@
 /*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 12:06:21 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/24 16:27:58 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/28 15:39:08 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ static void	write_args(t_statement *stmt, const int fd)
 	i = 0;
 	while (i < (size_t)stmt->op.argc)
 	{
-		if(stmt->arg_type[i] == IND_CODE
-			|| (stmt->op.size == 4 && stmt->arg_type[i] == DIR_CODE))
+		if(stmt->op.size == 4 && stmt->arg_type[i] == DIR_CODE)
 		{
 			ind = uint_to_bigendian(stmt->args[i]);
 			write(fd, &ind, 4);
 		}
-		else if (stmt->arg_type[i] == DIR_CODE)
+		else if (stmt->arg_type[i] == DIR_CODE || stmt->arg_type[i] == IND_CODE)
 		{
 			dir = ushort_to_bigendian(stmt->args[i]);
 			write(fd, &dir, 2);
