@@ -12,8 +12,8 @@
 
 #include "operations.h"
 
-#define RIGHTMOST_BYTE 0xFF000000
-#define RIGHTMOST_TWO_BYTES 0xFFFF0000
+#define LEFTMOST_BYTE 0xFF000000
+#define LEFTMOST_TWO_BYTES 0xFFFF0000
 
 static void	copy_to_memory(unsigned char memory[], unsigned int adr,
 	unsigned int value)
@@ -24,7 +24,7 @@ static void	copy_to_memory(unsigned char memory[], unsigned int adr,
 	byte_count = -1;
 	while (++byte_count < REG_SIZE)
 	{
-		byte = value << BITS_IN_BYTE * byte_count & RIGHTMOST_BYTE;
+		byte = value << BITS_IN_BYTE * byte_count & LEFTMOST_BYTE;
 		byte = byte >> (REG_SIZE - 1) * BITS_IN_BYTE;
 		memory[adr % MEM_SIZE] = byte;
 		adr++;
@@ -77,7 +77,7 @@ static int	save_args_sti(t_car *car, int args[],
 		args[1] = cat_n_bytes(&memory[adr], REG_SIZE, memory);
 	}
 	else if ((short)args[1] < 0)
-		args[1] = args[1] | RIGHTMOST_TWO_BYTES;
+		args[1] = args[1] | LEFTMOST_TWO_BYTES;
 	if (arg_types[2] == REG_CODE)
 	{
 		if (args[2] > REG_NUMBER || !args[2])
@@ -85,7 +85,7 @@ static int	save_args_sti(t_car *car, int args[],
 		args[2] = car->reg[args[2]];
 	}
 	else if ((short)args[2] < 0)
-		args[2] = args[2] | RIGHTMOST_TWO_BYTES;
+		args[2] = args[2] | LEFTMOST_TWO_BYTES;
 	return (1);
 }
 

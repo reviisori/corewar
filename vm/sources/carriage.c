@@ -26,11 +26,12 @@ static void	copy_parent_reg(t_car *dest, t_car *parent)
 
 static void	init_general_vars(t_car *car, unsigned char memory[])
 {
-	car->op = memory[car->pc];
+	(void)memory;
+	//car->op = memory[car->pc];
 	car->wait = 0;//might be an issue, if op happens to change between this cycle and next. Which one is correct?
 	car->jump = 0;
-	if (car->op > 0 && car->op < 0x11)
-		car->wait = g_op[car->op][WAIT_TIME];
+	/*if (car->op > 0 && car->op < 0x11)
+		car->wait = g_op[car->op][WAIT_TIME];*/
 	car->alive = 1;
 }
 

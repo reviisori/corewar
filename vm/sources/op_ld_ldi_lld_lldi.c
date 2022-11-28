@@ -144,7 +144,7 @@ void	op_ldi(t_info *info, t_car *car)
 	if (save_args_ldi(car, args, arg_types, info->memory) == -1)
 		return ;
 	if (info->verbose_opts & SHOW_OP)
-		print_ldi(car, (unsigned int *)args, arg_types);
+		print_ldi(car, args);
 	adr = (car->pc + ((args[0] + args[1]) % IDX_MOD) + MEM_SIZE) % MEM_SIZE;
 	car->reg[args[2]] = cat_n_bytes(&info->memory[adr], 4, info->memory);
 }
@@ -152,7 +152,7 @@ void	op_ldi(t_info *info, t_car *car)
 void	op_lldi(t_info *info, t_car *car)
 {
 	unsigned char	arg_types[3];
-	int	args[3];
+	int				args[3];
 	short			adr;
 
 	arg_types[0] = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
@@ -166,7 +166,10 @@ void	op_lldi(t_info *info, t_car *car)
 	if (save_args_ldi(car, args, arg_types, info->memory) == -1)
 		return ;
 	if (info->verbose_opts & SHOW_OP)
-		print_ldi(car, (unsigned int *)args, arg_types);
+		print_lldi(car, args);
 	adr = (car->pc + ((args[0] + args[1])) + MEM_SIZE) % MEM_SIZE;
 	car->reg[args[2]] = cat_n_bytes(&info->memory[adr], 4, info->memory);
+	car->carry = 0;
+	if (!car->reg[args[2]])
+		car->carry = 1;
 }
