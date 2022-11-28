@@ -6,16 +6,33 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/24 16:33:46 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/28 16:47:54 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+static int int_64_len(long n)
+{
+	int	len;
+
+	if (n == 0)
+		return (1);
+	len = 0;
+	if (n < 0)
+		len++;
+	while (n != 0)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
+
 static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 {
 	char	*p;
-	int		arg;
+	long	arg;
 	int		ofs;
 
 	if (!validate_arg(stmt, T_IND))
@@ -23,35 +40,35 @@ static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	p = (char *)&s->buf.data[s->index];
 	if (!ft_isdigit(*p) && *p != '-')
 		panic_lex(NULL, s->row, s->col);
-	arg = ft_atoi(p);
+	arg = ft_atol(p);
 	stmt->arg_type[stmt->cur_arg] = IND_CODE;
 	stmt->args[stmt->cur_arg++] = arg;
-	ofs = ft_intlen(arg);
+	ofs = int_64_len(arg);
 	t->symbol = la_ind;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
-	d->byte += T_IND;
+	d->byte += IND_SIZE;
 	source_adjust(s, ofs);
 }
 
 static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 {
 	char	*p;
-	int		arg;
+	long	arg;
 	int		ofs;
 
 	if (!validate_arg(stmt, T_DIR))
 		panic_lex(NULL, s->row, s->col);
 	source_next(s);
 	p = (char *)&s->buf.data[++s->index];
-	if (!ft_isdigit(*p))
+	if (!ft_isdigit(*p) && *p != '-')
 		panic_lex(NULL, s->row, s->col);
-	arg = ft_atoi(p);
+	arg = ft_atol(p);
 	stmt->arg_type[stmt->cur_arg] = DIR_CODE;
 	stmt->args[stmt->cur_arg++] = arg;
-	ofs = ft_intlen(arg);
+	ofs = int_64_len(arg);
 	t->symbol = la_dir;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
-	d->byte += T_DIR;
+	d->byte += stmt->op.size;
 	source_adjust(s, ofs);
 }
 
@@ -103,7 +120,7 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		lex_reg(d, s, t, stmt);
 	else if (*p == DIRECT_CHAR && *s->next != LABEL_CHAR)
 		lex_dir(d, s, t, stmt);
-	else if (*p == LABEL_CHAR)
+	else if (*p == LABEL_CHAR || ft_isdigit(*p) || *p == '-')
 		lex_ind(d, s, t, stmt);
 	else
 	{
