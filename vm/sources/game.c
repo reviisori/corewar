@@ -37,6 +37,7 @@ void	init_vars(t_info *info)
 	info->lives_this_check = 0;
 	info->checks_after_mod = 0;
 	info->last_live_champ = 1;
+	info->next_car_index = 1;
 }
 
 int	run_game(t_info *info)

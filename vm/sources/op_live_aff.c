@@ -19,14 +19,15 @@ void	op_live(t_info *info, t_car *car)
 	car->jump = 1 + REG_SIZE;
 	car->last_live = info->cycle;
 	info->lives_this_check++;
-	arg = cat_n_bytes(&info->memory[(car->pc + 1) % MEM_SIZE], REG_SIZE, info->memory);
+	arg = cat_n_bytes(&info->memory[(car->pc + 1) % MEM_SIZE], REG_SIZE,
+			info->memory);
 	if (info->verbose_opts & SHOW_OP)
 		print_live(car, arg);
 	if (arg && (0x00 - arg) <= (unsigned int)info->champion_count)
 	{
 		info->last_live_champ = 0x00 - arg;
 		if (info->verbose_opts & SHOW_ALIVE)
-			ft_printf("Player %i (%s) is said to be alive\n", 0x00 - arg, 
+			ft_printf("Player %i (%s) is said to be alive\n", 0x00 - arg,
 				info->champions[0x00 - arg - 1].name);
 	}
 }

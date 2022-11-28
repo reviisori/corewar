@@ -174,6 +174,7 @@ typedef struct s_info
 	unsigned int	checks_after_mod;
 	int				verbose_opts;
 	unsigned int	last_live_champ;
+	unsigned int	next_car_index;
 }				t_info;
 
 /* VM functions */
