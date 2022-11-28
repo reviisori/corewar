@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:49:05 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/22 12:57:03 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:04:05 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ typedef struct s_statement
 {
 	t_op		op;
 	u_int8_t	acb;			//
-	int			args[3];
+	long		args[3];
 	u_int8_t	arg_type[3];
 	int			cur_arg;
 	int			sep;
