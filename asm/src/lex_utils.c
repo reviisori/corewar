@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:02:35 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/24 14:37:07 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/28 15:20:43 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	calc_arg_size(t_sh *d, t_statement *stmt, const char c)
 		d->byte += stmt->op.size;
 	}
 	else
-		d->byte += T_IND;
+		d->byte += IND_SIZE;
 }
 
 void	panic_lex(const char *msg, size_t row, size_t col)
