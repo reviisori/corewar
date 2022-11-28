@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:39:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/24 16:39:53 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/28 13:51:52 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ static void	label_set_arg(t_sh *d, t_hash *entry)
 	t_statement	*temp_stmt;
 
 	temp_stmt = ft_vecget(&d->code, d->code.len -1);
-	if (temp_stmt->is_dir)
-		temp_stmt->args[temp_stmt->cur_arg] = entry->value;
-	else
-		temp_stmt->args[temp_stmt->cur_arg] = entry->value - temp_stmt->loc;
+	temp_stmt->args[temp_stmt->cur_arg] = entry->value - temp_stmt->loc;
 }
 
 void	label_fill(t_sh *d, t_vec *entries, t_hash *entry)
@@ -40,14 +37,10 @@ void	label_fill(t_sh *d, t_vec *entries, t_hash *entry)
 	while (temp_undeflab)
 	{
 		temp_stmt = ft_vecget(&d->code, temp_undeflab->stmt);
-		if (temp_undeflab->is_dir)
-			temp_stmt->args[temp_undeflab->arg] = d->byte;
-		else
-			temp_stmt->args[temp_undeflab->arg] = temp_undeflab->loc - d->byte;
+		temp_stmt->args[temp_undeflab->arg] = d->byte - temp_stmt->loc;
 		temp_undeflab = temp_undeflab->next;
 	}
 	entry->value = d->byte;
-	//remove from entries maybe
 }
 
 static void	label_add(t_sh *d, t_label *lab)
