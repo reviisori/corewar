@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:17:29 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/23 13:08:37 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/29 11:57:48 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int	assemble(t_sh *d, char *filename)
 		panic("While creating output file.");
 	write_file(d, fd);
 	close(fd);
+	ft_printf("Writing output program to %s\n", d->filename);
 	return (1);
 }
