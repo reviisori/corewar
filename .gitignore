@@ -63,3 +63,4 @@ dkms.conf
 *.cor
 vm/corewar
 vm/test_files
+resources/vm_champs/champs/examples/*
