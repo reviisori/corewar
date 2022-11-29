@@ -54,7 +54,8 @@ void	print_verbose_move(t_car *car, t_info *info)
 
 	if (!car->jump)
 		return ;
-	ft_printf("ADV %u (0x%04x -> 0x%04x)", car->jump, car->pc, (car->pc + car->jump));
+	ft_printf("ADV %u (0x%04x -> 0x%04x)",
+		car->jump, car->pc, (car->pc + car->jump));
 	i = 0;
 	while (i < car->jump)
 	{
