@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:39:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/22 14:16:04 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:23:06 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ static void	label_set_arg(t_sh *d, t_hash *entry)
 	t_statement	*temp_stmt;
 
 	temp_stmt = ft_vecget(&d->code, d->code.len -1);
-	if (temp_stmt->is_dir)
-		temp_stmt->args[temp_stmt->cur_arg] = entry->value;
-	else
-		temp_stmt->args[temp_stmt->cur_arg] = d->byte - entry->value;
+	temp_stmt->args[temp_stmt->cur_arg] = entry->value - temp_stmt->loc;
 }
 
 void	label_fill(t_sh *d, t_vec *entries, t_hash *entry)
@@ -40,14 +37,10 @@ void	label_fill(t_sh *d, t_vec *entries, t_hash *entry)
 	while (temp_undeflab)
 	{
 		temp_stmt = ft_vecget(&d->code, temp_undeflab->stmt);
-		if (temp_undeflab->is_dir)
-			temp_stmt->args[temp_undeflab->arg] = d->byte;
-		else
-			temp_stmt->args[temp_undeflab->arg] = temp_undeflab->loc - d->byte;
+		temp_stmt->args[temp_undeflab->arg] = d->byte - temp_stmt->loc;
 		temp_undeflab = temp_undeflab->next;
 	}
 	entry->value = d->byte;
-	//remove from entries maybe
 }
 
 static void	label_add(t_sh *d, t_label *lab)
@@ -112,12 +105,13 @@ static char	*get_label(t_src *s)
 	return (key);
 }
 
-static void	label_init(t_sh *d, t_label *l, bool declared, bool is_first)
+static void	label_init(t_sh *d, t_label *l, char *key, bool is_first)
 {
 	t_statement	*stmt;
 
 	stmt = ft_vecget(&d->code, d->code.len - 1);
-	l->declared = declared;
+	l->name = key;
+	l->declared = false;
 	l->is_dir = stmt->is_dir;
 	if (is_first)
 		l->head = NULL;
@@ -128,12 +122,11 @@ void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 	t_hash	*entry;
 	t_label	label;
 
-	if (!key)
-		key = get_label(s);
+	key = get_label(s);
 	entry = hash_get(&lt->labels, key);
 	if (!entry)
 	{
-		label_init(d, &label, false, true);
+		label_init(d, &label, key, true);
 		label_new(d, &label);
 		ft_vecpush(&lt->entries, &label);
 		hash_insert(&lt->labels, key, ((int)lt->entries.len * -1));
@@ -143,7 +136,7 @@ void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 		if (entry->value < 0)
 		{
 			label_init(d, ft_vecget(&lt->entries, ft_abs(entry->value + 1)),
-				false, false);
+				key, false);
 			label_add(d, ft_vecget(&lt->entries, ft_abs(entry->value + 1)));
 		}
 		else

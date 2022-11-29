@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:28:09 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/24 11:48:29 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/24 12:54:00 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,4 @@ void	write_header(t_sh *d, const int fd)
 	exec_size = uint_to_bigendian(d->byte);
 	write(fd, &exec_size, 4);
 	write_comment(d, fd);
-	exit(0);
 }
