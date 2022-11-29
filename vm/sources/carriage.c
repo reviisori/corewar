@@ -37,10 +37,8 @@ static void	init_general_vars(t_car *car, unsigned char memory[])
 
 static void	init_car(t_car *car, t_info *info, t_car *parent, int forkjump)
 {
-	if (!info->liststart)
-		car->index = 1;
-	else
-		car->index = info->liststart->index + 1;
+	car->index = info->next_car_index;
+	info->next_car_index++;
 	ft_bzero(car->reg, REG_SIZE * (REG_NUMBER + 1));
 	if (!parent)
 	{

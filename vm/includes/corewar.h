@@ -139,8 +139,6 @@ typedef struct s_champion
 	unsigned char		comment[COMMENT_LENGTH + 1];
 	unsigned int		code_size;
 	unsigned char		code[CHAMP_MAX_SIZE];
-
-	unsigned int		last_live;//needs to be init to 0;
 	struct s_champion	*next;//or another way to find them
 }					t_champion;
 
@@ -175,6 +173,8 @@ typedef struct s_info
 	unsigned int	lives_this_check;//live _statements_
 	unsigned int	checks_after_mod;
 	int				verbose_opts;
+	unsigned int	last_live_champ;
+	unsigned int	next_car_index;
 }				t_info;
 
 /* VM functions */

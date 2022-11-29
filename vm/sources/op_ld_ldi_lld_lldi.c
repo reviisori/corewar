@@ -130,7 +130,7 @@ static int	save_args_ldi(t_car *car, int args[],
 void	op_ldi(t_info *info, t_car *car)
 {
 	unsigned char	arg_types[3];
-	int	args[3];
+	int				args[3];
 	short			adr;
 
 	arg_types[0] = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
