@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 13:55:19 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/24 11:44:01 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/24 12:05:33 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,5 @@
 void	write_file(t_sh *d, const int fd)
 {
 	write_header(d, fd);
+	write_bytecode(d, fd);
 }
