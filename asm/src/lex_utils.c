@@ -6,11 +6,31 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:02:35 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/28 15:20:43 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/29 15:25:38 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+int	nbr_len(const char *src)
+{
+	size_t		len;
+	const char	*p;
+
+	p = src;
+	len = 0;
+	if (*p == '-')
+	{
+		len++;
+		p++;
+	}
+	while (ft_isdigit(*p))
+	{
+		len++;
+		p++;
+	}
+	return (len);
+}
 
 int	validate_arg(t_statement *s, int arg)
 {
