@@ -117,7 +117,7 @@ void	op_ldi(t_info *info, t_car *car)
 	arg_types[2] = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 3);
 	args[2] = get_argument(info, 3, car);
 	if (!arg_types[0] || (arg_types[1] != REG_CODE && arg_types[1] != DIR_CODE)
-		|| arg_types[2] != REG_CODE)
+		|| arg_types[2] != REG_CODE || args[2] < 0x01 || args[2] > REG_NUMBER)
 		return ;
 	args[0] = get_argument(info, 1, car);
 	args[1] = get_argument(info, 2, car);
@@ -140,7 +140,7 @@ void	op_lldi(t_info *info, t_car *car)
 	arg_types[2] = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 3);
 	args[2] = get_argument(info, 3, car);
 	if (!arg_types[0] || (arg_types[1] != REG_CODE && arg_types[1] != DIR_CODE)
-		|| arg_types[2] != REG_CODE)
+		|| arg_types[2] != REG_CODE || args[2] < 0x01 || args[2] > REG_NUMBER)
 		return ;
 	args[0] = get_argument(info, 1, car);
 	args[1] = get_argument(info, 2, car);

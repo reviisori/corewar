@@ -42,12 +42,12 @@ void	op_st(t_info *info, t_car *car)
 		|| (arg_types[1] != REG_CODE && arg_types[1] != IND_CODE))
 		return ;
 	args[0] = get_argument(info, 1, car);
-	if (args[0] > REG_NUMBER || !args[0])
+	if (args[0] > REG_NUMBER || args[0] < 0x01)
 		return ;
 	args[1] = get_argument(info, 2, car);
 	if (arg_types[1] == REG_CODE)
 	{
-		if (args[1] > REG_NUMBER || !args[1])
+		if (args[1] > REG_NUMBER || args[1] < 0x01)
 			return ;
 		if (info->verbose_opts & SHOW_OP)
 			print_st(car, args);
@@ -67,7 +67,7 @@ static int	save_args_sti(t_car *car, int args[],
 
 	if (arg_types[1] == REG_CODE)
 	{
-		if (args[1] > REG_NUMBER || !args[1])
+		if (args[1] > REG_NUMBER || args[1] < 0x01)
 			return (-1);
 		args[1] = car->reg[args[1]];
 	}
@@ -80,7 +80,7 @@ static int	save_args_sti(t_car *car, int args[],
 		args[1] = args[1] | LEFTMOST_TWO_BYTES;
 	if (arg_types[2] == REG_CODE)
 	{
-		if (args[2] > REG_NUMBER || !args[2])
+		if (args[2] > REG_NUMBER || args[2] < 0x01)
 			return (-1);
 		args[2] = car->reg[args[2]];
 	}
@@ -101,7 +101,7 @@ void	op_sti(t_info *info, t_car *car)
 		|| (arg_types[2] != REG_CODE && arg_types[2] != DIR_CODE))
 		return ;
 	args[0] = get_argument(info, 1, car);
-	if (args[0] > REG_NUMBER || !args[0])
+	if (args[0] > REG_NUMBER || args[0] < 0x01)
 		return ;
 	args[1] = get_argument(info, 2, car);
 	args[2] = get_argument(info, 3, car);
