@@ -79,7 +79,6 @@ differs from what its header says"
 # define CRUMBS_IN_BYTE 4
 # define MAX_UINT 0xFFFFFFFF
 
-
 typedef struct s_options
 {
 	int		next_id;
@@ -100,35 +99,32 @@ static const t_jump_opts	g_jump_table[OPTION_COUNT] = {
 };
 
 /* 0 = number of arguments
-1 = wait time*/
-static const unsigned int	g_op[17][4] = 
-{
-	{0, 0, 0, 0},
-	{1, 10, 4, 0}, {2, 5, 4, 1}, {2, 5, 4, 1},{3, 10, 4, 1},
-	{3, 10, 4, 1}, {3, 6, 4, 1}, {3, 6, 4, 1}, {3, 6, 4, 1},
-	{1, 20, 2, 0}, {3, 25, 2, 1}, {3, 25, 2, 1}, {1, 800, 2, 0},
-	{2, 10, 4, 1}, {3, 50, 2, 1}, {1, 1000, 2, 0}, {1, 2, 4, 1}
+1 = wait time */
+static const unsigned int	g_op[17][4] = {
+{0, 0, 0, 0}, {1, 10, 4, 0}, {2, 5, 4, 1}, {2, 5, 4, 1}, {3, 10, 4, 1},
+{3, 10, 4, 1}, {3, 6, 4, 1}, {3, 6, 4, 1}, {3, 6, 4, 1}, {1, 20, 2, 0},
+{3, 25, 2, 1}, {3, 25, 2, 1}, {1, 800, 2, 0}, {2, 10, 4, 1},
+{3, 50, 2, 1}, {1, 1000, 2, 0}, {1, 2, 4, 1}
 };
 
-static const unsigned char	g_arg_types[17][4] = 
-{
-	{0, 0, 0, 0},
-	{T_DIR, 0, 0, 0},
-	{T_DIR | T_IND, T_REG, 0, 0},
-	{T_REG, T_IND | T_REG, 0, 0},
-	{T_REG, T_REG, T_REG, 0},
-	{T_REG, T_REG, T_REG, 0},
-	{T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG, 0},
-	{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG, 0}, 
-	{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG, 0},
-	{T_DIR, 0, 0, 0}, 
-	{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG, 0}, 
-	{T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG, 0}, 
-	{T_DIR, 0, 0, 0},
-	{T_DIR | T_IND, T_REG, 0, 0},
-	{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG, 0},
-	{T_DIR, 0, 0, 0},
-	{T_REG, 0, 0, 0}
+static const unsigned char	g_arg_types[17][4] = {
+{0, 0, 0, 0},
+{T_DIR, 0, 0, 0},
+{T_DIR | T_IND, T_REG, 0, 0},
+{T_REG, T_IND | T_REG, 0, 0},
+{T_REG, T_REG, T_REG, 0},
+{T_REG, T_REG, T_REG, 0},
+{T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG, 0},
+{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG, 0},
+{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG, 0},
+{T_DIR, 0, 0, 0},
+{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG, 0},
+{T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG, 0},
+{T_DIR, 0, 0, 0},
+{T_DIR | T_IND, T_REG, 0, 0},
+{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG, 0},
+{T_DIR, 0, 0, 0},
+{T_REG, 0, 0, 0}
 };
 
 /* Struct for champion information */
@@ -139,26 +135,24 @@ typedef struct s_champion
 	unsigned char		comment[COMMENT_LENGTH + 1];
 	unsigned int		code_size;
 	unsigned char		code[CHAMP_MAX_SIZE];
-
-	unsigned int		last_live;//needs to be init to 0;
-	struct s_champion	*next;//or another way to find them
-}					t_champion;
+	struct s_champion	*next;
+}	t_champion;
 
 /* Carriage i.e. the offset that "plays the game", moving around memory
 	and executing instructions */
 typedef struct s_car
 {
-	unsigned int	index;// ≥ 1
-	unsigned int	reg[REG_NUMBER + 1];// 1+15 registries, 0 never used 
-	unsigned int	pc;//current position, always %MEM_SIZE
+	unsigned int	index;
+	unsigned int	reg[REG_NUMBER + 1];
+	unsigned int	pc;
 	bool			carry;
-	unsigned char	op;//the current statement the car stands on
-	unsigned int	last_live;//the last cycle the car declared alive
-	unsigned int	wait;//cycles until current op tries to run and this car moves
-	unsigned int	jump;// amount of bytes the car moves next jump, ≥ 1
+	unsigned char	op;
+	unsigned int	last_live;
+	unsigned int	wait;
+	unsigned int	jump;
 	bool			alive;
 	struct s_car	*next;
-} t_car;
+}	t_car;
 
 /* Head struct which includes all relevant information for the VM */
 typedef struct s_info
@@ -167,14 +161,15 @@ typedef struct s_info
 	int				dump_cycles;
 	int				champion_count;
 	t_champion		champions[MAX_PLAYERS];
-
-	unsigned int 	cycle;
-	unsigned int 	next_check_cycle;
-	int 			cycles_to_die;
+	unsigned int	cycle;
+	unsigned int	next_check_cycle;
+	int				cycles_to_die;
 	t_car			*liststart;
-	unsigned int	lives_this_check;//live _statements_
+	unsigned int	lives_this_check;
 	unsigned int	checks_after_mod;
 	int				verbose_opts;
+	unsigned int	last_live_champ;
+	unsigned int	next_car_index;
 }				t_info;
 
 /* VM functions */
@@ -195,8 +190,10 @@ void			error_kill(char *reason);
 /* VM tools */
 unsigned char	get_crumb(unsigned char c_byte, int c_number);
 unsigned int	get_argument(t_info *info, unsigned char n, t_car *car);
-unsigned int	cast_arg_type_to_bytes(unsigned char arg_type, unsigned char op);
-unsigned int	cat_n_bytes(unsigned char *offset, unsigned int bytes, unsigned char memory[]);
+unsigned int	cast_arg_type_to_bytes(unsigned char arg_type,
+					unsigned char op);
+unsigned int	cat_n_bytes(unsigned char *offset,
+					unsigned int bytes, unsigned char memory[]);
 
 /* Game functions */
 int				no_cars_alive(t_info *info);
@@ -210,7 +207,7 @@ int				calculate_jump(unsigned char c_byte, unsigned char op);
 void			run_all_cars(t_info *info);
 
 /* Print functions */
-void    		print_memory(unsigned char memory[]);
+void			print_memory(unsigned char memory[]);
 void			print_process_id(unsigned int id);
 
 #endif

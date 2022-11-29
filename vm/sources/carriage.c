@@ -24,23 +24,10 @@ static void	copy_parent_reg(t_car *dest, t_car *parent)
 	}
 }
 
-static void	init_general_vars(t_car *car, unsigned char memory[])
-{
-	(void)memory;
-	//car->op = memory[car->pc];
-	car->wait = 0;//might be an issue, if op happens to change between this cycle and next. Which one is correct?
-	car->jump = 0;
-	/*if (car->op > 0 && car->op < 0x11)
-		car->wait = g_op[car->op][WAIT_TIME];*/
-	car->alive = 1;
-}
-
 static void	init_car(t_car *car, t_info *info, t_car *parent, int forkjump)
 {
-	if (!info->liststart)
-		car->index = 1;
-	else
-		car->index = info->liststart->index + 1;
+	car->index = info->next_car_index;
+	info->next_car_index++;
 	ft_bzero(car->reg, REG_SIZE * (REG_NUMBER + 1));
 	if (!parent)
 	{
@@ -57,7 +44,9 @@ static void	init_car(t_car *car, t_info *info, t_car *parent, int forkjump)
 		car->last_live = parent->last_live;
 		car->carry = parent->carry;
 	}
-	init_general_vars(car, info->memory);
+	car->wait = 0;
+	car->jump = 0;
+	car->alive = 1;
 }
 
 void	push_new_car(t_info *info, t_car *parent, int forkjump)
