@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:39:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/28 13:51:52 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/29 12:23:06 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,13 @@ static char	*get_label(t_src *s)
 	return (key);
 }
 
-static void	label_init(t_sh *d, t_label *l, bool declared, bool is_first)
+static void	label_init(t_sh *d, t_label *l, char *key, bool is_first)
 {
 	t_statement	*stmt;
 
 	stmt = ft_vecget(&d->code, d->code.len - 1);
-	l->declared = declared;
+	l->name = key;
+	l->declared = false;
 	l->is_dir = stmt->is_dir;
 	if (is_first)
 		l->head = NULL;
@@ -125,7 +126,7 @@ void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 	entry = hash_get(&lt->labels, key);
 	if (!entry)
 	{
-		label_init(d, &label, false, true);
+		label_init(d, &label, key, true);
 		label_new(d, &label);
 		ft_vecpush(&lt->entries, &label);
 		hash_insert(&lt->labels, key, ((int)lt->entries.len * -1));
@@ -135,7 +136,7 @@ void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 		if (entry->value < 0)
 		{
 			label_init(d, ft_vecget(&lt->entries, ft_abs(entry->value + 1)),
-				false, false);
+				key, false);
 			label_add(d, ft_vecget(&lt->entries, ft_abs(entry->value + 1)));
 		}
 		else
