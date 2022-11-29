@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:40:27 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/18 15:53:38 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:42:19 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,4 @@ void	check_labels(t_src *s, t_labtab *lt)
 	}
 }
 // No such label kissa while attempting to dereference token [TOKEN][004:009] DIRECT_LABEL "%:kissa"
+// if op start before we get .name AND .comment
