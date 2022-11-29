@@ -6,33 +6,33 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/28 16:47:54 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/29 15:24:02 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int int_64_len(long n)
-{
-	int	len;
+// static int int_64_len(long n)
+// {
+// 	int	len;
 
-	if (n == 0)
-		return (1);
-	len = 0;
-	if (n < 0)
-		len++;
-	while (n != 0)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
+// 	if (n == 0)
+// 		return (1);
+// 	len = 0;
+// 	if (n < 0)
+// 		len++;
+// 	while (n != 0)
+// 	{
+// 		n /= 10;
+// 		len++;
+// 	}
+// 	return (len);
+// }
 
 static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 {
 	char	*p;
-	long	arg;
+	int		arg;
 	int		ofs;
 
 	if (!validate_arg(stmt, T_IND))
@@ -40,10 +40,10 @@ static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	p = (char *)&s->buf.data[s->index];
 	if (!ft_isdigit(*p) && *p != '-')
 		panic_lex(NULL, s->row, s->col);
-	arg = ft_atol(p);
+	arg = ft_atoi(p);
 	stmt->arg_type[stmt->cur_arg] = IND_CODE;
 	stmt->args[stmt->cur_arg++] = arg;
-	ofs = int_64_len(arg);
+	ofs = nbr_len(p);
 	t->symbol = la_ind;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	d->byte += IND_SIZE;
@@ -53,7 +53,7 @@ static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 {
 	char	*p;
-	long	arg;
+	int		arg;
 	int		ofs;
 
 	if (!validate_arg(stmt, T_DIR))
@@ -62,10 +62,10 @@ static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	p = (char *)&s->buf.data[++s->index];
 	if (!ft_isdigit(*p) && *p != '-')
 		panic_lex(NULL, s->row, s->col);
-	arg = ft_atol(p);
+	arg = ft_atoi(p);
 	stmt->arg_type[stmt->cur_arg] = DIR_CODE;
 	stmt->args[stmt->cur_arg++] = arg;
-	ofs = int_64_len(arg);
+	ofs = nbr_len(p);
 	t->symbol = la_dir;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	d->byte += stmt->op.size;
