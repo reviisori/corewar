@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/30 11:46:51 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/30 12:25:57 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,17 @@ static void	lex_operation(t_sh *d, t_src *s, t_token *t)
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	ft_vecpush(&t->content, "\0");
 	if (s->name != 1 || s->comment != 1)
-		panic_lex("...", 0, 0); //
+		panic_lex("Syntax", t, s->row, s->col); //
 	if (!hash_lookup(&d->ops, (char *)t->content.data))
-		panic_lex("...", 0, 0); //?
+		panic_lex("Syntax", t, s->row, s->col); //?
 	create_statement(d, (char *)t->content.data);
 	source_adjust(s, ofs);
 }
 
-static void	command_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
+static void	command_label(t_sh *d, t_labtab *lt, char *key)
 {
 	t_hash	*entry;
 
-	if (s->name != 1 || s->comment != 1)
-		panic_lex("...", 0, 0); //
 	entry = hash_get(&lt->labels, key);
 	if (!entry)
 		hash_insert(&lt->labels, key, d->byte);
@@ -78,8 +76,9 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		ofs = p - (char *)&s->buf.data[s->index] + 1;
 		ft_vecncat(&t->content, &s->buf.data[s->index], ofs - 1);
 		ft_vecpush(&t->content, "\0");
-		command_label(d, s, lt,
-			ft_strndup((char *)t->content.data, t->content.len));
+		if (s->name != 1 || s->comment != 1)
+			panic_lex("Syntax", t, s->row, s->col); //
+		command_label(d, lt, ft_strndup((char *)t->content.data, t->content.len));
 		source_adjust(s, ofs);
 	}
 	else
