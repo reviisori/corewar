@@ -53,8 +53,8 @@ differs from what its header says"
 # define HEADER_ERROR "File %s has an invalid header"
 
 /* Option macros, struct, functions and the jump table implemented for them */
-# define OPTIONS "dnv"
-# define OPTION_COUNT 3
+# define OPTIONS "dnva"
+# define OPTION_COUNT 4
 
 /* Verbose print macros */
 # define SHOW_ALIVE 1
@@ -84,18 +84,21 @@ typedef struct s_options
 	int		next_id;
 	int		dump;
 	int		verbose_flags;
+	int		aff_flag;
 }	t_options;
 
 int				set_player_number(t_options *opts, char *nbr);
 int				set_dump(t_options *opts, char *nbr);
 int				set_verbose_flag(t_options *opts, char *nbr);
+int				set_aff(t_options *opts, char *nbr);
 
 typedef int					(*t_jump_opts)(t_options *, char *);
 
 static const t_jump_opts	g_jump_table[OPTION_COUNT] = {
 	set_dump,
 	set_player_number,
-	set_verbose_flag
+	set_verbose_flag,
+	set_aff
 };
 
 /* 0 = number of arguments
@@ -159,6 +162,7 @@ typedef struct s_info
 {
 	unsigned char	memory[MEM_SIZE];
 	int				dump_cycles;
+	int				aff_flag;
 	int				champion_count;
 	t_champion		champions[MAX_PLAYERS];
 	unsigned int	cycle;

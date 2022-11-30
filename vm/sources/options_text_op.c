@@ -12,6 +12,13 @@
 
 #include "corewar.h"
 
+int	set_aff(t_options *opts, char *nbr)
+{
+	(void)nbr;
+	opts->aff_flag = 1;
+	return (0);
+}
+
 int	set_dump(t_options *opts, char *nbr)
 {
 	if (nbr == NULL)
