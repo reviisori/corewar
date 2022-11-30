@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:07:22 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 13:26:54 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:55:24 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@ typedef enum e_symtypes
 	la_comma
 }	t_symtypes;
 
+static const char	*g_symstrs[13] = {
+	"UNKNOWN",
+	"EOF",
+	"EOL",
+	"LABEL",
+	"OPERATION",
+	"COMMENT",
+	"CHAMPION'S NAME",
+	"CHAMPION'S COMMENT",
+	"REG",
+	"DIR",
+	"IND",
+	"LABEL AS ARGUMENT",
+	"COMMA"
+};
+
 typedef struct s_token
 {
 	t_symtypes		symbol;
@@ -37,7 +53,6 @@ typedef struct s_token
 	bool			declared;
 	bool			is_label;
 	int				num;
-	struct t_token	*next; //not needed?
 }					t_token;
 
 #endif
