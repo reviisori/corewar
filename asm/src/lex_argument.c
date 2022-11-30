@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/30 13:57:49 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:35:25 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,16 @@ static void	lex_label_arg(t_sh *d, t_src *s, t_labtab *lt, t_statement *stmt)
 	p = (char *)&s->buf.data[s->index];
 	if (*p == DIRECT_CHAR && stmt->op.size == 2)
 		stmt->is_dir = true;
+	if (stmt->is_dir == false)
+	{
+		if (!validate_arg(stmt, T_IND))
+			panic_invalidarg("indirect", s, stmt);
+	}
+	else
+	{
+		if (!validate_arg(stmt, T_DIR))
+			panic_invalidarg("direct", s, stmt);
+	}
 	lex_label(d, s, lt, NULL);
 	calc_arg_size(d, stmt, *p);
 	stmt->arg_type[stmt->cur_arg] = IND_CODE - (stmt->is_dir);
@@ -107,7 +117,7 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		lex_ind(d, s, t, stmt);
 	else
 	{
-		t->symbol = la_arglabel; //change to actual la_...
+		t->symbol = la_arglabel;
 		lex_label_arg(d, s, lt, stmt);
 	}
 }
