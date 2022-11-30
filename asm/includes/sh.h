@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:49:05 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/30 11:17:30 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/30 15:14:16 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_statement
 	int			cur_arg;
 	int			sep;
 	bool		is_dir;
+	bool		is_valid;
 	u_int32_t	loc;
 }				t_statement;
 
