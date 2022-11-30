@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 11:45:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/23 14:00:43 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/30 11:32:44 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	lex_header(t_sh *d, t_src *s, t_token *t)
 	if (!ft_strncmp(&s->buf.data[s->index], ".name", 5))
 	{
 		t->symbol = la_champname;
+		s->name++;
 		source_adjust(s, 5);
 		source_next(s);
 		get_header_info(d, s, t, 'n');
@@ -74,6 +75,7 @@ void	lex_header(t_sh *d, t_src *s, t_token *t)
 	else if (!ft_strncmp(&s->buf.data[s->index], ".comment", 8))
 	{
 		t->symbol = la_champcomm;
+		s->comment++;
 		source_adjust(s, 8);
 		source_next(s);
 		get_header_info(d, s, t, 'c');
