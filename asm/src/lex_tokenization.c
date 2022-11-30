@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:11:12 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 12:11:29 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:31:27 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	lex_tokenization(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 	if (ft_isupper(*p))
 		panic_lex(NULL, NULL, s->row, s->col);
 	if (*p == '\n' || *p == '\0')
-		lex_endof(s, t);
+		lex_endof(d, s, t);
 	else if (*p == '#' || *p == ';')
 		lex_comment(s, t);
 	else if (*p == '.')
