@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 13:27:52 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:31:52 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,11 @@ static void	reset_token(t_token *t)
 
 static void	debug_lex(t_token *t, t_src *s)
 {
-	char	*symbols[13] = {"la_unknown", "la_eof", "la_eol", "la_label",
-		"la_op", "la_comm", "la_champname", "la_champcomm", "la_reg",
-		"la_dir", "la_ind", "la_arglabel", "la_comma"};
-
 	if (t->symbol == la_unknown)
-		ft_printf("%2d: token "RED"%s"EOC": %c", t->num, symbols[t->symbol], *(char *)&s->buf.data[s->index]);
+		ft_printf("%2d: token "RED"%s"EOC": %c", t->num, g_symstrs[t->symbol],
+			*(char *)&s->buf.data[s->index]);
 	else
-		ft_printf("%2d: token "YELLOW"%s"EOC": ", t->num, symbols[t->symbol]);
+		ft_printf("%2d: token "YELLOW"%s"EOC": ", t->num, g_symstrs[t->symbol]);
 	write(1, t->content.data, t->content.len);
 	ft_printf("\n");
 }
