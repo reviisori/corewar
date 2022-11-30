@@ -18,7 +18,7 @@ static int	save_and_check_args(t_info *info, t_car *car,
 	args[0] = get_argument(info, 1, car);
 	if (arg_types[0] == REG_CODE)
 	{
-		if (args[0] > REG_NUMBER || !args[0])
+		if (args[0] > REG_NUMBER || args[0] < 0x01)
 			return (-1);
 		args[0] = car->reg[args[0]];
 	}
@@ -28,7 +28,7 @@ static int	save_and_check_args(t_info *info, t_car *car,
 	args[1] = get_argument(info, 2, car);
 	if (arg_types[1] == REG_CODE)
 	{
-		if (args[1] > REG_NUMBER || !args[1])
+		if (args[1] > REG_NUMBER || args[1] < 0x01)
 			return (-1);
 		args[1] = car->reg[args[1]];
 	}

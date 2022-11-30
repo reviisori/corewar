@@ -14,27 +14,6 @@
 
 #define RIGHTMOST_TWO_BYTES 0xFFFF0000
 
-int	ldi_arg_validity(t_info *info, t_car *car)
-{
-	unsigned char	arg_type1;
-	unsigned char	arg_type2;
-	unsigned int	reg;
-
-	arg_type1 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
-	arg_type2 = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2);
-	reg = get_argument(info, 3, car);
-	if (!arg_type1 || (arg_type2 != DIR_CODE && arg_type2 != REG_CODE)
-		|| get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 3) != REG_CODE
-		|| reg < 0x01 || reg > 0x10 || (arg_type1 == REG_CODE
-			&& (get_argument(info, 1, car) < 0x01
-				|| get_argument(info, 1, car) > 0x10))
-		|| (arg_type2 == REG_CODE
-			&& (get_argument(info, 2, car) < 0x01
-				|| get_argument(info, 2, car) > 0x10)))
-		return (0);
-	return (1);
-}
-
 void	op_ld(t_info *info, t_car *car)
 {
 	unsigned char	arg_type1;
@@ -137,7 +116,8 @@ void	op_ldi(t_info *info, t_car *car)
 	arg_types[1] = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2);
 	arg_types[2] = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 3);
 	args[2] = get_argument(info, 3, car);
-	if (!ldi_arg_validity(info, car))
+	if (!arg_types[0] || (arg_types[1] != REG_CODE && arg_types[1] != DIR_CODE)
+		|| arg_types[2] != REG_CODE || args[2] < 0x01 || args[2] > REG_NUMBER)
 		return ;
 	args[0] = get_argument(info, 1, car);
 	args[1] = get_argument(info, 2, car);
@@ -159,7 +139,8 @@ void	op_lldi(t_info *info, t_car *car)
 	arg_types[1] = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 2);
 	arg_types[2] = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 3);
 	args[2] = get_argument(info, 3, car);
-	if (!ldi_arg_validity(info, car))
+	if (!arg_types[0] || (arg_types[1] != REG_CODE && arg_types[1] != DIR_CODE)
+		|| arg_types[2] != REG_CODE || args[2] < 0x01 || args[2] > REG_NUMBER)
 		return ;
 	args[0] = get_argument(info, 1, car);
 	args[1] = get_argument(info, 2, car);

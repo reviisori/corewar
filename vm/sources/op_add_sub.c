@@ -25,9 +25,9 @@ void	op_add(t_info *info, t_car *car)
 	args[0] = get_argument(info, 1, car);
 	args[1] = get_argument(info, 2, car);
 	args[2] = get_argument(info, 3, car);
-	if ((args[0] > REG_NUMBER || !args[0])
-		|| (args[1] > REG_NUMBER || !args[1])
-		|| (args[2] > REG_NUMBER || !args[2]))
+	if ((args[0] > REG_NUMBER || args[0] < 0x01)
+		|| (args[1] > REG_NUMBER || args[1] < 0x01)
+		|| (args[2] > REG_NUMBER || args[2] < 0x01))
 		return ;
 	sum = car->reg[args[0]] + car->reg[args[1]];
 	car->reg[args[2]] = sum;
@@ -51,9 +51,9 @@ void	op_sub(t_info *info, t_car *car)
 	args[0] = get_argument(info, 1, car);
 	args[1] = get_argument(info, 2, car);
 	args[2] = get_argument(info, 3, car);
-	if ((args[0] > REG_NUMBER || !args[0])
-		|| (args[1] > REG_NUMBER || !args[1])
-		|| (args[2] > REG_NUMBER || !args[2]))
+	if ((args[0] > REG_NUMBER || args[0] < 0x01)
+		|| (args[1] > REG_NUMBER || args[1] < 0x01)
+		|| (args[2] > REG_NUMBER || args[2] < 0x01))
 		return ;
 	sub = car->reg[args[0]] - car->reg[args[1]];
 	car->reg[args[2]] = sub;
