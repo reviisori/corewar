@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:45:36 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 12:10:10 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:54:25 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	validate_separators(t_statement *stmt, int row, int col)
 
 void	lex_comma(t_sh *d, t_src *s, t_token *t)
 {
-	t_statement *stmt;
+	t_statement	*stmt;
 
 	stmt = ft_vecget(&d->code, d->code.len - 1);
 	if (!stmt || stmt->op.argc == 1)
