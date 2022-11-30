@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:02:35 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 15:22:42 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:10:07 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	panic_lex(const char *msg, t_token *t, size_t row, size_t col)
 	else if (ft_strequ(msg, "name") || ft_strequ(msg, "comment"))
 		ft_dprintf(2, "Champion %s too long (Max length %zu)\n", msg, row);
 	else if (t)
-		ft_dprintf(2, "Syntax error at token [%zu:%zu] ??? \"%s\"\n",
-			row + 1, col + 1, t->content.data);
+		ft_dprintf(2, "Syntax error at token [%zu:%zu] %s \"%s\"\n",
+			row + 1, col + 1, g_symstrs[t->symbol], t->content.data);
 	else
 		ft_dprintf(2, "Syntax error - Unexpected end of input.\n"); //
 	exit(EXIT_FAILURE);
