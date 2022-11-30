@@ -45,7 +45,7 @@ int	run_game(t_info *info)
 	init_vars(info);
 	init_pregame_cars(info);
 	if (!info->dump_cycles)
-		print_memory(info->memory);
+		print_memory(info->memory, info->dump_line_len);
 	while (1)
 	{
 		if (info->verbose_opts & SHOW_CYCLE)
@@ -56,7 +56,7 @@ int	run_game(t_info *info)
 		if (no_cars_alive(info))
 			return (declare_winner(info));
 		if ((int)info->cycle == info->dump_cycles)
-			print_memory(info->memory);
+			print_memory(info->memory, info->dump_line_len);
 		info->cycle++;
 	}
 }

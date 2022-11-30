@@ -17,13 +17,11 @@ void	print_process_id(unsigned int id)
 	ft_printf("P %4u | ", id);
 }
 
-void	print_memory(unsigned char memory[])
+void	print_memory(unsigned char memory[], int line_len)
 {
 	int				i;
-	int				line_len;
 	unsigned int	line_count;
 
-	line_len = 64;
 	line_count = 0;
 	i = -1;
 	while (++i < MEM_SIZE)

@@ -51,7 +51,7 @@ else
 fi
 
 DIFF_FILE="temp_files/diff.txt"
-diff -I '^Contestant *' $ORIG_OUTPUT $OUR_OUTPUT > $DIFF_FILE
+diff $ORIG_OUTPUT $OUR_OUTPUT > $DIFF_FILE
 
 if [ -s $DIFF_FILE ]
 then

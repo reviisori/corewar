@@ -23,13 +23,21 @@
 # include <stdbool.h>
 
 /* Usage */
-# define USAGE "Usage: ./corewar [-dump N] <[-n N] champion1.cor> <...>\n\
+# define USAGE "Usage: ./corewar [-a] [-dump N] [-d N] [-v N] <[-n N] champion1.cor> <...>\n\
 \t############### TEXT OUTPUT MODE ################\n\
-\t\t-dump N\t: Dumps memory to standard output after N cycles and \
+\t-a\t: Print aff operation output\n\
+\t-dump N\t: Dumps memory to standard output (32 octets per line) after N cycles and \
 quits the game\n\
-\t\t-d N\t: Same as -dump\n\
+\t-d N\t: Same as -dump, but prints 64 octets per line\n\
+\t-v N\t: Set verbose printing options, can be added together:\n\
+\t\t  0: Print only essentials\n\
+\t\t  1: Print lives\n\
+\t\t  2: Print cycles\n\
+\t\t  4: Print operations\n\
+\t\t  8: Print deaths\n\
+\t\t  16: Print PC movements\n\
 \t############### CHAMPION OPTIONS ################\n\
-\t\t-n N\t: Sets the champions player number to N"
+\t-n N\t: Sets the champions player number to N"
 
 /* System call related error prefixes (perror emulation) */
 # define READ_PREFIX "read(): %s"
@@ -83,6 +91,7 @@ typedef struct s_options
 {
 	int		next_id;
 	int		dump;
+	int		octets_in_line;
 	int		verbose_flags;
 	int		aff_flag;
 }	t_options;
@@ -162,6 +171,7 @@ typedef struct s_info
 {
 	unsigned char	memory[MEM_SIZE];
 	int				dump_cycles;
+	int				dump_line_len;
 	int				aff_flag;
 	int				champion_count;
 	t_champion		champions[MAX_PLAYERS];
@@ -211,7 +221,7 @@ int				calculate_jump(unsigned char c_byte, unsigned char op);
 void			run_all_cars(t_info *info);
 
 /* Print functions */
-void			print_memory(unsigned char memory[]);
+void			print_memory(unsigned char memory[], int line_len);
 void			print_process_id(unsigned int id);
 
 #endif
