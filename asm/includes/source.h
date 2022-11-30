@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:15:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/11 15:14:10 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/30 11:31:32 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_src
 	size_t	index;
 	char	*prev;
 	char	*next;
+	size_t	name;
+	size_t	comment;
 }			t_src;
 
 void	init_source(t_src *s);
