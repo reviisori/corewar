@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/30 12:26:13 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:57:49 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	int		ofs;
 
 	if (!validate_arg(stmt, T_IND))
-		panic_lex(NULL, NULL, s->row, s->col);
+		panic_invalidarg("indirect", s, stmt);
 	p = (char *)&s->buf.data[s->index];
 	if (!ft_isdigit(*p) && *p != '-')
 		panic_lex(NULL, NULL, s->row, s->col);
@@ -40,7 +40,7 @@ static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	int		ofs;
 
 	if (!validate_arg(stmt, T_DIR))
-		panic_lex(NULL, NULL, s->row, s->col);
+		panic_invalidarg("direct", s, stmt);
 	source_next(s);
 	p = (char *)&s->buf.data[++s->index];
 	if (!ft_isdigit(*p) && *p != '-')
@@ -61,7 +61,7 @@ static void	lex_reg(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	int			ofs;
 
 	if (!validate_arg(stmt, T_REG))
-		panic_lex(NULL, NULL, s->row, s->col);
+		panic_invalidarg("register", s, stmt);
 	reg = ft_atoi((char *)&s->buf.data[++s->index]);
 	if (reg < 1 || reg > REG_NUMBER)
 		panic_lex(NULL, NULL, s->row, s->col);
@@ -107,7 +107,7 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		lex_ind(d, s, t, stmt);
 	else
 	{
-		t->symbol = la_plus; //change to actual la_...
+		t->symbol = la_arglabel; //change to actual la_...
 		lex_label_arg(d, s, lt, stmt);
 	}
 }
