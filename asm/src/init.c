@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:12:50 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/22 12:57:47 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/30 11:31:50 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	init_source(t_src *s)
 	s->index = 0;
 	s->prev = NULL;
 	s->next = NULL;
+	s->name = 0;
+	s->comment = 0;
 }
 
 void	init_handler(t_sh *d)
