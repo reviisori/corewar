@@ -24,6 +24,7 @@ int	set_dump(t_options *opts, char *nbr)
 	if (nbr == NULL)
 		return (-1);
 	opts->dump = ft_atoi(nbr);
+	opts->octets_in_line = 64;
 	return (1);
 }
 

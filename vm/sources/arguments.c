@@ -15,6 +15,7 @@
 static void	set_options(t_info *info, t_options *opts)
 {
 	info->dump_cycles = opts->dump;
+	info->dump_line_len = opts->octets_in_line;
 	info->verbose_opts = opts->verbose_flags;
 	info->aff_flag = opts->aff_flag;
 }
@@ -22,6 +23,7 @@ static void	set_options(t_info *info, t_options *opts)
 static void	init_options(t_options *opts)
 {
 	opts->dump = -1;
+	opts->octets_in_line = 0;
 	opts->next_id = 0;
 	opts->verbose_flags = 0;
 	opts->aff_flag = 0;
@@ -52,6 +54,7 @@ static int	read_option(char **argv, int index, t_options *opts)
 		if (ft_strncmp("dump", &argv[index][1], 5))
 			return (-1);
 		ret = set_dump(opts, argv[index + 1]);
+		opts->octets_in_line = 32;
 	}
 	else
 	{
