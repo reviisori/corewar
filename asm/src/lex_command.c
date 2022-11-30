@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/30 12:25:57 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:15:33 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	create_statement(t_sh *d, char *key)
 	temp.cur_arg = 0;
 	temp.sep = 0;
 	temp.is_dir = false;
+	temp.is_valid = false;
 	if (ft_vecpush(&d->code, &temp) < 0)
 		panic("Malloc error with exec code.");
 }
