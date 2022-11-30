@@ -38,7 +38,7 @@ void	op_aff(t_info *info, t_car *car)
 	unsigned int	reg;
 	char			value;
 
-	if (0)
+	if (info->aff_flag)
 	{
 		arg_type = get_crumb(info->memory[(car->pc + 1) % MEM_SIZE], 1);
 		reg = get_argument(info, 1, car);
@@ -47,6 +47,8 @@ void	op_aff(t_info *info, t_car *car)
 		value = (char)car->reg[reg];
 		if (info->verbose_opts & SHOW_OP)
 			print_aff(car, reg);
+		ft_putstr("Aff: ");
 		write(1, &value, 1);
+		ft_putchar('\n');
 	}
 }
