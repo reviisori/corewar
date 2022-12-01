@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:44:38 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/28 17:46:14 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/01 11:47:28 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static off_t	get_buf_size(int fd)
 	return (size);
 }
 
-static int	read_to_buf(int fd, t_src *s)
+static void	read_to_buf(int fd, t_src *s)
 {
 	size_t	buf_size;
 
@@ -35,18 +35,15 @@ static int	read_to_buf(int fd, t_src *s)
 	if (read(fd, s->buf.data, buf_size) < 0)
 		panic_source(fd, "Couldn't read source file.");
 	s->buf.len = buf_size;
-	return (1);
 }
 
-int	read_source(t_src *s, const char *filename)
+void	read_source(t_src *s, const char *filename)
 {
 	int	fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		panic("Opening file failed.");
-	if (read_to_buf(fd, s) < 0)
-		panic("Reading file failed.");
+	read_to_buf(fd, s);
 	close(fd);
-	return (1);
 }

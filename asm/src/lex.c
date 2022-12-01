@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 17:31:52 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/01 11:43:29 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	debug_lex(t_token *t, t_src *s)
 	ft_printf("\n");
 }
 
-int	lex(t_sh *d, t_src *s)
+void	lex(t_sh *d, t_src *s)
 {
 	t_token		t;
 	t_labtab	lt;
@@ -57,5 +57,4 @@ int	lex(t_sh *d, t_src *s)
 	check_labels(s, &lt);
 	free_labtab(&lt);
 	ft_vecdel(&t.content);
-	return (1);
 }
