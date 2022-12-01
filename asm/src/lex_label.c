@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:39:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/29 12:23:06 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:03:12 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	label_add(t_sh *d, t_label *lab)
 	temp_stmt = ft_vecget(&d->code, d->code.len - 1);
 	node = (t_undeflab *)ft_memalloc(sizeof(t_undeflab));
 	if (!node)
-		panic("Malloc error while adding a label node.");
+		panic("Error: Malloc error while adding a label node.");
 	node->stmt = d->code.len - 1;
 	node->arg = temp_stmt->cur_arg;
 	node->loc = d->byte;
@@ -72,7 +72,7 @@ static void	label_new(t_sh *d, t_label *lab)
 	temp_stmt = ft_vecget(&d->code, d->code.len - 1);
 	node = (t_undeflab *)ft_memalloc(sizeof(t_undeflab));
 	if (!node)
-		panic("Malloc error while adding a label node.");
+		panic("Error: Malloc error while creating the first label node.");
 	node->stmt = d->code.len - 1;
 	node->arg = temp_stmt->cur_arg;
 	node->loc = d->byte;

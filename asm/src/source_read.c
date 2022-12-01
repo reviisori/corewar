@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:44:38 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/01 11:47:28 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:03:51 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	read_source(t_src *s, const char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		panic("Opening file failed.");
+		panic("Error: Opening file failed.");
 	read_to_buf(fd, s);
 	close(fd);
 }

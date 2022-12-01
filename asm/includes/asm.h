@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:30:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/01 11:39:52 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:05:33 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define ASM_USAGE "\nusage: ./asm [-WIP] <file.s>\n\
  options:\n\
  \t\e[1m-h\e[m\thelp - NOT IMPLEMENTED\n\
- \t\e[1m-q\e[m\tquiet mode - NOT IMPLEMENTED\n\n"
+ \t\e[1m-q\e[m\tquiet mode - NOT IMPLEMENTED\n"
 
 int			valid_file(int argc, char *filename);
 void		panic(const char *msg);
