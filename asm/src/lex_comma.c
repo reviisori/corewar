@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:45:36 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 17:54:25 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/01 13:24:26 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	lex_comma(t_sh *d, t_src *s, t_token *t)
 		panic_lex(NULL, NULL, s->row, s->col); // remember check all vecgets
 	stmt->sep++;
 	validate_separators(stmt, s->row, s->col);
-	t->symbol = la_comm;
+	t->symbol = la_comma;
 	ft_vecncat(&t->content, ",", 1);
 	source_adjust(s, 1);
 }
