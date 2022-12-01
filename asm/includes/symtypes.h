@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:07:22 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 16:55:24 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/01 11:54:41 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ typedef enum e_symtypes
 
 static const char	*g_symstrs[13] = {
 	"UNKNOWN",
-	"EOF",
-	"EOL",
+	"END OF FILE",
+	"END OF LINE",
 	"LABEL",
 	"OPERATION",
 	"COMMENT",
 	"CHAMPION'S NAME",
 	"CHAMPION'S COMMENT",
-	"REG",
-	"DIR",
-	"IND",
+	"REGISTER",
+	"DIRECT",
+	"INDIRECT",
 	"LABEL AS ARGUMENT",
 	"COMMA"
 };
