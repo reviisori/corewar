@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:39:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/29 12:23:06 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:46:06 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	label_add(t_sh *d, t_label *lab)
 	temp_stmt = ft_vecget(&d->code, d->code.len - 1);
 	node = (t_undeflab *)ft_memalloc(sizeof(t_undeflab));
 	if (!node)
-		panic("Malloc error while adding a label node.");
+		panic("Error: Malloc error while adding a label node.");
 	node->stmt = d->code.len - 1;
 	node->arg = temp_stmt->cur_arg;
 	node->loc = d->byte;
@@ -64,7 +64,7 @@ static void	label_add(t_sh *d, t_label *lab)
 	temp_node->next = node;
 }
 
-static void	label_new(t_sh *d, t_label *lab)
+static void	label_new(t_sh *d, t_src *s, t_label *lab)
 {
 	t_statement	*temp_stmt;
 	t_undeflab	*node;
@@ -72,13 +72,28 @@ static void	label_new(t_sh *d, t_label *lab)
 	temp_stmt = ft_vecget(&d->code, d->code.len - 1);
 	node = (t_undeflab *)ft_memalloc(sizeof(t_undeflab));
 	if (!node)
-		panic("Malloc error while adding a label node.");
+		panic("Error: Malloc error while creating the first label node.");
 	node->stmt = d->code.len - 1;
 	node->arg = temp_stmt->cur_arg;
 	node->loc = d->byte;
 	node->is_dir = lab->is_dir;
 	node->next = NULL;
 	lab->head = node;
+	lab->pos[0] = s->row;
+	lab->pos[1] = s->col;
+}
+
+static void	label_init(t_sh *d, t_label *l, char *key, bool is_first)
+{
+	t_statement	*stmt;
+
+	stmt = ft_vecget(&d->code, d->code.len - 1);
+	l->name = key;//
+	l->declared = false;
+	l->is_dir = stmt->is_dir;
+	ft_bzero(&l->pos, 2);
+	if (is_first)
+		l->head = NULL;
 }
 
 static char	*get_label(t_src *s)
@@ -105,18 +120,6 @@ static char	*get_label(t_src *s)
 	return (key);
 }
 
-static void	label_init(t_sh *d, t_label *l, char *key, bool is_first)
-{
-	t_statement	*stmt;
-
-	stmt = ft_vecget(&d->code, d->code.len - 1);
-	l->name = key;
-	l->declared = false;
-	l->is_dir = stmt->is_dir;
-	if (is_first)
-		l->head = NULL;
-}
-
 void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 {
 	t_hash	*entry;
@@ -127,7 +130,7 @@ void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 	if (!entry)
 	{
 		label_init(d, &label, key, true);
-		label_new(d, &label);
+		label_new(d, s, &label);
 		ft_vecpush(&lt->entries, &label);
 		hash_insert(&lt->labels, key, ((int)lt->entries.len * -1));
 	}

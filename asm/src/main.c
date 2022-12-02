@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:29:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/22 16:09:00 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/01 11:46:48 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,9 @@ int	main(int argc, char **argv)
 
 	if (!valid_file(argc, argv[1]))
 		panic(ASM_USAGE);
-	if (!parse(&d, argv[1]))
-		panic("Parsing failed.");
+	parse(&d, argv[1]);
 	debug_statement(&d);
-	// exit(1);
-	if (!assemble(&d, argv[1])) //send asm
-		panic("Avengers didn't assemble.");
+	assemble(&d, argv[1]);
 	ft_vecdel(&d.code);  //
 	ft_strdel(&d.filename);  //
 	hash_free(&d.ops); //

@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:03:16 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/22 14:55:19 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:53:01 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 static void	labtab_lst_free(t_undeflab *head)
 {
-	t_undeflab *temp;
+	t_undeflab	*temp;
 
 	temp = head->next;
 	free(head);
-	// return ;
-	while(temp)
+	while (temp)
 	{
 		head = temp;
 		temp = head->next;

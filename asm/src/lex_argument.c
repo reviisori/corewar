@@ -6,44 +6,27 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/28 16:47:54 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/01 13:20:50 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int int_64_len(long n)
-{
-	int	len;
-
-	if (n == 0)
-		return (1);
-	len = 0;
-	if (n < 0)
-		len++;
-	while (n != 0)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
 static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 {
 	char	*p;
-	long	arg;
+	int		arg;
 	int		ofs;
 
 	if (!validate_arg(stmt, T_IND))
-		panic_lex(NULL, s->row, s->col);
+		panic_invalidarg("indirect", s, stmt);
 	p = (char *)&s->buf.data[s->index];
 	if (!ft_isdigit(*p) && *p != '-')
-		panic_lex(NULL, s->row, s->col);
-	arg = ft_atol(p);
+		panic_lex(NULL, NULL, s->row, s->col);
+	arg = ft_atoi(p);
 	stmt->arg_type[stmt->cur_arg] = IND_CODE;
 	stmt->args[stmt->cur_arg++] = arg;
-	ofs = int_64_len(arg);
+	ofs = nbr_len(p);
 	t->symbol = la_ind;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	d->byte += IND_SIZE;
@@ -53,19 +36,19 @@ static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 {
 	char	*p;
-	long	arg;
+	int		arg;
 	int		ofs;
 
 	if (!validate_arg(stmt, T_DIR))
-		panic_lex(NULL, s->row, s->col);
+		panic_invalidarg("direct", s, stmt);
 	source_next(s);
 	p = (char *)&s->buf.data[++s->index];
 	if (!ft_isdigit(*p) && *p != '-')
-		panic_lex(NULL, s->row, s->col);
-	arg = ft_atol(p);
+		panic_lex(NULL, NULL, s->row, s->col);
+	arg = ft_atoi(p);
 	stmt->arg_type[stmt->cur_arg] = DIR_CODE;
 	stmt->args[stmt->cur_arg++] = arg;
-	ofs = int_64_len(arg);
+	ofs = nbr_len(p);
 	t->symbol = la_dir;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	d->byte += stmt->op.size;
@@ -78,10 +61,10 @@ static void	lex_reg(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	int			ofs;
 
 	if (!validate_arg(stmt, T_REG))
-		panic_lex(NULL, s->row, s->col);
+		panic_invalidarg("register", s, stmt);
 	reg = ft_atoi((char *)&s->buf.data[++s->index]);
 	if (reg < 1 || reg > REG_NUMBER)
-		panic_lex(NULL, s->row, s->col);
+		panic_lex(NULL, NULL, s->row, s->col);
 	stmt->arg_type[stmt->cur_arg] = REG_CODE;
 	stmt->args[stmt->cur_arg++] = reg;
 	ofs = ft_intlen(reg);
@@ -98,6 +81,16 @@ static void	lex_label_arg(t_sh *d, t_src *s, t_labtab *lt, t_statement *stmt)
 	p = (char *)&s->buf.data[s->index];
 	if (*p == DIRECT_CHAR && stmt->op.size == 2)
 		stmt->is_dir = true;
+	if (*p == DIRECT_CHAR)
+	{
+		if (!validate_arg(stmt, T_DIR))
+			panic_invalidarg("direct", s, stmt);
+	}
+	else
+	{
+		if (!validate_arg(stmt, T_IND))
+			panic_invalidarg("indirect", s, stmt);
+	}
 	lex_label(d, s, lt, NULL);
 	calc_arg_size(d, stmt, *p);
 	stmt->arg_type[stmt->cur_arg] = IND_CODE - (stmt->is_dir);
@@ -111,11 +104,11 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 
 	stmt = ft_vecget(&d->code, d->code.len - 1);
 	if (!stmt)
-		panic_lex("...", 0, 0); //?
+		panic_lex("Syntax", t, s->row, s->col); //?
 	validate_separators(stmt, s->row, s->col);
 	p = (char *)&s->buf.data[s->index];
 	if (stmt->cur_arg == stmt->op.argc)
-		panic_lex(NULL, s->row, s->col); //
+		panic_lex(NULL, NULL, s->row, s->col);
 	if (is_register(s))
 		lex_reg(d, s, t, stmt);
 	else if (*p == DIRECT_CHAR && *s->next != LABEL_CHAR)
@@ -124,7 +117,7 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		lex_ind(d, s, t, stmt);
 	else
 	{
-		t->symbol = la_plus; //change to actual la_...
+		t->symbol = la_arglabel;
 		lex_label_arg(d, s, lt, stmt);
 	}
 }

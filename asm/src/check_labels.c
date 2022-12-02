@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:40:27 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/18 15:53:38 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:41:02 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,23 @@ void	check_labels(t_src *s, t_labtab *lt)
 {
 	t_label *temp;
 	size_t	i;
-	(void)s;
+	(void)s; ///what
 	i = 0;
 	while (i < lt->entries.len)
 	{
 		temp = ft_vecget(&lt->entries, i);
+		if (!temp)
+		{
+			ft_printf("YEP\n");
+			continue ;
+		}
 		if (temp->declared == false)
-			panic("Label missing"); // this needs to print label's "name" and location.
+		{
+			ft_printf("No such label %s while attempting to dereference token"
+				"[%zu:%zu] LABEL AS ARGUMENT \"%s\"\n", temp->name,
+				temp->pos[0] + 1, temp->pos[1] + 1, temp->name);
+			panic("Label missing"); //
+		}
 		i++;
 	}
 }
-// No such label kissa while attempting to dereference token [TOKEN][004:009] DIRECT_LABEL "%:kissa"

@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 16:33:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/24 14:36:37 by altikka          ###   ########.fr       */
+/*   Updated: 2022/11/30 14:31:42 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 # define LEX_H
 
 void	init_lex(t_token *t, t_labtab *lt);
-void	panic_lex(const char *msg, size_t row, size_t col);
+void	panic_lex(const char *msg, t_token *t, size_t row, size_t col);
+void	panic_invalidarg(const char *msg, t_src *s, t_statement *stmt);
 void	lex_tokenization(t_sh *d, t_src *s, t_token *t, t_labtab *lt);
-void	lex_endof(t_src *s, t_token *t);
+void	lex_endof(t_sh *d, t_src *s, t_token *t);
 void	lex_comment(t_src *s, t_token *t);
 void	lex_header(t_sh *d, t_src *s, t_token *t);
 void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt);
@@ -32,5 +33,6 @@ bool	is_label(t_src *s);
 bool	is_register(t_src *s);
 void	calc_arg_size(t_sh *d, t_statement *stmt, const char c);
 int		validate_arg(t_statement *s, int arg);
+int		nbr_len(const char *src);
 
 #endif
