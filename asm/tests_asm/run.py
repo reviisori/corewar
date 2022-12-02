@@ -2,14 +2,20 @@
 
 import sys
 import os.path
+import emoji
 import os
 from os import path
 
+# pip install emoji
+# or just remove lines 5, 96, 100
 
 EOC = "\033[0m"
 GREEN = "\033[38;5;70m"
 RED  = "\033[38;5;124m"
 YELLOW = "\033[38;5;220m"
+SALMON  = "\033[38;5;203m"
+CYAN = "\033[38;5;43m"
+GRAY = "\033[38;5;240m"
 
 real_asm = "./asm"
 our_asm = "../asm"
@@ -67,9 +73,32 @@ def	main():
 				print("Invalid file")
 				sys.exit()
 			fd.close()
-	print(str(count - err_count - 1) + "/" + str(count))
-	#print("/")
-	#print(count)
+	count -= 1
+	correct = count - err_count
+	print(GRAY +"________________________________________________________________________________________________")
+	print(YELLOW + "      ___           ___           ___           ___           ___           ___           ___   ")
+	print("     /  /\         /  /\         /  /\         /  /\         /__/\         /  /\         /  /\ ")
+	print("    /  /:/        /  /::\       /  /::\       /  /:/_       _\_ \:\       /  /::\       /  /::\   ")
+	print("   /  /:/        /  /:/\:\     /  /:/\:\     /  /:/ /\     /__/\ \:\     /  /:/\:\     /  /:/\:\ ")
+	print("  /  /:/  ___   /  /:/  \:\   /  /:/-/:/    /  /:/ /:/_   _\_ \:\ \:\   /  /:/-/::\   /  /:/-/:/  ")
+	print(" /__/:/  /  /\ /__/:/ \__\:\ /__/:/ /:/___ /__/:/ /:/ /\ /__/\ \:\ \:\ /__/:/ /:/\:\ /__/:/ /:/___")
+	print(" \  \:\ /  /:/ \  \:\ /  /:/ \  \:\/:::::/ \  \:\/:/ /:/ \  \:\ \:\/:/ \  \:\/:/__\/ \  \:\/:::::/")
+	print("  \  \:\  /:/   \  \:\  /:/   \  \::/----   \  \::/ /:/   \  \:\ \::/   \  \::/       \  \::/---- ")
+	print("   \  \:\/:/     \  \:\/:/     \  \:\        \  \:\/:/     \  \:\/:/     \  \:\        \  \:\     ")
+	print("    \  \::/       \  \::/       \  \:\        \  \::/       \  \::/       \  \:\        \  \:\ ")
+	print("     \__\/         \__\/         \__\/         \__\/         \__\/         \__\/         \__\/   ")
+	print(GRAY +"_________________________________________________________________________________________________" + EOC)
+	print(RED + "                                                                            by altikka & atenhune" + EOC)
+	print(YELLOW + "Results:" + EOC)
+	if correct == count:
+		print(GREEN + str(correct) + "/" + str(count) + EOC)
+		print(GREEN + "SUCCESS" + EOC, end="")
+		print(emoji.emojize(' :thumbs_up:'))
+	else:
+		print(RED + str(correct) + "/" + str(count) + EOC)
+		print(RED + "FAILURE" + EOC, end="")
+		print(emoji.emojize(' :thumbs_down:'))
+
 
 if __name__ == "__main__":
 	main()
