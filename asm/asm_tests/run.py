@@ -18,18 +18,18 @@ def	main():
 			s_file = "%s%s" % (sys.argv[1], file)
 			os.system("%s %s" % (real_asm, s_file))
 			cor_file = s_file.replace(".s", ".cor")
-			cmd = "hexdump %s > %s" % (cor_file, file.replace(".s", ".Rhex"))
+			cmd = "hexdump %s > %s" % (cor_file, file.replace(".s", "_org.hex"))
 			os.system(cmd)
 	for file in dir_cont:
 		if ".s" in file:
 			s_file = "%s%s" % (sys.argv[1], file)
 			os.system("%s %s" % (our_asm, s_file))
 			cor_file = s_file.replace(".s", ".cor")
-			cmd = "hexdump %s > %s" % (cor_file, file.replace(".s", ".Ohex"))
+			cmd = "hexdump %s > %s" % (cor_file, file.replace(".s", ".hex"))
 			os.system(cmd)
 	for file in dir_cont:
 		if ".s" in file:
-			cmd = "diff %s %s > %s" % (file.replace(".s", ".Rhex"), file.replace(".s", ".Ohex"), file.replace(".s", ".diff"))
+			cmd = "diff %s %s > %s" % (file.replace(".s", "_org.hex"), file.replace(".s", ".hex"), file.replace(".s", ".diff"))
 			os.system(cmd)
 	dir_cont = os.listdir()
 	count = 0
@@ -40,7 +40,7 @@ def	main():
 				if os.stat(file).st_size == 0:
 					print(str(count).rjust(3, ' '), end=" ")
 					print(GREEN + "OK" + EOC)
-					os.system("rm %s %s %s" % (file.replace(".diff", ".Rhex"), file.replace(".diff", ".Ohex"), file.replace(".diff", ".diff")))
+					os.system("rm %s %s %s" % (file.replace(".diff", "_org.hex"), file.replace(".diff", ".hex"), file))
 				else:
 					print(str(count).rjust(3, ' '), end=" ")
 					print(RED + "KO" + EOC)
