@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 11:45:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/02 14:27:46 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:49:45 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ static void	get_header_info(t_sh *d, t_src *s, t_token *t, char c)
 	p = find_ending_quotation(s);
 	if (p)
 	{
-		s->index++;
-		ofs = p - (char *)&s->buf.data[s->index];
+		ofs = p - (char *)&s->buf.data[++s->index];
 		if (ofs > PROG_NAME_LENGTH
 			&& c == 'n')
 			panic_lex("name", NULL, PROG_NAME_LENGTH, 0);
@@ -59,7 +58,7 @@ static void	get_header_info(t_sh *d, t_src *s, t_token *t, char c)
 		source_adjust(s, ofs + 1);
 	}
 	else
-		panic_lex("Syntax", t, s->row, s->col); //?
+		panic_lex("Syntax", t, s->row, s->col);
 }
 
 void	lex_header(t_sh *d, t_src *s, t_token *t)
