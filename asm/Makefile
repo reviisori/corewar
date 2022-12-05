@@ -6,7 +6,7 @@
 #    By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/12/05 17:04:29 by altikka          ###   ########.fr        #
+#    Updated: 2022/12/05 19:42:18 by altikka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ INCS		= -I./includes -I../libft -I../libft/ft_printf/includes -I../shared/includ
 SRC_FILES	= main.c \
 			  main_utils.c \
 			  parse.c \
+			  debug.c \
 			  init.c \
 			  lex.c \
 			  lex_bools.c \
@@ -60,8 +61,6 @@ LGRAY = \033[38;5;244m
 GOLD = \033[38;5;136m
 SILVER = \033[38;5;247m
 RUST = \033[38;5;130m
-BLACK = \033[38;5;236m
-WHITE = \033[38;5;231m
 
 all: $(NAME)
 
