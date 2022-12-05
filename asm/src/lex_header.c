@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 11:45:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 12:26:25 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:27:46 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,6 @@ void	lex_header(t_sh *d, t_src *s, t_token *t)
 		source_next(s);
 		get_header_info(d, s, t, 'c');
 	}
+	else
+		panic_lex(NULL, t, s->row, s->col);
 }
