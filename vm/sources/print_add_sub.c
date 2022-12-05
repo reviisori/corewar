@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   options_text_op.c                                  :+:      :+:    :+:   */
+/*   print_add_sub.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:40:48 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/25 14:40:51 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/11/15 14:51:35 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/11/15 14:51:37 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "operations.h"
 
-int	set_aff(t_options *opts, char *nbr)
+void	print_add(t_car *car, unsigned int args[])
 {
-	(void)nbr;
-	opts->aff_flag = 1;
-	return (0);
+	print_process_id(car->index);
+	ft_printf("add r%hhd r%hhd r%hhd\n",
+		args[0],
+		args[1],
+		args[2]);
 }
 
-int	set_dump(t_options *opts, char *nbr)
+void	print_sub(t_car *car, unsigned int args[])
 {
-	if (nbr == NULL)
-		return (-1);
-	opts->dump = ft_atoi(nbr);
-	opts->octets_in_line = 64;
-	return (1);
-}
-
-int	set_verbose_flag(t_options *opts, char *nbr)
-{
-	if (nbr == NULL)
-		return (-1);
-	opts->verbose_flags += ft_atoi(nbr);
-	return (1);
+	print_process_id(car->index);
+	ft_printf("sub r%hhd r%hhd r%hhd\n",
+		args[0],
+		args[1],
+		args[2]);
 }

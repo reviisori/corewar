@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   options_text_op.c                                  :+:      :+:    :+:   */
+/*   deploy.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:40:48 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/25 14:40:51 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/11/02 16:03:01 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/11/02 16:03:03 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int	set_aff(t_options *opts, char *nbr)
+static void	get_positions(int positions[], int count)
 {
-	(void)nbr;
-	opts->aff_flag = 1;
-	return (0);
+	int	i;
+	int	pos;
+
+	pos = 0;
+	i = -1;
+	while (++i < count)
+		positions[i] = pos + MEM_SIZE / count * i;
 }
 
-int	set_dump(t_options *opts, char *nbr)
+void	deploy_champions(unsigned char memory[],
+			t_champion ch_list[], int count)
 {
-	if (nbr == NULL)
-		return (-1);
-	opts->dump = ft_atoi(nbr);
-	opts->octets_in_line = 64;
-	return (1);
-}
+	int	i;
+	int	positions[MAX_PLAYERS];
 
-int	set_verbose_flag(t_options *opts, char *nbr)
-{
-	if (nbr == NULL)
-		return (-1);
-	opts->verbose_flags += ft_atoi(nbr);
-	return (1);
+	get_positions(positions, count);
+	i = -1;
+	while (++i < count)
+		ft_memcpy(&memory[positions[i]], ch_list[i].code, ch_list[i].code_size);
 }

@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   big_endian_convert.c                               :+:      :+:    :+:   */
+/*   print_options.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuikkan <asuikkan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 11:54:19 by asuikkan          #+#    #+#             */
-/*   Updated: 2022/10/28 11:54:21 by asuikkan         ###   ########.fr       */
+/*   Created: 2022/11/18 11:23:19 by asuikkan          #+#    #+#             */
+/*   Updated: 2022/11/18 11:23:20 by asuikkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-#define RIGHTMOST_BYTE 0xFF
+void	print_process_id(unsigned int id)
+{
+	ft_printf("P %4u | ", id);
+}
 
-unsigned int	big_endian_converter(unsigned int src, int size)
+void	print_memory(unsigned char memory[], int line_len)
 {
 	int				i;
-	int				byte_pos;
-	unsigned int	byte;
-	unsigned int	ret;
+	unsigned int	line_count;
 
-	ret = 0;
-	byte_pos = size - 1;
+	line_count = 0;
 	i = -1;
-	while (++i < size)
+	while (++i < MEM_SIZE)
 	{
-		byte = 0;
-		byte = (RIGHTMOST_BYTE << i * BITS_IN_BYTE & src);
-		if (i < byte_pos)
-			byte = byte << (byte_pos - i) * BITS_IN_BYTE;
-		else
-			byte = byte >> (i - byte_pos) * BITS_IN_BYTE;
-		ret = ret | byte;
-		byte_pos--;
+		if (i % line_len == 0)
+			ft_printf("0x%04x : ", line_len * line_count++);
+		ft_printf("%02x ", memory[i]);
+		if ((i + 1) % line_len == 0)
+			ft_putchar('\n');
 	}
-	return (ret);
+	exit(0);
 }
