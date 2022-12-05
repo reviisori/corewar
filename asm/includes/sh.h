@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assemble.c                                         :+:      :+:    :+:   */
+/*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 15:17:29 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/01 12:06:55 by altikka          ###   ########.fr       */
+/*   Created: 2022/10/28 13:49:05 by altikka           #+#    #+#             */
+/*   Updated: 2022/11/30 15:14:16 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#ifndef SH_H
+# define SH_H
 
-void	assemble(t_sh *d, char *filename)
+typedef struct s_statement
 {
-	int	fd;
+	t_op		op;
+	u_int8_t	acb;
+	int			args[3];
+	u_int8_t	arg_type[3];
+	int			cur_arg;
+	int			sep;
+	bool		is_dir;
+	bool		is_valid;
+	u_int32_t	loc;
+}				t_statement;
 
-	d->filename = create_filename(filename);
-	fd = open(d->filename, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (fd == -1)
-		panic("Error: Couldn't create output file.");
-	write_file(d, fd);
-	close(fd);
-}
+typedef struct s_sh
+{
+	t_header	header;
+	t_vec		code;
+	t_hashmap	ops;
+	char		*filename;
+	u_int32_t	byte;
+}				t_sh;
+
+#endif

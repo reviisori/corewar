@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_utils.c                                       :+:      :+:    :+:   */
+/*   write_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 15:20:03 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/01 12:04:11 by altikka          ###   ########.fr       */
+/*   Created: 2022/11/22 13:55:19 by atenhune          #+#    #+#             */
+/*   Updated: 2022/12/01 11:42:02 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int	valid_file(int argc, char *filename)
+void	write_file(t_sh *d, const int fd)
 {
-	char	*ext;
-
-	if (argc != 2)
-		return (0);
-	ext = ft_strrchr(filename, '.');
-	return (ft_strnequ(ext, ".s", 3));
-}
-
-void	panic(const char *msg)
-{
-	ft_dprintf(2, "%s\n", msg);
-	exit(EXIT_FAILURE);
+	write_header(d, fd);
+	write_bytecode(d, fd);
+	ft_printf("Writing output program to %s\n", d->filename);
 }

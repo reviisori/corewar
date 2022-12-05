@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assemble.c                                         :+:      :+:    :+:   */
+/*   lex_comment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 15:17:29 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/01 12:06:55 by altikka          ###   ########.fr       */
+/*   Created: 2022/10/31 12:21:12 by atenhune          #+#    #+#             */
+/*   Updated: 2022/11/11 15:20:44 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	assemble(t_sh *d, char *filename)
+void	lex_comment(t_src *s, t_token *t)
 {
-	int	fd;
+	char	*p;
 
-	d->filename = create_filename(filename);
-	fd = open(d->filename, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (fd == -1)
-		panic("Error: Couldn't create output file.");
-	write_file(d, fd);
-	close(fd);
+	p = ft_strchr(&s->buf.data[s->index], '\n');
+	if (!p)
+	{
+		ft_vecncat(&t->content, &s->buf.data[s->index],
+			s->buf.len - s->index - 1);
+		source_adjust(s, s->buf.len - s->index);
+	}
+	else
+	{
+		ft_vecncat(&t->content, &s->buf.data[s->index],
+			p - (char *)&s->buf.data[s->index]);
+		source_adjust(s, p - (char *)&s->buf.data[s->index]);
+	}
+	t->symbol = la_comm;
 }

@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assemble.c                                         :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 15:17:29 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/01 12:06:55 by altikka          ###   ########.fr       */
+/*   Created: 2022/10/28 12:00:34 by altikka           #+#    #+#             */
+/*   Updated: 2022/12/01 11:44:11 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#ifndef PARSE_H
+# define PARSE_H
 
-void	assemble(t_sh *d, char *filename)
-{
-	int	fd;
+void	init_handler(t_sh *d);
+int		parse_header(t_sh *d, t_src *s);
+void	lex(t_sh *d, t_src *s);
 
-	d->filename = create_filename(filename);
-	fd = open(d->filename, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (fd == -1)
-		panic("Error: Couldn't create output file.");
-	write_file(d, fd);
-	close(fd);
-}
+#endif
