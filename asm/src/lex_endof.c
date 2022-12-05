@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:21:04 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 15:25:56 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:27:14 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	lex_endof(t_sh *d, t_src *s, t_token *t)
 		s->col = 0;
 		s->index++;
 	}
-	if (*(char *)&s->buf.data[s->index] == '\0')
+	else if (*(char *)&s->buf.data[s->index] == '\0')
 	{
 		validate_eof(stmt);
 		if (stmt && stmt->is_valid == false)

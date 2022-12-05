@@ -2,7 +2,6 @@
 
 import sys
 import os.path
-import emoji
 import os
 from os import path
 
@@ -92,12 +91,10 @@ def	main():
 	print(YELLOW + "Results:" + EOC)
 	if correct == count:
 		print(GREEN + str(correct) + "/" + str(count) + EOC)
-		print(GREEN + "SUCCESS" + EOC, end="")
-		print(emoji.emojize(' :thumbs_up:'))
+		print(GREEN + "SUCCESS" + EOC)
 	else:
 		print(RED + str(correct) + "/" + str(count) + EOC)
-		print(RED + "FAILURE" + EOC, end="")
-		print(emoji.emojize(' :thumbs_down:'))
+		print(RED + "FAILURE" + EOC)
 
 
 if __name__ == "__main__":
