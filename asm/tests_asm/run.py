@@ -13,8 +13,10 @@ GREEN = "\033[38;5;70m"
 RED  = "\033[38;5;124m"
 YELLOW = "\033[38;5;220m"
 SALMON  = "\033[38;5;203m"
+RUST = "\033[38;5;130m"
 CYAN = "\033[38;5;43m"
 GRAY = "\033[38;5;240m"
+WHITE = "\033[38;5;231m"
 
 real_asm = "./asm"
 our_asm = "../asm"
@@ -30,7 +32,7 @@ def	main():
 			cmd = "hexdump %s > %s" % (cor_file, file.replace(".s", "_org.hex"))
 			os.system(cmd)
 			os.system("rm %s" % (cor_file))
-	err_nbr = 0
+	err_nbr = 1
 	err_count = 0
 	for file in dir_cont:
 		if ".s" in file:
@@ -74,8 +76,8 @@ def	main():
 			fd.close()
 	count -= 1
 	correct = count - err_count
-	print(GRAY +"________________________________________________________________________________________________")
-	print(YELLOW + "      ___           ___           ___           ___           ___           ___           ___   ")
+	print(SALMON +"________________________________________________________________________________________________")
+	print(CYAN + "      ___           ___           ___           ___           ___           ___           ___   ")
 	print("     /  /\         /  /\         /  /\         /  /\         /__/\         /  /\         /  /\ ")
 	print("    /  /:/        /  /::\       /  /::\       /  /:/_       _\_ \:\       /  /::\       /  /::\   ")
 	print("   /  /:/        /  /:/\:\     /  /:/\:\     /  /:/ /\     /__/\ \:\     /  /:/\:\     /  /:/\:\ ")
@@ -86,8 +88,8 @@ def	main():
 	print("   \  \:\/:/     \  \:\/:/     \  \:\        \  \:\/:/     \  \:\/:/     \  \:\        \  \:\     ")
 	print("    \  \::/       \  \::/       \  \:\        \  \::/       \  \::/       \  \:\        \  \:\ ")
 	print("     \__\/         \__\/         \__\/         \__\/         \__\/         \__\/         \__\/   ")
-	print(GRAY +"_________________________________________________________________________________________________" + EOC)
-	print(RED + "                                                                            by altikka & atenhune" + EOC)
+	print(SALMON +"_________________________________________________________________________________________________" + EOC)
+	print(WHITE + "                                                                            by altikka & atenhune" + EOC)
 	print(YELLOW + "Results:" + EOC)
 	if correct == count:
 		print(GREEN + str(correct) + "/" + str(count) + EOC)
