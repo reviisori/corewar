@@ -6,11 +6,17 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:21:04 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 15:25:56 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:27:14 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+static void	validate_eof(t_statement *stmt)
+{
+	if (!stmt)
+		panic("Error: Invalid champion.");
+}
 
 static void	validate_eol(t_src *s, t_statement *stmt)
 {
@@ -29,16 +35,18 @@ void	lex_endof(t_sh *d, t_src *s, t_token *t)
 		if (stmt && stmt->is_valid == false)
 			validate_eol(s, stmt);
 		t->symbol = la_eol;
-		*(char *)&t->content.data[0] = '\n';
+		ft_vecpush(&t->content, "\n");
+		ft_vecpush(&t->content, "\0");
 		s->row++;
 		s->col = 0;
 		s->index++;
 	}
-	if (*(char *)&s->buf.data[s->index] == '\0')
+	else if (*(char *)&s->buf.data[s->index] == '\0')
 	{
+		validate_eof(stmt);
 		if (stmt && stmt->is_valid == false)
 			panic_lex("Unexpected end", NULL, s->row, s->col);
 		t->symbol = la_eof;
-		*(char *)&t->content.data[0] = '\0';
+		ft_vecpush(&t->content, "\0");
 	}
 }
