@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/01 13:20:50 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/05 12:22:40 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	ofs = nbr_len(p);
 	t->symbol = la_ind;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
+	ft_vecpush(&t->content, "\0");
 	d->byte += IND_SIZE;
 	source_adjust(s, ofs);
 }
@@ -51,6 +52,7 @@ static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	ofs = nbr_len(p);
 	t->symbol = la_dir;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
+	ft_vecpush(&t->content, "\0");
 	d->byte += stmt->op.size;
 	source_adjust(s, ofs);
 }
@@ -70,6 +72,7 @@ static void	lex_reg(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	ofs = ft_intlen(reg);
 	t->symbol = la_reg;
 	ft_vecncat(&t->content, &s->buf.data[s->index - 1], ofs + 1);
+	ft_vecpush(&t->content, "\0");
 	d->byte += T_REG;
 	source_adjust(s, ofs);
 }

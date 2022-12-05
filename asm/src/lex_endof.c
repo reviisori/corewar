@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:21:04 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 15:25:56 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:26:58 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	lex_endof(t_sh *d, t_src *s, t_token *t)
 		if (stmt && stmt->is_valid == false)
 			validate_eol(s, stmt);
 		t->symbol = la_eol;
-		*(char *)&t->content.data[0] = '\n';
+		ft_vecpush(&t->content, "\n");
+		ft_vecpush(&t->content, "\0");
 		s->row++;
 		s->col = 0;
 		s->index++;
@@ -39,6 +40,6 @@ void	lex_endof(t_sh *d, t_src *s, t_token *t)
 		if (stmt && stmt->is_valid == false)
 			panic_lex("Unexpected end", NULL, s->row, s->col);
 		t->symbol = la_eof;
-		*(char *)&t->content.data[0] = '\0';
+		ft_vecpush(&t->content, "\0");
 	}
 }
