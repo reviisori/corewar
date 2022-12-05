@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/01 11:43:29 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:20:47 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,15 @@ void	lex(t_sh *d, t_src *s)
 	{
 		source_next(s);
 		lex_tokenization(d, s, &t, &lt);
-		t.num = (int ) count++; //what is this
+		t.num = (int ) count++;
 		debug_lex(&t, s);
 		if (t.symbol == la_eof)
 			continue ;
 		if (t.symbol == la_unknown)
-		{
-			s->index++;
-			s->col++;
-		}
+			panic_lex(NULL, &t, s->row, s->col);
 		reset_token(&t);
 	}
-	check_labels(s, &lt);
+	check_labels(&lt);
 	free_labtab(&lt);
 	ft_vecdel(&t.content);
 }

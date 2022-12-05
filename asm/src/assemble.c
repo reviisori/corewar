@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:17:29 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/01 12:06:55 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:02:06 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void	assemble(t_sh *d, char *filename)
 	if (fd == -1)
 		panic("Error: Couldn't create output file.");
 	write_file(d, fd);
+	free_data(d);
 	close(fd);
 }

@@ -5,11 +5,18 @@ import os.path
 import os
 from os import path
 
+# pip install emoji
+# or just remove lines 5, 96, 100
 
 EOC = "\033[0m"
 GREEN = "\033[38;5;70m"
 RED  = "\033[38;5;124m"
 YELLOW = "\033[38;5;220m"
+SALMON  = "\033[38;5;203m"
+RUST = "\033[38;5;130m"
+CYAN = "\033[38;5;43m"
+GRAY = "\033[38;5;240m"
+WHITE = "\033[38;5;231m"
 
 real_asm = "./asm"
 our_asm = "../asm"
@@ -25,7 +32,7 @@ def	main():
 			cmd = "hexdump %s > %s" % (cor_file, file.replace(".s", "_org.hex"))
 			os.system(cmd)
 			os.system("rm %s" % (cor_file))
-	err_nbr = 0
+	err_nbr = 1
 	err_count = 0
 	for file in dir_cont:
 		if ".s" in file:
@@ -67,9 +74,30 @@ def	main():
 				print("Invalid file")
 				sys.exit()
 			fd.close()
-	print(str(count - err_count - 1) + "/" + str(count))
-	#print("/")
-	#print(count)
+	count -= 1
+	correct = count - err_count
+	print(SALMON +"________________________________________________________________________________________________")
+	print(CYAN + "      ___           ___           ___           ___           ___           ___           ___   ")
+	print("     /  /\         /  /\         /  /\         /  /\         /__/\         /  /\         /  /\ ")
+	print("    /  /:/        /  /::\       /  /::\       /  /:/_       _\_ \:\       /  /::\       /  /::\   ")
+	print("   /  /:/        /  /:/\:\     /  /:/\:\     /  /:/ /\     /__/\ \:\     /  /:/\:\     /  /:/\:\ ")
+	print("  /  /:/  ___   /  /:/  \:\   /  /:/-/:/    /  /:/ /:/_   _\_ \:\ \:\   /  /:/-/::\   /  /:/-/:/  ")
+	print(" /__/:/  /  /\ /__/:/ \__\:\ /__/:/ /:/___ /__/:/ /:/ /\ /__/\ \:\ \:\ /__/:/ /:/\:\ /__/:/ /:/___")
+	print(" \  \:\ /  /:/ \  \:\ /  /:/ \  \:\/:::::/ \  \:\/:/ /:/ \  \:\ \:\/:/ \  \:\/:/__\/ \  \:\/:::::/")
+	print("  \  \:\  /:/   \  \:\  /:/   \  \::/----   \  \::/ /:/   \  \:\ \::/   \  \::/       \  \::/---- ")
+	print("   \  \:\/:/     \  \:\/:/     \  \:\        \  \:\/:/     \  \:\/:/     \  \:\        \  \:\     ")
+	print("    \  \::/       \  \::/       \  \:\        \  \::/       \  \::/       \  \:\        \  \:\ ")
+	print("     \__\/         \__\/         \__\/         \__\/         \__\/         \__\/         \__\/   ")
+	print(SALMON +"_________________________________________________________________________________________________" + EOC)
+	print(WHITE + "                                                                            by altikka & atenhune" + EOC)
+	print(YELLOW + "Results:" + EOC)
+	if correct == count:
+		print(GREEN + str(correct) + "/" + str(count) + EOC)
+		print(GREEN + "SUCCESS" + EOC)
+	else:
+		print(RED + str(correct) + "/" + str(count) + EOC)
+		print(RED + "FAILURE" + EOC)
+
 
 if __name__ == "__main__":
 	main()
