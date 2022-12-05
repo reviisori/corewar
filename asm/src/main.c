@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:29:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/01 11:46:48 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/05 10:43:47 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	debug_statement(t_sh *d)
 	size_t		i;
 
 	i = 0;
+	return ;
 	while (i < d->code.len)
 	{
 		stmt = ft_vecget(&d->code, i);

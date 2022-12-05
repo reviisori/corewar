@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/05 12:22:40 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/01 13:20:50 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		lex_reg(d, s, t, stmt);
 	else if (*p == DIRECT_CHAR && *s->next != LABEL_CHAR)
 		lex_dir(d, s, t, stmt);
-	else if (*p == LABEL_CHAR || ft_isdigit(*p) || *p == '-')
+	else if (ft_isdigit(*p) || *p == '-')
 		lex_ind(d, s, t, stmt);
 	else
 	{
