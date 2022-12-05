@@ -6,36 +6,55 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/10/28 18:46:12 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/01 11:43:29 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	eo(t_src *s, t_token *t)
+static void	reset_token(t_token *t)
 {
-	if (*(char *)&s->buf.data[s->index] == '\n')
-	{
-		ft_printf("token: EOL\n");
-		s->index++;
-	}
-	if (*(char *)&s->buf.data[s->index] == '\0')
-	{
-		ft_printf("token: EOF\n");
-		t->symbol = la_eof;
-	}
+	t->symbol = la_unknown;
+	t->content.len = 0;
+	t->declared = false;
+	t->is_label = false;
 }
 
-int	lex(t_sh *d, t_src *s)
+static void	debug_lex(t_token *t, t_src *s)
 {
-	t_token	t;
+	if (t->symbol == la_unknown)
+		ft_printf("%2d: token "RED"%s"EOC": %c", t->num, g_symstrs[t->symbol],
+			*(char *)&s->buf.data[s->index]);
+	else
+		ft_printf("%2d: token "YELLOW"%s"EOC": ", t->num, g_symstrs[t->symbol]);
+	write(1, t->content.data, t->content.len);
+	ft_printf("\n");
+}
 
-	(void)d;
-	init_token(&t);
+void	lex(t_sh *d, t_src *s)
+{
+	t_token		t;
+	t_labtab	lt;
+	size_t		count;
+
+	count = 1;
+	init_lex(&t, &lt);
 	while (t.symbol != la_eof)
 	{
 		source_next(s);
-		eo(s, &t);
+		lex_tokenization(d, s, &t, &lt);
+		t.num = (int ) count++; //what is this
+		debug_lex(&t, s);
+		if (t.symbol == la_eof)
+			continue ;
+		if (t.symbol == la_unknown)
+		{
+			s->index++;
+			s->col++;
+		}
+		reset_token(&t);
 	}
-	return (1);
+	check_labels(s, &lt);
+	free_labtab(&lt);
+	ft_vecdel(&t.content);
 }

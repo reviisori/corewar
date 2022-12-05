@@ -6,7 +6,7 @@
 #    By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/10/28 17:47:05 by atenhune         ###   ########.fr        #
+#    Updated: 2022/11/24 14:52:09 by altikka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,26 @@ SRC_FILES	= main.c \
 			  parse.c \
 			  init.c \
 			  lex.c \
+			  lex_bools.c \
+			  lex_utils.c \
+			  lex_tokenization.c \
+			  lex_endof.c \
+			  lex_comment.c \
+			  lex_header.c \
+			  lex_command.c \
+			  lex_argument.c \
+			  lex_label.c \
+			  lex_comma.c \
+			  check_labels.c \
 			  source_read.c \
-			  source_next.c \
+			  source_utils.c \
 			  cleanup_source.c \
-			  assemble.c
+			  cleanup_lex.c \
+			  assemble.c \
+			  write_file.c \
+			  write_header.c \
+			  write_bytecode.c \
+			  write_utils.c
 
 SRC_DIR		= ./src/
 SRCS		= $(addprefix $(SRC_DIR), $(SRCS_FILES))

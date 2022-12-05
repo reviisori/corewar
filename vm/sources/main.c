@@ -12,28 +12,13 @@
 
 #include "corewar.h"
 
-static void	print_champions(t_champion ch_list[])	//temp
-{
-	int			i;
-	t_champion	current;
-
-	i = -1;
-	while (++i < MAX_PLAYERS)
-	{
-		current = ch_list[i];
-		ft_printf("NUMBER:\t\t%d\n", current.id);
-		ft_printf("NAME:\t\t%s\n", current.name);
-		ft_printf("COMMENT:\t%s\n", current.comment);
-		ft_printf("CODE SIZE:\t%u\n", current.code_size);
-		ft_putendl("");
-	}
-}
-
 static void	init_info(t_info *info)
 {
 	info->dump_cycles = -1;
 	info->champion_count = 0;
 	ft_bzero(info->champions, sizeof(t_champion) * MAX_PLAYERS);
+	ft_bzero(info->memory, MEM_SIZE);
+	info->verbose_opts = 0;
 }
 
 int	main(int argc, char **argv)
@@ -45,6 +30,8 @@ int	main(int argc, char **argv)
 	init_info(&info);
 	if (read_arguments(argc, argv, &info) == -1)
 		print_usage(USAGE);
-	print_champions(info.champions);	//temp
+	check_champions(info.champions, info.champion_count);
+	deploy_champions(info.memory, info.champions, info.champion_count);
+	run_game(&info);
 	return (0);
 }

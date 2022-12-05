@@ -3,18 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   assemble.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:17:29 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/26 15:19:46 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/01 12:06:55 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int	assemble(char *filename)
+void	assemble(t_sh *d, char *filename)
 {
-	(void)filename;
-	ft_printf("asm done - I wish.\n");
-	return (1);
+	int	fd;
+
+	d->filename = create_filename(filename);
+	fd = open(d->filename, O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	if (fd == -1)
+		panic("Error: Couldn't create output file.");
+	write_file(d, fd);
+	close(fd);
 }
