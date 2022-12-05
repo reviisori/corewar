@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:30:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/05 17:03:50 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/05 19:43:35 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,12 @@ void		write_header(t_sh *d, const int fd);
 u_int32_t	uint_to_bigendian(u_int32_t nbr);
 u_int16_t	ushort_to_bigendian(u_int16_t nbr);
 void		write_bytecode(t_sh *d, const int fd);
+
+/*
+** Functions for debugging
+*/
+
+void	debug_lex(t_token *t, t_src *s);
+void	debug_statement(t_sh *d);
 
 #endif
