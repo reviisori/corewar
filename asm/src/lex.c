@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/05 16:46:56 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:20:47 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ void	lex(t_sh *d, t_src *s)
 		if (t.symbol == la_eof)
 			continue ;
 		if (t.symbol == la_unknown)
-		{
-			s->index++;
-			s->col++;
-		}
+			panic_lex(NULL, &t, s->row, s->col);
 		reset_token(&t);
 	}
 	check_labels(&lt);
