@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:02:35 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 16:10:07 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:56:45 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ void	panic_lex(const char *msg, t_token *t, size_t row, size_t col)
 		ft_dprintf(2, "Syntax error at token [%zu:%zu] %s \"%s\"\n",
 			row + 1, col + 1, g_symstrs[t->symbol], t->content.data);
 	else
-		ft_dprintf(2, "Syntax error - Unexpected end of input.\n"); //
+		ft_dprintf(2, "Syntax error - Unexpected end of input.\n");
 	exit(EXIT_FAILURE);
 }
