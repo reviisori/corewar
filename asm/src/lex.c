@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/05 17:20:47 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:32:32 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,6 @@ static void	reset_token(t_token *t)
 	t->content.len = 0;
 	t->declared = false;
 	t->is_label = false;
-}
-
-static void	debug_lex(t_token *t, t_src *s)
-{
-	if (t->symbol == la_unknown)
-		ft_printf("%2d: token "RED"%s"EOC": %c", t->num, g_symstrs[t->symbol],
-			*(char *)&s->buf.data[s->index]);
-	else
-		ft_printf("%2d: token "YELLOW"%s"EOC": ", t->num, g_symstrs[t->symbol]);
-	write(1, t->content.data, t->content.len);
-	ft_printf("\n");
 }
 
 void	lex(t_sh *d, t_src *s)
