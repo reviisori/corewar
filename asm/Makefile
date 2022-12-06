@@ -6,7 +6,7 @@
 #    By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/12/05 19:42:18 by altikka          ###   ########.fr        #
+#    Updated: 2022/12/06 13:58:03 by altikka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ INCS		= -I./includes -I../libft -I../libft/ft_printf/includes -I../shared/includ
 SRC_FILES	= main.c \
 			  main_utils.c \
 			  parse.c \
+			  options.c \
 			  debug.c \
 			  init.c \
 			  lex.c \
@@ -35,7 +36,7 @@ SRC_FILES	= main.c \
 			  lex_label.c \
 			  lex_label_fill.c \
 			  lex_comma.c \
-			  check_labels.c \
+			  lex_check_labels.c \
 			  source_read.c \
 			  source_utils.c \
 			  cleanup.c \
