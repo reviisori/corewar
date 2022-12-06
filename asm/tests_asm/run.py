@@ -3,10 +3,8 @@
 import sys
 import os.path
 import os
+import time
 from os import path
-
-# pip install emoji
-# or just remove lines 5, 96, 100
 
 EOC = "\033[0m"
 GREEN = "\033[38;5;70m"
@@ -22,7 +20,14 @@ real_asm = "./asm"
 our_asm = "../asm"
 no_diff = []
 
+if len(sys.argv) != 2:
+	print(YELLOW + "Usage:\n  " + EOC + "python3 run.py <path>")
+	quit()
+
 def	main():
+	if os.path.isdir(sys.argv[1]) == False:
+		print("  Not a valid path.")
+		quit()
 	dir_cont = os.listdir(sys.argv[1])
 	for file in dir_cont:
 		if ".s" in file:
@@ -91,11 +96,10 @@ def	main():
 	print(SALMON +"_________________________________________________________________________________________________" + EOC)
 	print(WHITE + "                                                                            by altikka & atenhune" + EOC)
 	print(YELLOW + "Results:" + EOC)
+	print(str(correct) + "/" + str(count))
 	if correct == count:
-		print(GREEN + str(correct) + "/" + str(count) + EOC)
 		print(GREEN + "SUCCESS" + EOC)
 	else:
-		print(RED + str(correct) + "/" + str(count) + EOC)
 		print(RED + "FAILURE" + EOC)
 
 
