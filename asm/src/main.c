@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:29:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/05 19:35:16 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/06 14:05:31 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	main(int argc, char **argv)
 {
+	t_flag	f;
 	t_sh	d;
 
-	if (!valid_file(argc, argv[1]))
+	if (!init_options(&f, argc, argv) || !valid_file(argc, argv[2 - 1 * !(f)]))
 		panic(ASM_USAGE);
-	parse(&d, argv[1]);
-	debug_statement(&d);
-	assemble(&d, argv[1]);
+	parse(&d, &f, argv[2 - 1 * !(f)]);
+	assemble(&d, argv[2 - 1 * !(f)]);
 	return (0);
 }

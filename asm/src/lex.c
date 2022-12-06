@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/05 19:32:32 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/06 14:05:30 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	reset_token(t_token *t)
 	t->is_label = false;
 }
 
-void	lex(t_sh *d, t_src *s)
+void	lex(t_sh *d, t_flag *f, t_src *s)
 {
 	t_token		t;
 	t_labtab	lt;
@@ -33,7 +33,8 @@ void	lex(t_sh *d, t_src *s)
 		source_next(s);
 		lex_tokenization(d, s, &t, &lt);
 		t.num = (int ) count++;
-		debug_lex(&t, s);
+		if (*f == DEBUG)
+			debug_lex(&t, s);
 		if (t.symbol == la_eof)
 			continue ;
 		if (t.symbol == la_unknown)
@@ -41,6 +42,8 @@ void	lex(t_sh *d, t_src *s)
 		reset_token(&t);
 	}
 	check_labels(&lt);
+	if (*f == DEBUG)
+		debug_statement(d);
 	free_labtab(&lt);
 	ft_vecdel(&t.content);
 }
