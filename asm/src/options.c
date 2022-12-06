@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 13:55:39 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/06 13:57:42 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/06 15:42:12 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	init_options(t_flag *flag, int argc, char **argv)
 {
 	char	*p;
 
+	if (argc == 1)
+		panic(ASM_USAGE);
 	*flag = NONE;
 	if (argc == 2)
 		return (1);
