@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup_source.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 22:16:26 by altikka           #+#    #+#             */
-/*   Updated: 2022/10/27 20:12:19 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/06 16:07:45 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	free_source(t_src *s)
 {
 	ft_vecdel(&s->buf);
-	s->prev = NULL;
 	s->next = NULL;
 }
 

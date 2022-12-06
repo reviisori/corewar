@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/06 14:05:30 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/06 16:12:24 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static void	reset_token(t_token *t)
 {
 	t->symbol = la_unknown;
 	t->content.len = 0;
-	t->declared = false;
-	t->is_label = false;
 }
 
 void	lex(t_sh *d, t_flag *f, t_src *s)

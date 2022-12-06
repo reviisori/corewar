@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/05 16:47:40 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/06 16:12:12 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 	if (is_label(s))
 	{
 		t->symbol = la_label;
-		t->is_label = true;
 		p = ft_strchr(&s->buf.data[s->index], LABEL_CHAR);
 		ofs = p - (char *)&s->buf.data[s->index] + 1;
 		ft_vecncat(&t->content, &s->buf.data[s->index], ofs - 1);

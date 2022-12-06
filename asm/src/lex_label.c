@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:39:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/05 16:57:59 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/06 16:02:44 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	label_init(t_sh *d, t_label *l, char *key, bool is_first)
 	l->name = key;
 	l->declared = false;
 	l->is_dir = stmt->is_dir;
-	ft_bzero(&l->pos, sizeof(int) * 2);
+	ft_bzero(&l->pos, sizeof(size_t) * 2);
 	if (is_first)
 		l->head = NULL;
 }

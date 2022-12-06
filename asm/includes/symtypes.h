@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:07:22 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/01 11:54:41 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/06 16:12:34 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ typedef struct s_token
 {
 	t_symtypes		symbol;
 	t_vec			content;
-	bool			declared;
-	bool			is_label;
 	int				num;
 }					t_token;
 
