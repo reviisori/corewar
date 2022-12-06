@@ -28,10 +28,13 @@ def	main():
 	if os.path.isdir(sys.argv[1]) == False:
 		print("  Not a valid path.")
 		quit()
-	dir_cont = os.listdir(sys.argv[1])
+	dir_path = sys.argv[1]
+	if dir_path[-1] != '/':
+		dir_path += "/"
+	dir_cont = os.listdir(dir_path)
 	for file in dir_cont:
 		if ".s" in file:
-			s_file = "%s%s" % (sys.argv[1], file)
+			s_file = "%s%s" % (dir_path, file)
 			os.system("%s %s" % (real_asm, s_file))
 			cor_file = s_file.replace(".s", ".cor")
 			cmd = "hexdump %s > %s" % (cor_file, file.replace(".s", "_org.hex"))
@@ -41,7 +44,7 @@ def	main():
 	err_count = 0
 	for file in dir_cont:
 		if ".s" in file:
-			s_file = "%s%s" % (sys.argv[1], file)
+			s_file = "%s%s" % (dir_path, file)
 			os.system("%s %s" % (our_asm, s_file))
 			cor_file = s_file.replace(".s", ".cor")
 			if not path.exists(cor_file):
@@ -94,7 +97,7 @@ def	main():
 	print("    \  \::/       \  \::/       \  \:\        \  \::/       \  \::/       \  \:\        \  \:\ ")
 	print("     \__\/         \__\/         \__\/         \__\/         \__\/         \__\/         \__\/   ")
 	print(SALMON +"_________________________________________________________________________________________________" + EOC)
-	print(WHITE + "                                                                            by altikka & atenhune" + EOC)
+	print(WHITE + "                                                                           by altikka & atenhune" + EOC)
 	print(YELLOW + "Results:" + EOC)
 	print(str(correct) + "/" + str(count))
 	if correct == count:
