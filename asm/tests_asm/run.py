@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import sys
-import os.path
 import os
-import time
+import os.path
+
 from os import path
 
 EOC = "\033[0m"
@@ -22,16 +22,18 @@ no_diff = []
 
 if len(sys.argv) != 2:
 	print(YELLOW + "Usage:\n  " + EOC + "python3 run.py <path>")
-	quit()
+	sys.exit()
 
 def	main():
 	if os.path.isdir(sys.argv[1]) == False:
 		print("  Not a valid path.")
-		quit()
+		sys.exit()
 	dir_path = sys.argv[1]
 	if dir_path[-1] != '/':
 		dir_path += "/"
 	dir_cont = os.listdir(dir_path)
+	print("Creating .cor files using project asm...")
+	print("----------------------------------------")
 	for file in dir_cont:
 		if ".s" in file:
 			s_file = "%s%s" % (dir_path, file)
@@ -42,6 +44,8 @@ def	main():
 			os.system("rm %s" % (cor_file))
 	err_nbr = 1
 	err_count = 0
+	print("\nCreating .cor files using your asm...")
+	print("---------------------------------------")
 	for file in dir_cont:
 		if ".s" in file:
 			s_file = "%s%s" % (dir_path, file)
@@ -98,7 +102,7 @@ def	main():
 	print("     \__\/         \__\/         \__\/         \__\/         \__\/         \__\/         \__\/   ")
 	print(SALMON +"_________________________________________________________________________________________________" + EOC)
 	print(WHITE + "                                                                           by altikka & atenhune" + EOC)
-	print(YELLOW + "Results:" + EOC)
+	print(YELLOW + "Result:" + EOC)
 	print(str(correct) + "/" + str(count))
 	if correct == count:
 		print(GREEN + "SUCCESS" + EOC)
