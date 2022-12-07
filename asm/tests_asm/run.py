@@ -15,6 +15,7 @@ RUST = "\033[38;5;130m"
 CYAN = "\033[38;5;43m"
 GRAY = "\033[38;5;240m"
 WHITE = "\033[38;5;231m"
+ITALIC = "\033[3m"
 
 real_asm = "./asm"
 our_asm = "../asm"
@@ -45,7 +46,7 @@ def	main():
 	err_nbr = 1
 	err_count = 0
 	print("\nCreating .cor files using your asm...")
-	print("---------------------------------------")
+	print("--------------------------------------")
 	for file in dir_cont:
 		if ".s" in file:
 			s_file = "%s%s" % (dir_path, file)
@@ -63,6 +64,7 @@ def	main():
 			cmd = "diff %s %s > %s" % (file.replace(".s", "_org.hex"), file.replace(".s", ".hex"), file.replace(".s", ".diff"))
 			os.system(cmd)
 
+	dir_cont.clear()
 	dir_cont = os.listdir()
 	count = 1
 	for file in dir_cont:
@@ -108,6 +110,9 @@ def	main():
 		print(GREEN + "SUCCESS" + EOC)
 	else:
 		print(RED + "FAILURE" + EOC)
+		ans = input("Do you want to remove logged files?\n" + GRAY + ITALIC)
+		if ans == "yes" or ans == "y":
+			os.system("rm *.diff *.hex")
 
 
 if __name__ == "__main__":
