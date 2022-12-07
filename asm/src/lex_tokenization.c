@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:11:12 by atenhune          #+#    #+#             */
-/*   Updated: 2022/11/30 17:30:43 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:56:18 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	lex_tokenization(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		lex_header(d, s, t);
 	else if (is_label(s) || (ft_isalpha(*p) && !is_register(s)))
 		lex_command(d, s, t, lt);
-	else if (is_label_chars(*p) || *p == DIRECT_CHAR ||
-			*p == LABEL_CHAR|| *p == '-')
+	else if (is_label_chars(*p) || *p == DIRECT_CHAR
+		|| *p == LABEL_CHAR || *p == '-')
 		lex_argument(d, s, t, lt);
 	else if (*p == ',')
 		lex_comma(d, s, t);

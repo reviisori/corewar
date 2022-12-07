@@ -6,44 +6,20 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:29:02 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/05 10:43:47 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/06 14:05:31 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void	debug_statement(t_sh *d)
-{
-	t_statement	*stmt;
-	size_t		i;
-
-	i = 0;
-	return ;
-	while (i < d->code.len)
-	{
-		stmt = ft_vecget(&d->code, i);
-		ft_printf(""GREEN"OP"EOC": %s [%d", stmt->op.name, stmt->args[0]);
-		if (stmt->op.argc == 1)
-			ft_printf("]\n");
-		if (stmt->op.argc == 2)
-			ft_printf(", %d]\n", stmt->args[1]);
-		if (stmt->op.argc == 3)
-			ft_printf(", %d, %d]\n", stmt->args[1], stmt->args[2]);
-		i++;
-	}
-}
-
 int	main(int argc, char **argv)
 {
+	t_flag	f;
 	t_sh	d;
 
-	if (!valid_file(argc, argv[1]))
+	if (!init_options(&f, argc, argv) || !valid_file(argc, argv[2 - 1 * !(f)]))
 		panic(ASM_USAGE);
-	parse(&d, argv[1]);
-	debug_statement(&d);
-	assemble(&d, argv[1]);
-	ft_vecdel(&d.code);  //
-	ft_strdel(&d.filename);  //
-	hash_free(&d.ops); //
+	parse(&d, &f, argv[2 - 1 * !(f)]);
+	assemble(&d, argv[2 - 1 * !(f)]);
 	return (0);
 }

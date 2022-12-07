@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:12:50 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/01 12:00:52 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/07 11:26:56 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	init_lex(t_token *t, t_labtab *lt)
 	t->symbol = la_unknown;
 	if (ft_vecnew(&t->content, 1, sizeof(char)) < 0)
 		panic("Error: Couldn't initialize token content.");
-	t->declared = false;
-	t->is_label = false;
 	t->num = 1;
 	ft_bzero(lt, sizeof(*lt));
 	init_hashmap(&lt->labels, 100, false);
@@ -52,10 +50,9 @@ void	init_source(t_src *s)
 	s->row = 0;
 	s->col = 0;
 	s->index = 0;
-	s->prev = NULL;
 	s->next = NULL;
-	s->name = 0;
-	s->comment = 0;
+	ft_bzero(&s->name, sizeof(size_t) * 2);
+	ft_bzero(&s->comment, sizeof(size_t) * 2);
 }
 
 void	init_handler(t_sh *d)

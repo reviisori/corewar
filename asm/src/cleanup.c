@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assemble.c                                         :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 15:17:29 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/06 13:29:36 by altikka          ###   ########.fr       */
+/*   Created: 2022/12/05 17:02:11 by altikka           #+#    #+#             */
+/*   Updated: 2022/12/05 17:04:54 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	assemble(t_sh *d, char *filename)
+void	free_data(t_sh *d)
 {
-	int	fd;
-
-	d->filename = create_filename(filename);
-	fd = open(d->filename, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (fd == -1)
-		panic("Error: Couldn't create output file.");
-	write_file(d, fd);
-	free_data(d);
-	close(fd);
+	ft_vecdel(&d->code);
+	ft_strdel(&d->filename);
+	hash_free(&d->ops);
 }

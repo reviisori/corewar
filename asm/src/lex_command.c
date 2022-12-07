@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/05 15:53:07 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/07 11:49:01 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ static void	lex_operation(t_sh *d, t_src *s, t_token *t)
 	ofs = p - (char *)&s->buf.data[s->index];
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	ft_vecpush(&t->content, "\0");
-	if (s->name != 1 || s->comment != 1)
-		panic_lex("Syntax", t, s->row, s->col); //
+	if (s->name[0] != 1 || s->comment[0] != 1
+		|| s->name[1] == s->comment[1])
+		panic_lex("Syntax", t, s->row, s->col);
 	if (!hash_lookup(&d->ops, (char *)t->content.data))
-		panic_lex("Syntax", t, s->row, s->col); //?
+		panic_lex("Syntax", t, s->row, s->col);
 	create_statement(d, (char *)t->content.data);
 	source_adjust(s, ofs);
 }
@@ -73,14 +74,15 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 	if (is_label(s))
 	{
 		t->symbol = la_label;
-		t->is_label = true;
 		p = ft_strchr(&s->buf.data[s->index], LABEL_CHAR);
 		ofs = p - (char *)&s->buf.data[s->index] + 1;
 		ft_vecncat(&t->content, &s->buf.data[s->index], ofs - 1);
 		ft_vecpush(&t->content, "\0");
-		if (s->name != 1 || s->comment != 1)
-			panic_lex("Syntax", t, s->row, s->col); //
-		command_label(d, lt, ft_strndup((char *)t->content.data, t->content.len));
+		if (s->name[0] != 1 || s->comment[0] != 1
+			|| s->name[1] == s->comment[1])
+			panic_lex("Syntax", t, s->row, s->col);
+		command_label(d, lt,
+			ft_strndup((char *)t->content.data, t->content.len));
 		source_adjust(s, ofs);
 	}
 	else

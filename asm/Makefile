@@ -6,7 +6,7 @@
 #    By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:15:24 by altikka           #+#    #+#              #
-#    Updated: 2022/11/24 14:52:09 by altikka          ###   ########.fr        #
+#    Updated: 2022/12/06 13:58:03 by altikka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ INCS		= -I./includes -I../libft -I../libft/ft_printf/includes -I../shared/includ
 SRC_FILES	= main.c \
 			  main_utils.c \
 			  parse.c \
+			  options.c \
+			  debug.c \
 			  init.c \
 			  lex.c \
 			  lex_bools.c \
@@ -32,10 +34,12 @@ SRC_FILES	= main.c \
 			  lex_command.c \
 			  lex_argument.c \
 			  lex_label.c \
+			  lex_label_fill.c \
 			  lex_comma.c \
-			  check_labels.c \
+			  lex_check_labels.c \
 			  source_read.c \
 			  source_utils.c \
+			  cleanup.c \
 			  cleanup_source.c \
 			  cleanup_lex.c \
 			  assemble.c \
@@ -58,8 +62,6 @@ LGRAY = \033[38;5;244m
 GOLD = \033[38;5;136m
 SILVER = \033[38;5;247m
 RUST = \033[38;5;130m
-BLACK = \033[38;5;236m
-WHITE = \033[38;5;231m
 
 all: $(NAME)
 
