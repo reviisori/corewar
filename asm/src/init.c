@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:12:50 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/06 16:12:18 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/07 11:26:56 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	init_source(t_src *s)
 	s->col = 0;
 	s->index = 0;
 	s->next = NULL;
-	s->name = 0;
-	s->comment = 0;
+	ft_bzero(&s->name, sizeof(size_t) * 2);
+	ft_bzero(&s->comment, sizeof(size_t) * 2);
 }
 
 void	init_handler(t_sh *d)

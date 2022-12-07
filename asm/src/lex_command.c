@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/06 16:12:12 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/07 11:49:01 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static void	lex_operation(t_sh *d, t_src *s, t_token *t)
 	ofs = p - (char *)&s->buf.data[s->index];
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	ft_vecpush(&t->content, "\0");
-	if (s->name != 1 || s->comment != 1)
+	if (s->name[0] != 1 || s->comment[0] != 1
+		|| s->name[1] == s->comment[1])
 		panic_lex("Syntax", t, s->row, s->col);
 	if (!hash_lookup(&d->ops, (char *)t->content.data))
 		panic_lex("Syntax", t, s->row, s->col);
@@ -77,7 +78,8 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		ofs = p - (char *)&s->buf.data[s->index] + 1;
 		ft_vecncat(&t->content, &s->buf.data[s->index], ofs - 1);
 		ft_vecpush(&t->content, "\0");
-		if (s->name != 1 || s->comment != 1)
+		if (s->name[0] != 1 || s->comment[0] != 1
+			|| s->name[1] == s->comment[1])
 			panic_lex("Syntax", t, s->row, s->col);
 		command_label(d, lt,
 			ft_strndup((char *)t->content.data, t->content.len));
