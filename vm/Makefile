@@ -12,7 +12,7 @@
 
 NAME		= corewar
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address #-Wpedantic -Wunused -Wconversion -Wunreachable-code -Wtype-limits -O3
+CFLAGS		= -Wall -Wextra -Werror -g
 SRC_FILES	= main.c arguments.c error.c options_champion.c 			\
 			  options_text_op.c parse_champion.c champion_id.c			\
 			  save_champion.c big_endian_convert.c check_champions.c	\
@@ -33,18 +33,21 @@ LIB_DIR		= ../libft
 LIB			= -L $(LIB_DIR) -lft
 PRINTF_INC	= ../libft/ft_printf/includes
 
-GREEN	= "\x1b[32m"
-YELLOW	= "\x1b[33m"
-BLUE	= "\x1b[34m"
-RED		= "\x1b[31m"
-EOC		= "\x1b[0m"
+LGRAY   = \033[38;5;244m
+RUST    = \033[38;5;130m
+GOLD	= \033[38;5;136m
+GREEN	= \033[32m
+YELLOW	= \033[33m
+BLUE	= \033[34m
+RED		= \033[31m
+EOC		= \033[0m
 
 all: $(NAME)
-	@echo $(GREEN) "Compiled" $(EOC)
+	@echo "$(BLUE)[vm]$(EOC) $(GREEN)Compiled$(EOC)"
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIB)
-	@echo $(RED) "Compiling..." $(EOC)
+	@echo "$(BLUE)[vm]$(EOC) $(YELLOW)Compiling...$(EOC)"
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@make -sC $(LIB_DIR)
@@ -52,8 +55,9 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@$(CC) -I $(INC_DIR) -I $(LIB_DIR) -I $(PRINTF_INC) -I $(SHR_INC) -c $(CFLAGS) $< -o $@
 
 clean:
-	make -C $(LIB_DIR) clean
-	rm -rf $(OBJS_DIR)
+	@make -C $(LIB_DIR) clean
+	@rm -rf $(OBJS_DIR)
+	@echo "$(BLUE)[vm] $(LGRAY)Deleting object directory...$(EOC)"
 
 fclean: clean
 	rm -f $(NAME)
