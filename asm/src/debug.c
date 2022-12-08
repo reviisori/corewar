@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 19:31:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/08 09:43:46 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/08 11:54:45 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	debug_statement(t_sh *d)
 	size_t		i;
 
 	i = 0;
-	return ;
 	while (i < d->code.len)
 	{
 		stmt = ft_vecget(&d->code, i);
