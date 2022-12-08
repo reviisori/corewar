@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:30:34 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/06 14:06:29 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/08 10:02:35 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		write_bytecode(t_sh *d, const int fd);
 ** Functions for debugging
 */
 
-void		debug_lex(t_token *t, t_src *s);
+void		debug_lex(t_token *t, t_src *s, size_t tnum);
 void		debug_statement(t_sh *d);
 
 #endif

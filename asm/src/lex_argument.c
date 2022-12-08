@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/05 16:45:56 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/08 09:54:58 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	arg = ft_atoi(p);
 	stmt->arg_type[stmt->cur_arg] = IND_CODE;
 	stmt->args[stmt->cur_arg++] = arg;
-	ofs = nbr_len(p);
+	ofs = (int ) ft_nbrlen(p);
 	t->symbol = la_ind;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	ft_vecpush(&t->content, "\0");
@@ -49,7 +49,7 @@ static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	arg = ft_atoi(p);
 	stmt->arg_type[stmt->cur_arg] = DIR_CODE;
 	stmt->args[stmt->cur_arg++] = arg;
-	ofs = nbr_len(p);
+	ofs = (int ) ft_nbrlen(p);
 	t->symbol = la_dir;
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	ft_vecpush(&t->content, "\0");

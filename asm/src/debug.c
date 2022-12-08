@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 19:31:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/05 19:37:52 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/08 11:54:45 by atenhune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	debug_statement(t_sh *d)
 	size_t		i;
 
 	i = 0;
-	return ;
 	while (i < d->code.len)
 	{
 		stmt = ft_vecget(&d->code, i);
@@ -33,13 +32,13 @@ void	debug_statement(t_sh *d)
 	}
 }
 
-void	debug_lex(t_token *t, t_src *s)
+void	debug_lex(t_token *t, t_src *s, size_t tnum)
 {
 	if (t->symbol == la_unknown)
-		ft_printf("%2d: token "RED"%s"EOC": %c", t->num, g_symstrs[t->symbol],
+		ft_printf("%2d: token "RED"%s"EOC": %c", tnum, g_symstrs[t->symbol],
 			*(char *)&s->buf.data[s->index]);
 	else
-		ft_printf("%2d: token "YELLOW"%s"EOC": ", t->num, g_symstrs[t->symbol]);
+		ft_printf("%2d: token "YELLOW"%s"EOC": ", tnum, g_symstrs[t->symbol]);
 	write(1, t->content.data, t->content.len);
 	ft_printf("\n");
 }
