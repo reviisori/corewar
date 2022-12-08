@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:15:25 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/08 09:57:34 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/08 12:32:08 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ void	lex(t_sh *d, t_flag *f, t_src *s)
 	{
 		source_next(s);
 		lex_tokenization(d, s, &t, &lt);
-		tnum++;
 		if (*f == DEBUG)
-			debug_lex(&t, s, tnum);
+			debug_lex(&t, s, tnum++);
 		if (t.symbol == la_eof)
 			continue ;
 		if (t.symbol == la_unknown)
