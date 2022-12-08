@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 11:45:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/07 12:01:23 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/08 20:14:57 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	get_header_info(t_sh *d, t_src *s, t_token *t, char c)
 		source_adjust(s, ofs + 1);
 	}
 	else
-		panic_lex("Syntax", t, s->row, s->col);
+		panic_lex("Syntax", NULL, s->row, s->col);
 }
 
 void	lex_header(t_sh *d, t_src *s, t_token *t)
