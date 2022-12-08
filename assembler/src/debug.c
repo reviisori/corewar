@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 19:31:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/08 12:34:15 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/08 20:19:25 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	debug_statement(t_sh *d)
 void	debug_lex(t_token *t, t_src *s, size_t tnum)
 {
 	if (t->symbol == la_unknown)
-		ft_printf(""ORANGE"%4d"EOC": token "RED"%s"EOC": %c",
+		ft_printf(""ORANGE"%04d"EOC": token "RED"%s"EOC": %c",
 			tnum, g_symstrs[t->symbol], *(char *)&s->buf.data[s->index]);
 	else
-		ft_printf(""ORANGE"%4d"EOC": token "YELLOW"%s"EOC": ",
+		ft_printf(""ORANGE"%04d"EOC": token "YELLOW"%s"EOC": ",
 			tnum, g_symstrs[t->symbol]);
 	write(1, t->content.data, t->content.len);
 	ft_printf("\n");
