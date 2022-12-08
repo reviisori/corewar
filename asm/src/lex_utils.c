@@ -6,30 +6,16 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:02:35 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/05 16:56:45 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/08 09:57:18 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int	nbr_len(const char *src)
+void	reset_token(t_token *t)
 {
-	size_t		len;
-	const char	*p;
-
-	p = src;
-	len = 0;
-	if (*p == '-')
-	{
-		len++;
-		p++;
-	}
-	while (ft_isdigit(*p))
-	{
-		len++;
-		p++;
-	}
-	return (len);
+	t->symbol = la_unknown;
+	t->content.len = 0;
 }
 
 int	validate_arg(t_statement *s, int arg)
