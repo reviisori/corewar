@@ -6,18 +6,11 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:11:12 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/05 16:56:18 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/08 10:17:09 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-static int	ft_isupper(int c)
-{
-	if (c >= 'A' && c <= 'Z')
-		return (1);
-	return (0);
-}
 
 void	lex_tokenization(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 {
