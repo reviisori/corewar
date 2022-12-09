@@ -18,7 +18,7 @@ WHITE = "\033[38;5;231m"
 ITALIC = "\033[3m"
 
 real_asm = "./asm"
-our_asm = "../asm"
+our_asm = "../../asm"
 no_diff = []
 
 if len(sys.argv) != 2:
