@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:49:05 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/30 15:14:16 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:43:20 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_sh
 	t_header	header;
 	t_vec		code;
 	t_hashmap	ops;
+	bool		op_in_line;
 	char		*filename;
 	u_int32_t	byte;
 }				t_sh;

@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:15:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/07 11:25:31 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/09 10:57:22 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	init_source(t_src *s);
 void	read_source(t_src *s, const char *filename);
 void	panic_source(int fd, const char *msg);
 void	source_next(t_src *s);
-void	source_adjust(t_src *s, int len);
+void	source_adjust(t_src *s, int len, bool flag);
 void	skip_whitespace(t_src *s);
 void	free_source(t_src *s);
 

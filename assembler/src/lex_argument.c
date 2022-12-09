@@ -31,7 +31,7 @@ static void	lex_ind(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	ft_vecpush(&t->content, "\0");
 	d->byte += IND_SIZE;
-	source_adjust(s, ofs);
+	source_adjust(s, ofs, false);
 }
 
 static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
@@ -54,7 +54,7 @@ static void	lex_dir(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	ft_vecncat(&t->content, &s->buf.data[s->index], ofs);
 	ft_vecpush(&t->content, "\0");
 	d->byte += stmt->op.size;
-	source_adjust(s, ofs);
+	source_adjust(s, ofs, false);
 }
 
 static void	lex_reg(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
@@ -74,7 +74,7 @@ static void	lex_reg(t_sh *d, t_src *s, t_token *t, t_statement *stmt)
 	ft_vecncat(&t->content, &s->buf.data[s->index - 1], ofs + 1);
 	ft_vecpush(&t->content, "\0");
 	d->byte += T_REG;
-	source_adjust(s, ofs);
+	source_adjust(s, ofs, false);
 }
 
 static void	lex_label_arg(t_sh *d, t_src *s, t_labtab *lt, t_statement *stmt)
@@ -84,6 +84,8 @@ static void	lex_label_arg(t_sh *d, t_src *s, t_labtab *lt, t_statement *stmt)
 	p = (char *)&s->buf.data[s->index];
 	if (*p == DIRECT_CHAR && stmt->op.size == 2)
 		stmt->is_dir = true;
+	else
+		stmt->is_dir = false;
 	if (*p == DIRECT_CHAR)
 	{
 		if (!validate_arg(stmt, T_DIR))

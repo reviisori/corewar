@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:12:50 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/08 10:03:35 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/09 10:43:46 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,5 @@ void	init_handler(t_sh *d)
 	init_hashmap(&d->ops, 32, true);
 	d->byte = 0;
 	d->filename = NULL;
+	d->op_in_line = false;
 }

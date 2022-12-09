@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:21:04 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/05 14:27:14 by atenhune         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:47:05 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ void	lex_endof(t_sh *d, t_src *s, t_token *t)
 		t->symbol = la_eof;
 		ft_vecpush(&t->content, "\0");
 	}
+	d->op_in_line = false;
 }

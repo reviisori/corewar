@@ -58,19 +58,22 @@ LIB_DIR		= ../libft/
 LIB			= -L $(LIB_DIR) -lft
 
 EOC = \033[0m
+GREEN = \033[38;5;70m
+YELLOW = \033[38;5;220m
+PURPLE = \033[38;5;134m
 LGRAY = \033[38;5;244m
 GOLD = \033[38;5;136m
 SILVER = \033[38;5;247m
 RUST = \033[38;5;130m
 
 all: $(NAME)
+	@echo "$(PURPLE)[asm] $(GREEN)Compiled!$(EOC)"
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLGS) $(OBJS) -o $(NAME) $(LIB) $(INCS)
-	@echo "$(LGRAY)[asm] $(GOLD)Compiled successfully!$(EOC)"
+	@echo "$(PURPLE)[asm] $(SILVER)Compiling...$(EOC)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@echo "$(EOC)$(LGRAY)[asm] $(SILVER)Compiling...$(EOC)"
 	@make -sC $(LIB_DIR)
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) -c $(CFLGS) $< -o $@ $(INCS)
@@ -78,12 +81,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 clean:
 	@make -sC $(LIB_DIR) clean
 	@rm -rf $(OBJ_DIR)
-	@echo "$(LGRAY)[asm] $(RUST)Deleting object directory...$(EOC)"
+	@echo "$(PURPLE)[asm] $(LGRAY)Deleting object directory...$(EOC)"
 
 fclean: clean
 	@make -C $(LIB_DIR) fclean
 	@rm -rf $(NAME)
-	@echo "$(LGRAY)[asm] $(RUST)Executable $(WHITE)$(NAME)$(EOC) $(RUST)removed!$(EOC)"
+	@echo "$(PURPLE)[asm] $(LGRAY)Executable $(WHITE)$(NAME)$(EOC) $(LGRAY)removed!$(EOC)"
 
 re: fclean all
 

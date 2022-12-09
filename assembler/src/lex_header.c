@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 11:45:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/08 20:14:57 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/09 10:26:12 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	get_header_info(t_sh *d, t_src *s, t_token *t, char c)
 			ft_memcpy(d->header.prog_name, t->content.data, ofs);
 		else
 			ft_memcpy(d->header.comment, t->content.data, ofs);
-		source_adjust(s, ofs + 1);
+		source_adjust(s, ofs + 1, true);
 	}
 	else
 		panic_lex("Syntax", NULL, s->row, s->col);
@@ -68,7 +68,7 @@ void	lex_header(t_sh *d, t_src *s, t_token *t)
 		t->symbol = la_champname;
 		s->name[0]++;
 		s->name[1] = s->row;
-		source_adjust(s, 5);
+		source_adjust(s, 5, false);
 		source_next(s);
 		get_header_info(d, s, t, 'n');
 	}
@@ -77,7 +77,7 @@ void	lex_header(t_sh *d, t_src *s, t_token *t)
 		t->symbol = la_champcomm;
 		s->comment[0]++;
 		s->comment[1] = s->row;
-		source_adjust(s, 8);
+		source_adjust(s, 8, false);
 		source_next(s);
 		get_header_info(d, s, t, 'c');
 	}

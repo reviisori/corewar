@@ -74,18 +74,18 @@ static char	*get_label(t_src *s)
 	if (*p == DIRECT_CHAR && *s->next == LABEL_CHAR)
 	{
 		p += 2;
-		source_adjust(s, 2);
+		source_adjust(s, 2, false);
 	}
 	else
 	{
 		p++;
-		source_adjust(s, 1);
+		source_adjust(s, 1, false);
 	}
 	while (is_label_chars(*p))
 		p++;
 	key = ft_strsub((char *)&s->buf.data[s->index], 0,
 			p - (char *)&s->buf.data[s->index]);
-	source_adjust(s, ft_strlen(key));
+	source_adjust(s, ft_strlen(key), false);
 	return (key);
 }
 
@@ -112,7 +112,7 @@ void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key)
 			label_add(d, ft_vecget(&lt->entries, ft_abs(entry->value + 1)));
 		}
 		else
-			label_fill(d, &lt->entries, entry);
+			label_fill(d, &lt->entries, entry, true);
 		ft_strdel(&key);
 	}
 }

@@ -12,10 +12,11 @@
 
 #include "asm.h"
 
-void	source_adjust(t_src *s, int len)
+void	source_adjust(t_src *s, int len, bool flag)
 {
 	s->index += len;
-	s->col += len;
+	if (!flag)
+		s->col += len;
 	if (s->index < s->buf.len)
 		s->next = &s->buf.data[s->index + 1];
 }
@@ -28,7 +29,7 @@ void	skip_whitespace(t_src *s)
 			return ;
 		if (!ft_isspace(*(char *)&s->buf.data[s->index]))
 			return ;
-		source_adjust(s, 1);
+		source_adjust(s, 1, false);
 	}
 }
 

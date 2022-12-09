@@ -16,11 +16,11 @@ static void	label_set_arg(t_sh *d, t_hash *entry)
 {
 	t_statement	*temp_stmt;
 
-	temp_stmt = ft_vecget(&d->code, d->code.len -1);
+	temp_stmt = ft_vecget(&d->code, d->code.len - 1);
 	temp_stmt->args[temp_stmt->cur_arg] = entry->value - temp_stmt->loc;
 }
 
-void	label_fill(t_sh *d, t_vec *entries, t_hash *entry)
+void	label_fill(t_sh *d, t_vec *entries, t_hash *entry, bool is_arg)
 {
 	t_statement	*temp_stmt;
 	t_undeflab	*temp_undeflab;
@@ -28,7 +28,8 @@ void	label_fill(t_sh *d, t_vec *entries, t_hash *entry)
 
 	if (entry->value > -1)
 	{
-		label_set_arg(d, entry);
+		if (is_arg == true)
+			label_set_arg(d, entry);
 		return ;
 	}
 	label = ft_vecget(entries, ft_abs(entry->value + 1));

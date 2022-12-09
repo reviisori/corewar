@@ -6,17 +6,20 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/07 11:49:01 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/09 10:57:23 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void	create_statement(t_sh *d, char *key)
+static void	create_statement(t_sh *d, t_src *s, t_token *t, char *key)
 {
 	t_statement	temp;
 	t_hash		*entry;
 
+	if (d->op_in_line)
+		panic_lex("Syntax", t, s->row, s->col);
+	d->op_in_line = true;
 	entry = hash_get(&d->ops, key);
 	temp.op = g_optab[entry->value - 1];
 	temp.acb = 0;
@@ -48,8 +51,8 @@ static void	lex_operation(t_sh *d, t_src *s, t_token *t)
 		panic_lex("Syntax", t, s->row, s->col);
 	if (!hash_lookup(&d->ops, (char *)t->content.data))
 		panic_lex("Syntax", t, s->row, s->col);
-	create_statement(d, (char *)t->content.data);
-	source_adjust(s, ofs);
+	create_statement(d, s, t, (char *)t->content.data);
+	source_adjust(s, ofs, false);
 }
 
 static void	command_label(t_sh *d, t_labtab *lt, char *key)
@@ -61,7 +64,7 @@ static void	command_label(t_sh *d, t_labtab *lt, char *key)
 		hash_insert(&lt->labels, key, d->byte);
 	else if (entry)
 	{
-		label_fill(d, &lt->entries, entry);
+		label_fill(d, &lt->entries, entry, false);
 		ft_strdel(&key);
 	}
 }
@@ -83,7 +86,7 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 			panic_lex("Syntax", t, s->row, s->col);
 		command_label(d, lt,
 			ft_strndup((char *)t->content.data, t->content.len));
-		source_adjust(s, ofs);
+		source_adjust(s, ofs, false);
 	}
 	else
 		lex_operation(d, s, t);

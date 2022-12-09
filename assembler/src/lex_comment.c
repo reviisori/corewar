@@ -22,14 +22,14 @@ void	lex_comment(t_src *s, t_token *t)
 		ft_vecncat(&t->content, &s->buf.data[s->index],
 			s->buf.len - s->index - 1);
 		ft_vecpush(&t->content, "\0");
-		source_adjust(s, s->buf.len - s->index);
+		source_adjust(s, s->buf.len - s->index, false);
 	}
 	else
 	{
 		ft_vecncat(&t->content, &s->buf.data[s->index],
 			p - (char *)&s->buf.data[s->index]);
 		ft_vecpush(&t->content, "\0");
-		source_adjust(s, p - (char *)&s->buf.data[s->index]);
+		source_adjust(s, p - (char *)&s->buf.data[s->index], false);
 	}
 	t->symbol = la_comm;
 }

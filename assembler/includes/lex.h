@@ -25,7 +25,7 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt);
 void	lex_label(t_sh *d, t_src *s, t_labtab *lt, char *key);
 void	lex_comma(t_sh *d, t_src *s, t_token *t);
 void	validate_separators(t_statement *stmt, int row, int col);
-void	label_fill(t_sh *d, t_vec *entries, t_hash *entry);
+void	label_fill(t_sh *d, t_vec *entries, t_hash *entry, bool is_arg);
 void	check_labels(t_labtab *lt);
 
 bool	is_label_chars(int c);

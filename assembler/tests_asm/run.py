@@ -113,6 +113,7 @@ def	main():
 		ans = input("Do you want to remove logged files?\n" + GRAY + ITALIC)
 		if ans == "yes" or ans == "y":
 			os.system("rm *.diff *.hex")
+		print(EOC)
 
 
 if __name__ == "__main__":

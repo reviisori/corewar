@@ -30,5 +30,5 @@ void	lex_comma(t_sh *d, t_src *s, t_token *t)
 	t->symbol = la_comma;
 	ft_vecncat(&t->content, ",", 1);
 	ft_vecpush(&t->content, "\0");
-	source_adjust(s, 1);
+	source_adjust(s, 1, false);
 }
