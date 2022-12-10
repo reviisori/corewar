@@ -9,5 +9,5 @@ hihii2:
 hihii:
 		ld %12, r2
 		live %:hihii
-		ld 12, r19
+		ld 12, r16
 
