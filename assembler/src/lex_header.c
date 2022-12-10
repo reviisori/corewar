@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 11:45:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/09 10:26:12 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/10 17:24:15 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	get_header_info(t_sh *d, t_src *s, t_token *t, char c)
 
 void	lex_header(t_sh *d, t_src *s, t_token *t)
 {
+	if (d->code.len && !is_valid_header(s))
+		panic_lex("Syntax", t, s->row, s->col);
 	if (!ft_strncmp(&s->buf.data[s->index], ".name", 5))
 	{
 		t->symbol = la_champname;
