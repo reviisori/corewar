@@ -6,11 +6,18 @@
 /*   By: altikka <altikka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 14:34:31 by altikka           #+#    #+#             */
-/*   Updated: 2022/11/30 17:31:37 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/10 17:18:20 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+bool	is_valid_header(t_src *s)
+{
+	if (s->name[0] != 1 || s->comment[0] != 1 || s->name[1] == s->comment[1])
+		return (false);
+	return (true);
+}
 
 bool	is_label_chars(int c)
 {
