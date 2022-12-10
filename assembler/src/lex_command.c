@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/09 10:57:23 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/10 17:20:10 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 		ofs = p - (char *)&s->buf.data[s->index] + 1;
 		ft_vecncat(&t->content, &s->buf.data[s->index], ofs - 1);
 		ft_vecpush(&t->content, "\0");
-		if (s->name[0] != 1 || s->comment[0] != 1
-			|| s->name[1] == s->comment[1])
+		if (!is_valid_header(s))
 			panic_lex("Syntax", t, s->row, s->col);
 		command_label(d, lt,
 			ft_strndup((char *)t->content.data, t->content.len));
