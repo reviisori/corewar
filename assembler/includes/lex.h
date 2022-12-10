@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 16:33:03 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/08 10:17:34 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/10 17:19:29 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	check_labels(t_labtab *lt);
 bool	is_label_chars(int c);
 bool	is_label(t_src *s);
 bool	is_register(t_src *s);
+bool	is_valid_header(t_src *s);
 void	calc_arg_size(t_sh *d, t_statement *stmt, const char c);
 int		validate_arg(t_statement *s, int arg);
 void	reset_token(t_token *t);
