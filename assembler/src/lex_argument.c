@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:17:37 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/08 09:54:58 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/10 17:32:22 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	lex_argument(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 	t_statement	*stmt;
 	char		*p;
 
+	if (!is_valid_header(s))
+		panic_lex("Syntax", t, s->row, s->col);
 	stmt = ft_vecget(&d->code, d->code.len - 1);
 	if (!stmt)
 		panic_lex("Syntax", t, s->row, s->col);
