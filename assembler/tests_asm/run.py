@@ -3,7 +3,7 @@
 import sys
 import os
 import os.path
-
+import filecmp
 from os import path
 
 EOC = "\033[0m"
@@ -20,6 +20,7 @@ ITALIC = "\033[3m"
 real_asm = "./asm"
 our_asm = "../../asm"
 no_diff = []
+err_files = []
 
 if len(sys.argv) != 2:
 	print(YELLOW + "Usage:\n  " + EOC + "python3 run.py <path>")
@@ -54,6 +55,7 @@ def	main():
 			cor_file = s_file.replace(".s", ".cor")
 			if not path.exists(cor_file):
 				no_diff.append(err_nbr)
+				err_files.append(file)
 				err_count += 1
 			cmd = "hexdump %s > %s" % (cor_file, file.replace(".s", ".hex"))
 			os.system(cmd)
@@ -67,11 +69,14 @@ def	main():
 	dir_cont.clear()
 	dir_cont = os.listdir()
 	count = 1
+	i = 0
 	for file in dir_cont:
 		if ".diff" in file:
 			try:
 				fd = open(file, "r")
-				if count in no_diff:
+				hex_file = file.replace(".diff", ".hex")
+				fd2 = open(hex_file, "r")
+				if os.stat(hex_file).st_size == 0:
 					print(str(count).rjust(3, ' '), end=" ")
 					print(YELLOW + "Something went wrong with " + EOC, end="")
 					print(file.replace(".diff", ".s"))
@@ -88,6 +93,8 @@ def	main():
 				print("Invalid file")
 				sys.exit()
 			fd.close()
+			fd2.close()
+
 	count -= 1
 	correct = count - err_count
 	print(SALMON +"________________________________________________________________________________________________")
@@ -106,6 +113,7 @@ def	main():
 	print(WHITE + "                                                                           by altikka & atenhune" + EOC)
 	print(YELLOW + "Result:" + EOC)
 	print(str(correct) + "/" + str(count))
+	print(filecmp.cmp('moro.diff', 'moro_org.hex'))
 	if correct == count:
 		print(GREEN + "SUCCESS" + EOC)
 	else:
@@ -114,7 +122,5 @@ def	main():
 		if ans == "yes" or ans == "y":
 			os.system("rm *.diff *.hex")
 		print(EOC, end="")
-
-
 if __name__ == "__main__":
 	main()
