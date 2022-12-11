@@ -113,7 +113,6 @@ def	main():
 	print(WHITE + "                                                                           by altikka & atenhune" + EOC)
 	print(YELLOW + "Result:" + EOC)
 	print(str(correct) + "/" + str(count))
-	print(filecmp.cmp('moro.diff', 'moro_org.hex'))
 	if correct == count:
 		print(GREEN + "SUCCESS" + EOC)
 	else:
