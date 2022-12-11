@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_endof.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antti <antti@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:21:04 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/09 10:47:05 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/11 15:26:41 by antti            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ void	lex_endof(t_sh *d, t_src *s, t_token *t)
 		s->row++;
 		s->col = 0;
 		s->index++;
+		d->eof_is_valid = true;
 	}
 	else if (*(char *)&s->buf.data[s->index] == '\0')
 	{
 		validate_eof(stmt);
-		if (stmt && stmt->is_valid == false)
+		if (stmt && stmt->is_valid == false || d->eof_is_valid == false)
 			panic_lex("Unexpected end", NULL, s->row, s->col);
 		t->symbol = la_eof;
 		ft_vecpush(&t->content, "\0");
