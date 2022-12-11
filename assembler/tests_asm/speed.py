@@ -5,8 +5,9 @@ import os
 import os.path
 from os import path
 import subprocess
-import time
 from subprocess import run
+import time
+import signal
 
 EOC = "\033[0m"
 GREEN = "\033[38;5;70m"
@@ -24,6 +25,9 @@ your_asm = "../../asm"
 
 if len(sys.argv) != 1:
 	print(YELLOW + "Usage:\n  " + EOC + "python3 speed.py")
+	sys.exit()
+
+def signal_handler(sig, frame):
 	sys.exit()
 
 def timeRealAsm(s_file):
@@ -59,6 +63,7 @@ def printBanner():
 	print(WHITE + "                                                                           by altikka & atenhune" + EOC)
 
 def main():
+	signal.signal(signal.SIGINT, signal_handler)
 	printBanner()
 	dir_path = "speed_files/"
 	dir_cont = os.listdir(dir_path)

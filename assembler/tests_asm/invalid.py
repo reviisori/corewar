@@ -6,6 +6,7 @@ import os.path
 from os import path
 import subprocess
 from subprocess import run
+import signal
 
 EOC = "\033[0m"
 GREEN = "\033[38;5;70m"
@@ -28,7 +29,11 @@ if len(sys.argv) != 2:
 	print(YELLOW + "Usage:\n  " + EOC + "python3 invalid.py <path>")
 	sys.exit()
 
+def signal_handler(sig, frame):
+	sys.exit()
+
 def main():
+	signal.signal(signal.SIGINT, signal_handler)
 	if os.path.isdir(sys.argv[1]) == False:
 		print("  Not a valid path.")
 		sys.exit()
