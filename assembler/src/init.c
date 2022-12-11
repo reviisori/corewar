@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antti <antti@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:12:50 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/09 10:43:46 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/11 15:24:42 by antti            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,5 @@ void	init_handler(t_sh *d)
 	d->byte = 0;
 	d->filename = NULL;
 	d->op_in_line = false;
+	d->eof_is_valid = true;
 }
