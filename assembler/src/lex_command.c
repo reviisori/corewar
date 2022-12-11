@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antti <antti@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:29:33 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/10 17:20:10 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/11 15:25:27 by antti            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	lex_command(t_sh *d, t_src *s, t_token *t, t_labtab *lt)
 	char	*p;
 	size_t	ofs;
 
+	d->eof_is_valid = false;
 	if (is_label(s))
 	{
 		t->symbol = la_label;
