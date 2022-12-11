@@ -68,12 +68,15 @@ def main():
 			print(YELLOW + "Testing with small file size:" + EOC)
 			realTotalTime = 0
 			yourTotalTime = 0
+			print(" 0/20 Tests done \u231B", end="\r")
 			s_file = "%s%s" % (dir_path, file)
 			for i in range(20):
 				realTotalTime += timeRealAsm(s_file)
 				yourTotalTime += timeYourAsm(s_file)
+				print("%s/20 Tests done \u231B" % str(i + 1).rjust(2, ' '), end="\r" )
 			realTotalTime /= 20
 			yourTotalTime /= 20
+			print("20/20 Tests done \u2705")
 			result = '{:.1%}'.format(realTotalTime/yourTotalTime)
 			if (realTotalTime/yourTotalTime) > 1:
 				print("Speed: " + GREEN + str(result) + EOC)
@@ -85,12 +88,15 @@ def main():
 			print(YELLOW + "Testing with medium file size:" + EOC)
 			realTotalTime = 0
 			yourTotalTime = 0
+			print(" 0/20 Tests done \u231B", end="\r")
 			s_file = "%s%s" % (dir_path, file)
 			for i in range(20):
 				realTotalTime += timeRealAsm(s_file)
 				yourTotalTime += timeYourAsm(s_file)
+				print("%s/20 Tests done \u231B" % str(i + 1).rjust(2, ' '), end="\r" )
 			realTotalTime /= 20
 			yourTotalTime /= 20
+			print("20/20 Tests done \u2705")
 			result = '{:.1%}'.format(realTotalTime/yourTotalTime)
 			if (realTotalTime/yourTotalTime) > 1:
 				print("Speed: " + GREEN + str(result) + EOC)
@@ -102,12 +108,15 @@ def main():
 			print(YELLOW + "Testing with large file size:" + EOC)
 			realTotalTime = 0
 			yourTotalTime = 0
+			print(" 0/20 Tests done \u231B", end="\r")
 			s_file = "%s%s" % (dir_path, file)
 			for i in range(20):
 				realTotalTime += timeRealAsm(s_file)
 				yourTotalTime += timeYourAsm(s_file)
+				print("%s/20 Tests done \u231B" % str(i + 1).rjust(2, ' '), end="\r" )
 			realTotalTime /= 20
 			yourTotalTime /= 20
+			print("20/20 Tests done \u2705")
 			result = '{:.1%}'.format(realTotalTime/yourTotalTime)
 			if (realTotalTime/yourTotalTime) > 1:
 				print("Speed: " + GREEN + str(result) + EOC)
@@ -119,12 +128,15 @@ def main():
 			print(YELLOW + "Testing with massive file size:" + GRAY + ITALIC + "     This takes few minutes"+ EOC)
 			realTotalTime = 0
 			yourTotalTime = 0
+			print(" 0/10 Tests done \u231B", end="\r")
 			s_file = "%s%s" % (dir_path, file)
 			for i in range(10):
 				realTotalTime += timeRealAsm(s_file)
 				yourTotalTime += timeYourAsm(s_file)
+				print("%s/10 Tests done \u231B" % str(i + 1).rjust(2, ' '), end="\r" )
 			realTotalTime /= 10
 			yourTotalTime /= 10
+			print("10/10 Tests done \u2705")
 			result = '{:.1%}'.format(realTotalTime/yourTotalTime)
 			if (realTotalTime/yourTotalTime) > 1:
 				print("Speed: " + GREEN + str(result) + EOC)
