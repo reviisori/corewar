@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antti <antti@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:49:05 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/09 10:43:20 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/11 15:24:24 by antti            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_sh
 	t_vec		code;
 	t_hashmap	ops;
 	bool		op_in_line;
+	bool		eof_is_valid;
 	char		*filename;
 	u_int32_t	byte;
 }				t_sh;
