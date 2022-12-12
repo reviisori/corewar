@@ -30,7 +30,7 @@ static int	is_integer(char *str)
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);
-		if (nb == 0 && i > 0)
+		if (nb == 0 && i > (0 + (sign < 0)))
 			return (0);
 		nb = nb * 10 + (str[i] - '0');
 		if ((sign < 0 && nb * sign < INT_MIN) || (sign > 0 && nb > INT_MAX))
