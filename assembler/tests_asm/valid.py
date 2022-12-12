@@ -2,8 +2,7 @@
 
 import sys
 import os
-import os.path
-import filecmp
+
 from os import path
 
 EOC = "\033[0m"

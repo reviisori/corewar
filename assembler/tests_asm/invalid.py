@@ -62,10 +62,10 @@ def main():
 				print("SEGFAULT!")
 	print(GRAY + "##################################################################################\n\n" + EOC)
 	print(YELLOW + "\n\nSUMMARY:" + EOC)
-	print("Real asm  segfaults: %s" % str(len(real_segs)))
+	print("Real asm segfaults: %s" % str(len(real_segs)))
 	if len(real_segs) != 0:
 		print(RED + '\n' .join(real_segs) + EOC)
-	print("\nTested asm  segfaults: %s" % str(len(our_segs)))
+	print("\nTested asm segfaults: %s" % str(len(our_segs)))
 	if len(our_segs) != 0:
 		print(RED + '\n' .join(our_segs) + EOC)
 	if len(no_error) != 0:
