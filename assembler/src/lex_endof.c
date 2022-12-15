@@ -6,11 +6,17 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:21:04 by atenhune          #+#    #+#             */
-/*   Updated: 2022/12/15 11:43:26 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:25:42 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+static void	set_line_flags(t_sh *d)
+{
+	d->op_in_line = false;
+	d->lab_in_line = false;
+}
 
 static void	validate_eof(t_statement *stmt)
 {
@@ -51,5 +57,5 @@ void	lex_endof(t_sh *d, t_src *s, t_token *t)
 		t->symbol = la_eof;
 		ft_vecpush(&t->content, "\0");
 	}
-	d->op_in_line = false;
+	set_line_flags(d);
 }
