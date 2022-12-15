@@ -19,7 +19,7 @@ GRAY = "\033[38;5;240m"
 WHITE = "\033[38;5;231m"
 ITALIC = "\033[3m"
 
-real_asm = "./asm"
+real_asm = "./asm_org"
 your_asm = "../../asm"
 
 if len(sys.argv) != 1:
@@ -27,7 +27,7 @@ if len(sys.argv) != 1:
 	sys.exit()
 
 def timeRealAsm(s_file):
-	cmd = "./asm %s > /dev/null" % s_file
+	cmd = "./asm_org %s > /dev/null" % s_file
 	proc  =  subprocess.Popen(cmd,shell=True)
 	timeStarted = time.time()
 	proc.communicate()

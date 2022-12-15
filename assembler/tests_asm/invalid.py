@@ -19,7 +19,7 @@ GRAY = "\033[38;5;240m"
 WHITE = "\033[38;5;231m"
 ITALIC = "\033[3m"
 
-real_asm = "./asm"
+real_asm = "./asm_org"
 our_asm = "../../asm"
 real_segs = []
 our_segs = []
