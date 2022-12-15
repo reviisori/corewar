@@ -6,7 +6,7 @@
 /*   By: atenhune <atenhune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:44:38 by altikka           #+#    #+#             */
-/*   Updated: 2022/12/06 13:44:10 by altikka          ###   ########.fr       */
+/*   Updated: 2022/12/15 11:41:02 by altikka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	read_to_buf(int fd, t_src *s)
 	size_t	buf_size;
 
 	buf_size = (size_t) get_buf_size(fd);
-	ft_vecresize(&s->buf, buf_size);
+	ft_vecresize(&s->buf, buf_size + 1);
 	if (read(fd, s->buf.data, buf_size) < 0)
 		panic_source(fd, "Couldn't read source file.");
 	s->buf.len = buf_size;
